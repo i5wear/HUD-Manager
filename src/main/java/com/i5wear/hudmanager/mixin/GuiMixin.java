@@ -15,12 +15,12 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class GuiMixin {
 
     @Unique static private void HUDManager_scaleHudElement(float scale, GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
-        HUDManager.SCALE = scale;
         arg0.pose().pushMatrix();
+        HUDManager.SCALE = scale;
         arg0.pose().scale(scale);
         original.call(arg0, arg1);
-        arg0.pose().popMatrix();
         HUDManager.SCALE = 1;
+        arg0.pose().popMatrix();
     }
 
     @ModifyArg(method = "renderOverlayMessage", at = @At(value = "INVOKE", target = "Lorg/joml/Matrix3x2fStack;translate(FF)Lorg/joml/Matrix3x2f;", remap = false), index = 1)
