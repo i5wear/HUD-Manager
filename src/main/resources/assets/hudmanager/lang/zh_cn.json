@@ -1,0 +1,15 @@
+{
+  "hudmanager.configuration.title": "HUD Manager Configs",
+  "hudmanager.configuration.section.hudmanager.common.toml": "HUD Manager Configs",
+  "hudmanager.configuration.section.hudmanager.common.toml.title": "HUD Manager Configs",
+  "hudmanager.configuration.ActionBarScale": "动作栏",
+  "hudmanager.configuration.AutoSaveIndicatorScale": "自动保存指示器",
+  "hudmanager.configuration.BossBarScale": "Boss栏",
+  "hudmanager.configuration.ClosedCaptionScale": "隐藏式字幕",
+  "hudmanager.configuration.CrosshairScale": "十字准星",
+  "hudmanager.configuration.DebugScreenScale": "调试屏幕",
+  "hudmanager.configuration.PlayerListScale": "玩家列表",
+  "hudmanager.configuration.ScoreboardSidebarScale": "记分板侧边栏",
+  "hudmanager.configuration.ScreenTitleScale" : "屏幕标题",
+  "hudmanager.configuration.StatusEffectScale": "状态效果"
+}
