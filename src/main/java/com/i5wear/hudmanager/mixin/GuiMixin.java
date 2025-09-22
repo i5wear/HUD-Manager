@@ -28,42 +28,42 @@ public abstract class GuiMixin {
 
     @WrapMethod(method = "renderOverlayMessage")
     private void scaleActionBar(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Config.ActionBarScale.getAsInt(), arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.ActionBarScale.getAsInt(), arg0, arg1, original); }
 
     @WrapMethod(method = "renderSavingIndicator")
     private void scaleAutoSaveIndicator(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Config.AutoSaveIndicatorScale.getAsInt(), arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.AutoSaveIndicatorScale.getAsInt(), arg0, arg1, original); }
 
     @WrapMethod(method = "renderBossOverlay")
     private void scaleBossBar(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Config.BossBarScale.getAsInt(), arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.BossBarScale.getAsInt(), arg0, arg1, original); }
 
     @WrapMethod(method = "renderSubtitleOverlay")
     private void scaleClosedCaption(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Config.ClosedCaptionScale.getAsInt(), arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.ClosedCaptionScale.getAsInt(), arg0, arg1, original); }
 
     @WrapMethod(method = "renderCrosshair")
     private void scaleCrosshair(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Config.CrosshairScale.getAsInt(), arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.CrosshairScale.getAsInt(), arg0, arg1, original); }
 
     @WrapMethod(method = "renderDebugOverlay")
     private void scaleDebugScreen(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Config.DebugScreenScale.getAsInt(), arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.DebugScreenScale.getAsInt(), arg0, arg1, original); }
 
     @WrapMethod(method = "renderTabList")
     private void scalePlayerList(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Config.PlayerListScale.getAsInt(), arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.PlayerListScale.getAsInt(), arg0, arg1, original); }
 
     @WrapMethod(method = "renderScoreboardSidebar")
     private void scaleScoreboardSidebar(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Config.ScoreboardSidebarScale.getAsInt(), arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.ScoreboardSidebarScale.getAsInt(), arg0, arg1, original); }
 
     @WrapMethod(method = "renderTitle")
     private void scaleScreenTitle(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Config.ScreenTitleScale.getAsInt(), arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.ScreenTitleScale.getAsInt(), arg0, arg1, original); }
 
     @WrapMethod(method = "renderEffects")
     private void scaleStatusEffect(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Config.StatusEffectScale.getAsInt(), arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.StatusEffectScale.getAsInt(), arg0, arg1, original); }
 
 }

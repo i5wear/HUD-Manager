@@ -12,28 +12,28 @@ public class HUDManager {
 
     public static float SCALE = 1;
 
-    public static class Config {
+    public static class Configuration {
 
         private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
         public static final ModConfigSpec.IntValue
-                ActionBarScale = BUILDER.comment("//hudmanager.config.ActionBarScale.tooltip").defineInRange("ActionBarScale", 100, 0, 200),
-                AutoSaveIndicatorScale = BUILDER.comment("//hudmanager.config.AutoSaveIndicatorScale.tooltip").defineInRange("AutoSaveIndicatorScale", 100, 0, 200),
-                BossBarScale = BUILDER.comment("//hudmanager.config.BossBarScale.tooltip").defineInRange("BossBarScale", 100, 0, 200),
-                ClosedCaptionScale = BUILDER.comment("//hudmanager.config.ClosedCaptionScale.tooltip").defineInRange("ClosedCaptionScale", 100, 0, 200),
-                CrosshairScale = BUILDER.comment("//hudmanager.config.CrosshairScale.tooltip").defineInRange("CrosshairScale", 100, 0, 200),
-                DebugScreenScale = BUILDER.comment("//hudmanager.config.DebugScreenScale.tooltip").defineInRange("DebugScreenScale", 100, 0, 200),
-                PlayerListScale = BUILDER.comment("//hudmanager.config.PlayerListScale.tooltip").defineInRange("PlayerListScale", 100, 0, 200),
-                ScoreboardSidebarScale = BUILDER.comment("//hudmanager.config.ScoreboardSidebarScale.tooltip").defineInRange("ScoreboardSidebarScale", 100, 0, 200),
-                ScreenTitleScale = BUILDER.comment("//hudmanager.config.ScreenTitleScale.tooltip").defineInRange("ScreenTitleScale", 100, 0, 200),
-                StatusEffectScale = BUILDER.comment("//hudmanager.config.StatusEffectScale.tooltip").defineInRange("StatusEffectScale", 100, 0, 200);
+                ActionBarScale = BUILDER.defineInRange("ActionBarScale", 100, 0, 200),
+                AutoSaveIndicatorScale = BUILDER.defineInRange("AutoSaveIndicatorScale", 100, 0, 200),
+                BossBarScale = BUILDER.defineInRange("BossBarScale", 100, 0, 200),
+                ClosedCaptionScale = BUILDER.defineInRange("ClosedCaptionScale", 100, 0, 200),
+                CrosshairScale = BUILDER.defineInRange("CrosshairScale", 100, 0, 200),
+                DebugScreenScale = BUILDER.defineInRange("DebugScreenScale", 100, 0, 200),
+                PlayerListScale = BUILDER.defineInRange("PlayerListScale", 100, 0, 200),
+                ScoreboardSidebarScale = BUILDER.defineInRange("ScoreboardSidebarScale", 100, 0, 200),
+                ScreenTitleScale = BUILDER.defineInRange("ScreenTitleScale", 100, 0, 200),
+                StatusEffectScale = BUILDER.defineInRange("StatusEffectScale", 100, 0, 200);
 
         private static final ModConfigSpec SPEC = BUILDER.build();
 
     }
 
     public HUDManager(ModContainer container) {
-        container.registerConfig(ModConfig.Type.COMMON, HUDManager.Config.SPEC);
+        container.registerConfig(ModConfig.Type.CLIENT, HUDManager.Configuration.SPEC);
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
 
