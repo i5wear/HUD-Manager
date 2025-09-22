@@ -3,14 +3,11 @@ package com.i5wear.hudmanager.mixin;
 import com.i5wear.hudmanager.HUDManager;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(Gui.class)
 public abstract class GuiMixin {
@@ -24,47 +21,44 @@ public abstract class GuiMixin {
         arg0.pose().popMatrix();
     }
 
-    @ModifyArg(method = "renderOverlayMessage", at = @At(value = "INVOKE", target = "Lorg/joml/Matrix3x2fStack;translate(FF)Lorg/joml/Matrix3x2f;", remap = false), index = 1)
-    public float relocateActionBar(float original) { return 0.75f * original + 50; }
-
     @WrapMethod(method = "renderOverlayMessage")
     private void scaleActionBar(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.ActionBarScale, arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.CONFIGURATION.ActionBarScale, arg0, arg1, original); }
 
     @WrapMethod(method = "renderSavingIndicator")
     private void scaleAutoSaveIndicator(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.AutoSaveIndicatorScale, arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.CONFIGURATION.AutoSaveIndicatorScale, arg0, arg1, original); }
 
     @WrapMethod(method = "renderBossOverlay")
     private void scaleBossBar(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.BossBarScale, arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.CONFIGURATION.BossBarScale, arg0, arg1, original); }
 
     @WrapMethod(method = "renderSubtitleOverlay")
     private void scaleClosedCaption(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.ClosedCaptionScale, arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.CONFIGURATION.ClosedCaptionScale, arg0, arg1, original); }
 
     @WrapMethod(method = "renderCrosshair")
     private void scaleCrosshair(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.CrosshairScale, arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.CONFIGURATION.CrosshairScale, arg0, arg1, original); }
 
     @WrapMethod(method = "renderDebugOverlay")
     private void scaleDebugScreen(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.DebugScreenScale, arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.CONFIGURATION.DebugScreenScale, arg0, arg1, original); }
 
     @WrapMethod(method = "renderTabList")
     private void scalePlayerList(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.PlayerListScale, arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.CONFIGURATION.PlayerListScale, arg0, arg1, original); }
 
     @WrapMethod(method = "renderScoreboardSidebar")
     private void scaleScoreboardSidebar(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.ScoreboardSidebarScale, arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.CONFIGURATION.ScoreboardSidebarScale, arg0, arg1, original); }
 
     @WrapMethod(method = "renderTitle")
     private void scaleScreenTitle(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.ScreenTitleScale, arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.CONFIGURATION.ScreenTitleScale, arg0, arg1, original); }
 
     @WrapMethod(method = "renderEffects")
     private void scaleStatusEffect(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
-    { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.StatusEffectScale, arg0, arg1, original); }
+    { HUDManager_scaleHudElement(0.01f * HUDManager.CONFIGURATION.StatusEffectScale, arg0, arg1, original); }
 
 }
