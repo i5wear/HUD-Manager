@@ -23,9 +23,6 @@ public abstract class GuiMixin {
         arg0.pose().popMatrix();
     }
 
-    @ModifyArg(method = "renderOverlayMessage", at = @At(value = "INVOKE", target = "Lorg/joml/Matrix3x2fStack;translate(FF)Lorg/joml/Matrix3x2f;", remap = false), index = 1)
-    public float relocateActionBar(float original) { return 0.75f * original + 50; }
-
     @WrapMethod(method = "renderOverlayMessage")
     private void scaleActionBar(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original)
     { HUDManager_scaleHudElement(0.01f * HUDManager.Configuration.ActionBarScale.getAsInt(), arg0, arg1, original); }
