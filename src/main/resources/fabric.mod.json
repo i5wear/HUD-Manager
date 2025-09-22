@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"id": "hudmanager",
 	"version": "${version}",
-	"name": "Hud Manager",
+	"name": "HUD Manager",
 	"description": "Manages HUD elements separately.",
 	"authors": [ "i5wear" ],
 	"contact": {
