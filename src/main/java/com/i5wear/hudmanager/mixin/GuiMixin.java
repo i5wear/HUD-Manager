@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Unique;
 @Mixin(Gui.class)
 public abstract class GuiMixin {
 
-    @Unique static private void HudManager_scaleHudElement(int scale, int x, int y, GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
+    @Unique static private void HudManager_modifyHudElement(int scale, int x, int y, GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
         arg0.pose().pushMatrix();
         HudManager.Global.SCALE = scale;
         arg0.pose().scale(0.01f * scale);
@@ -28,7 +28,7 @@ public abstract class GuiMixin {
         if (scale == 0 || HudManager.ActionBarShow.isFalse()) return;
         int x = HudManager.ActionBarOffsetX.getAsInt();
         int y = HudManager.ActionBarOffsetY.getAsInt();
-        HudManager_scaleHudElement(scale, x, y, arg0, arg1, original);
+        HudManager_modifyHudElement(scale, x, y, arg0, arg1, original);
     }
 
     @WrapMethod(method = "renderSavingIndicator")
@@ -37,7 +37,7 @@ public abstract class GuiMixin {
         if (scale == 0 || HudManager.AutoSaveIndicatorShow.isFalse()) return;
         int x = HudManager.AutoSaveIndicatorOffsetX.getAsInt();
         int y = HudManager.AutoSaveIndicatorOffsetY.getAsInt();
-        HudManager_scaleHudElement(scale, x, y, arg0, arg1, original);
+        HudManager_modifyHudElement(scale, x, y, arg0, arg1, original);
     }
 
     @WrapMethod(method = "renderBossOverlay")
@@ -46,7 +46,7 @@ public abstract class GuiMixin {
         if (scale == 0 || HudManager.BossBarShow.isFalse()) return;
         int x = HudManager.BossBarOffsetX.getAsInt();
         int y = HudManager.BossBarOffsetY.getAsInt();
-        HudManager_scaleHudElement(scale, x, y, arg0, arg1, original);
+        HudManager_modifyHudElement(scale, x, y, arg0, arg1, original);
     }
 
     @WrapMethod(method = "renderSubtitleOverlay")
@@ -55,7 +55,7 @@ public abstract class GuiMixin {
         if (scale == 0 || HudManager.ClosedCaptionShow.isFalse()) return;
         int x = HudManager.ClosedCaptionOffsetX.getAsInt();
         int y = HudManager.ClosedCaptionOffsetY.getAsInt();
-        HudManager_scaleHudElement(scale, x, y, arg0, arg1, original);
+        HudManager_modifyHudElement(scale, x, y, arg0, arg1, original);
     }
 
     @WrapMethod(method = "renderCrosshair")
@@ -64,7 +64,7 @@ public abstract class GuiMixin {
         if (scale == 0 || HudManager.CrosshairShow.isFalse()) return;
         int x = HudManager.CrosshairOffsetX.getAsInt();
         int y = HudManager.CrosshairOffsetY.getAsInt();
-        HudManager_scaleHudElement(scale, x, y, arg0, arg1, original);
+        HudManager_modifyHudElement(scale, x, y, arg0, arg1, original);
     }
 
     @WrapMethod(method = "renderDebugOverlay")
@@ -73,7 +73,7 @@ public abstract class GuiMixin {
         if (scale == 0 || HudManager.DebugScreenShow.isFalse()) return;
         int x = HudManager.DebugScreenOffsetX.getAsInt();
         int y = HudManager.DebugScreenOffsetY.getAsInt();
-        HudManager_scaleHudElement(scale, x, y, arg0, arg1, original);
+        HudManager_modifyHudElement(scale, x, y, arg0, arg1, original);
     }
 
     @WrapMethod(method = "renderTabList")
@@ -82,7 +82,7 @@ public abstract class GuiMixin {
         if (scale == 0 || HudManager.PlayerListShow.isFalse()) return;
         int x = HudManager.PlayerListOffsetX.getAsInt();
         int y = HudManager.PlayerListOffsetY.getAsInt();
-        HudManager_scaleHudElement(scale, x, y, arg0, arg1, original);
+        HudManager_modifyHudElement(scale, x, y, arg0, arg1, original);
     }
 
     @WrapMethod(method = "renderScoreboardSidebar")
@@ -91,7 +91,7 @@ public abstract class GuiMixin {
         if (scale == 0 || HudManager.ScoreboardSidebarShow.isFalse()) return;
         int x = HudManager.ScoreboardSidebarOffsetX.getAsInt();
         int y = HudManager.ScoreboardSidebarOffsetY.getAsInt();
-        HudManager_scaleHudElement(scale, x, y, arg0, arg1, original);
+        HudManager_modifyHudElement(scale, x, y, arg0, arg1, original);
     }
 
     @WrapMethod(method = "renderTitle")
@@ -100,7 +100,7 @@ public abstract class GuiMixin {
         if (scale == 0 || HudManager.ScreenTitleShow.isFalse()) return;
         int x = HudManager.ScreenTitleOffsetX.getAsInt();
         int y = HudManager.ScreenTitleOffsetY.getAsInt();
-        HudManager_scaleHudElement(scale, x, y, arg0, arg1, original);
+        HudManager_modifyHudElement(scale, x, y, arg0, arg1, original);
     }
 
     @WrapMethod(method = "renderEffects")
@@ -109,7 +109,7 @@ public abstract class GuiMixin {
         if (scale == 0 || HudManager.StatusEffectShow.isFalse()) return;
         int x = HudManager.StatusEffectOffsetX.getAsInt();
         int y = HudManager.StatusEffectOffsetY.getAsInt();
-        HudManager_scaleHudElement(scale, x, y, arg0, arg1, original);
+        HudManager_modifyHudElement(scale, x, y, arg0, arg1, original);
     }
 
 }
