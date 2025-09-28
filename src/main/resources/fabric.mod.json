@@ -12,7 +12,7 @@
 	"license": "MIT",
 	"environment": "client",
 	"entrypoints": {
-		"client": [ "com.i5wear.hudmanager.HudManager" ]
+		"client": [ "com.i5wear.hudmanager.HudManagerFabric" ]
 	},
 	"mixins": [ "hudmanager.mixins.json" ],
 	"depends": {

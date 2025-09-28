@@ -1,15 +1,10 @@
 package com.i5wear.hudmanager;
 
-import fuzs.forgeconfigapiport.fabric.api.v5.ConfigRegistry;
-import fuzs.forgeconfigapiport.fabric.api.v5.client.ConfigScreenFactoryRegistry;
-import net.fabricmc.api.ClientModInitializer;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-public class HudManager implements ClientModInitializer {
+public class HudManager {
 
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+    public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     public static ModConfigSpec.BooleanValue ActionBarShow = BUILDER.define("ActionBar.show", true);
     public static ModConfigSpec.IntValue ActionBarScale = BUILDER.defineInRange("ActionBar.scale", 100, 0, 200);
@@ -61,13 +56,8 @@ public class HudManager implements ClientModInitializer {
     public static ModConfigSpec.IntValue StatusEffectOffsetX = BUILDER.defineInRange("StatusEffect.offsetx", 0, -100, 100);
     public static ModConfigSpec.IntValue StatusEffectOffsetY = BUILDER.defineInRange("StatusEffect.offsety", 0, -100, 100);
 
-    private static final ModConfigSpec SPEC = BUILDER.build();
+    public static final ModConfigSpec SPEC = BUILDER.build();
 
     public static class Global { public static int SCALE = 100; }
-
-    @Override public void onInitializeClient() {
-        ConfigRegistry.INSTANCE.register("hudmanager", ModConfig.Type.CLIENT, SPEC);
-        ConfigScreenFactoryRegistry.INSTANCE.register("hudmanager", (parentScreen, screenConsumer) -> new ConfigurationScreen("hudmanager", screenConsumer) );
-    }
 
 }
