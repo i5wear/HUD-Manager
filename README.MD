@@ -6,10 +6,6 @@ Especially useful when playing in servers that contains tons of things on the sc
 
 
 
-At present, only GUI scale is configurable, while other stuff like position is still in progress.
-
-
-
 All the configurable elements include:
 
 
@@ -19,4 +15,12 @@ Action Bar, Autosave Indicator, Boss Bar, Closed Caption, Crosshair,
 
 
 Debug Screen, Player List, Scoreboard Sidebar, Screen Title, Status Effect.
+
+
+
+All the configurable states include:
+
+
+
+Show, Scale, Offset X, Offset Y.
 
