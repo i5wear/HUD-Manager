@@ -12,8 +12,7 @@
 	"license": "MIT",
 	"environment": "client",
 	"entrypoints": {
-		"client": [ "com.i5wear.hudmanager.HUDManager" ],
-		"modmenu": [ "com.i5wear.hudmanager.HUDManager" ]
+		"client": [ "com.i5wear.hudmanager.HudManager" ]
 	},
 	"mixins": [ "hudmanager.mixins.json" ],
 	"depends": {
@@ -21,7 +20,7 @@
 		"minecraft": ">=1.21.6",
 		"java": ">=21",
 		"fabric-api": "*",
-		"modmenu": "*",
-		"cloth-config": "*"
+        "forgeconfigapiport": "*",
+		"modmenu": "*"
 	}
 }
