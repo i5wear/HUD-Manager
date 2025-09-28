@@ -1,9 +1,14 @@
 pluginManagement {
     repositories {
+        maven { url = 'https://maven.fabricmc.net/' }
+        maven { url = 'https://maven.architectury.dev/' }
+        maven { url = 'https://files.minecraftforge.net/maven/' }
         gradlePluginPortal()
     }
 }
 
-plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.9.0'
-}
+rootProject.name = 'hudmanager'
+
+include 'common'
+include 'fabric'
+include 'neoforge'

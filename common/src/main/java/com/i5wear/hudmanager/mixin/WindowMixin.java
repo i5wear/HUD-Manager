@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class WindowMixin {
 
     @ModifyReturnValue(method = "getGuiScaledWidth", at = @At("RETURN"))
-    private int scaleWidth(int original) { return 100 * original / HudManager.Global.SCALE; }
+    private int scaleWidth(int original) { return 100 * original / HudManager.Temp.SCALE; }
 
     @ModifyReturnValue(method = "getGuiScaledHeight", at = @At("RETURN"))
-    private int scaleHeight(int original) { return 100 * original / HudManager.Global.SCALE; }
+    private int scaleHeight(int original) { return 100 * original / HudManager.Temp.SCALE; }
 
 }

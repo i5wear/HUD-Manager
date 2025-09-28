@@ -1,15 +1,16 @@
-package com.i5wear.hudmanager;
+package com.i5wear.hudmanager.neoforge;
 
+import com.i5wear.hudmanager.HudManager;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
-@Mod(value = "hudmanager")
-public class HudManagerForge {
+@Mod(value = HudManager.MOD_ID)
+public class HudManagerNeoforge {
 
-    public HudManagerForge(ModContainer instance) {
+    public HudManagerNeoforge(ModContainer instance) {
         instance.registerConfig(ModConfig.Type.CLIENT, HudManager.SPEC);
         instance.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }

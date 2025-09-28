@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "hudmanager",
+  "version": "${version}",
+  "name": "HUD Manager",
+  "description": "Manages HUD elements separately.",
+  "authors": [ "i5wear" ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/HUD-Manager",
+    "issues": "https://github.com/i5wear/HUD-Manager/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/hudmanager/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [ "com.i5wear.hudmanager.fabric.HudManagerFabric" ]
+  },
+  "mixins": [ "hudmanager.mixins.json" ],
+  "depends": {
+    "fabricloader": "*",
+    "minecraft": "~1.21.6",
+    "java": ">=21",
+    "fabric-api": "*",
+    "forgeconfigapiport": "*",
+    "modmenu": "*"
+  }
+}

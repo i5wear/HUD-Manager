@@ -1,8 +1,0 @@
-{
-  "required": true,
-  "package": "com.i5wear.hudmanager.mixin",
-  "compatibilityLevel": "JAVA_21",
-  "injectors": { "defaultRequire": 1 },
-  "overwrites": { "requireAnnotations": true },
-  "client": [ "GuiMixin", "WindowMixin" ]
-}

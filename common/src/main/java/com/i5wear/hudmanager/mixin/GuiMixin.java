@@ -14,11 +14,11 @@ public abstract class GuiMixin {
 
     @Unique static private void HudManager_modifyHudElement(int scale, int x, int y, GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
         arg0.pose().pushMatrix();
-        HudManager.Global.SCALE = scale;
+        HudManager.Temp.SCALE = scale;
         arg0.pose().scale(0.01f * scale);
         arg0.pose().translate(x, y);
         original.call(arg0, arg1);
-        HudManager.Global.SCALE = 100;
+        HudManager.Temp.SCALE = 100;
         arg0.pose().popMatrix();
     }
 
