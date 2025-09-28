@@ -1,16 +1,10 @@
 package com.i5wear.hudmanager;
 
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-@Mod(value = "hudmanager")
 public class HudManager {
 
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+    public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     public static ModConfigSpec.BooleanValue ActionBarShow = BUILDER.define("ActionBar.show", true);
     public static ModConfigSpec.IntValue ActionBarScale = BUILDER.defineInRange("ActionBar.scale", 100, 0, 200);
@@ -62,13 +56,8 @@ public class HudManager {
     public static ModConfigSpec.IntValue StatusEffectOffsetX = BUILDER.defineInRange("StatusEffect.offsetx", 0, -100, 100);
     public static ModConfigSpec.IntValue StatusEffectOffsetY = BUILDER.defineInRange("StatusEffect.offsety", 0, -100, 100);
 
-    private static final ModConfigSpec SPEC = BUILDER.build();
+    public static final ModConfigSpec SPEC = BUILDER.build();
 
     public static class Global { public static int SCALE = 100; }
-
-    public HudManager(ModContainer instance) {
-        instance.registerConfig(ModConfig.Type.CLIENT, HudManager.SPEC);
-        instance.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-    }
 
 }
