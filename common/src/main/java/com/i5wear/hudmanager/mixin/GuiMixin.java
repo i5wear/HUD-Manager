@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.Unique;
 @Mixin(Gui.class)
 public abstract class GuiMixin {
 
+    // Uniform Interface Layer of GUI scale & offset.
     @Unique static private void HudManager_modifyHudElement(int scale, int x, int y, GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
         arg0.pose().pushMatrix();
         HudManager.Temp.SCALE = scale;
@@ -111,5 +112,4 @@ public abstract class GuiMixin {
         int y = HudManager.StatusEffectOffsetY.getAsInt();
         HudManager_modifyHudElement(scale, x, y, arg0, arg1, original);
     }
-
 }

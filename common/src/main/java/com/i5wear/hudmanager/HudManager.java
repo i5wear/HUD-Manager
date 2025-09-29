@@ -58,6 +58,9 @@ public class HudManager {
     public static ModConfigSpec.IntValue StatusEffectOffsetY = BUILDER.defineInRange("StatusEffect.offsety", 0, -100, 100);
 
     public static final ModConfigSpec SPEC = BUILDER.build();
-    public static class Temp { public static int SCALE = 100; }
 
+    // Global Variables that are used by mixins.
+    public static class Temp {
+        public static int SCALE = 100;
+    }
 }

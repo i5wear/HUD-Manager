@@ -13,5 +13,4 @@ public class HudManagerFabric implements ClientModInitializer {
         ConfigRegistry.INSTANCE.register(HudManager.MOD_ID, ModConfig.Type.CLIENT, HudManager.SPEC);
         ConfigScreenFactoryRegistry.INSTANCE.register(HudManager.MOD_ID, (parentScreen, screenConsumer) -> new ConfigurationScreen(HudManager.MOD_ID, screenConsumer) );
     }
-
 }
