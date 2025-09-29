@@ -5,6 +5,8 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 public class HudManager {
 
     public static final String MOD_ID = "hudmanager";
+
+    // Configuration powered by Neoforge Config.
     public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     public static ModConfigSpec.BooleanValue ActionBarShow = BUILDER.define("ActionBar.show", true);
@@ -59,7 +61,7 @@ public class HudManager {
 
     public static final ModConfigSpec SPEC = BUILDER.build();
 
-    // Global Variables that are used by mixins.
+    // Global Variables used by mixins.
     public static class Temp {
         public static int SCALE = 100;
     }
