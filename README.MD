@@ -19,11 +19,11 @@ Action Bar, Autosave Indicator, Boss Bar, Closed Caption, Crosshair,
 
 Debug Screen, Player List, Scoreboard Sidebar, Screen Title, Status Effect.
 
-*WIP: Chat, Hotbar, Toasts, Screens.*
+*WIP: Hotbar, Toasts, Screens.*
 
 **All the configurable render states include:**
 
-Show - Determines when to render (Always OFF / Key Hold / Key Toggle / Always ON).
+Show - Determines whether to render (OFF/ON, ON in default).
 
 Scale - Multiplies to vanilla GUI scale (0% - 200%, 100% in default).
 
