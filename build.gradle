@@ -29,7 +29,10 @@ subprojects {
         // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
         // See https://docs.gradle.org/current/userguide/declaring_repositories.html
         // for more information about repositories.
+
+        // Dependency (Fabric) - Mod Menu - Terraformers
         maven { url "https://maven.terraformersmc.com/releases" }
+        // Dependency (Fabric) - Forge Config API Port - Fuzss
         maven { url "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" }
     }
 

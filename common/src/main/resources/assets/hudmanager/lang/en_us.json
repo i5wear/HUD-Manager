@@ -22,6 +22,8 @@
   "hudmanager.configuration.Crosshair.tooltip": "Locates in the middle of screen, displays the aim point",
   "hudmanager.configuration.DebugScreen": "Debug Screen",
   "hudmanager.configuration.DebugScreen.tooltip": "Displayed when F3 is pressed, displays various information",
+  "hudmanager.configuration.Hotbar": "Hotbar",
+  "hudmanager.configuration.Hotbar.tooltip": "Locates at the bottom of screen, displays holdable items",
   "hudmanager.configuration.PlayerList": "Player List",
   "hudmanager.configuration.PlayerList.tooltip": "Displayed while holding down Tab, displays player information",
   "hudmanager.configuration.ScoreboardSidebar": "Scoreboard Sidebar",
