@@ -3,6 +3,6 @@
   "package": "com.i5wear.hudmanager.mixin",
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
-  "client": [ "GuiMixin", "WindowMixin" ],
+  "client": [ "GuiMixin", "GuiGraphicsMixin", "OptionsMixin" ],
   "injectors": { "defaultRequire": 1 }
 }

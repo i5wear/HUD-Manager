@@ -22,6 +22,8 @@
   "hudmanager.configuration.Crosshair.tooltip": "位于屏幕中央，显示瞄准点位",
   "hudmanager.configuration.DebugScreen": "调试屏幕",
   "hudmanager.configuration.DebugScreen.tooltip": "按下F3键后启用，显示各类信息",
+  "hudmanager.configuration.Hotbar": "快捷栏",
+  "hudmanager.configuration.Hotbar.tooltip": "位于屏幕底部，显示可选物品",
   "hudmanager.configuration.PlayerList": "玩家列表",
   "hudmanager.configuration.PlayerList.tooltip": "按下Tab键时显示，显示玩家信息",
   "hudmanager.configuration.ScoreboardSidebar": "记分板侧边栏",

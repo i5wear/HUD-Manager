@@ -24,7 +24,7 @@ public abstract class GuiMixin {
     }
 
     @WrapMethod(method = "renderOverlayMessage")
-    private void scaleActionBar(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
+    private void modifyActionBar(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
         int scale = HudManager.ActionBarScale.getAsInt();
         if (scale == 0 || HudManager.ActionBarShow.isFalse()) return;
         int x = HudManager.ActionBarOffsetX.getAsInt();
@@ -33,7 +33,7 @@ public abstract class GuiMixin {
     }
 
     @WrapMethod(method = "renderSavingIndicator")
-    private void scaleAutoSaveIndicator(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
+    private void modifyAutoSaveIndicator(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
         int scale = HudManager.AutoSaveIndicatorScale.getAsInt();
         if (scale == 0 || HudManager.AutoSaveIndicatorShow.isFalse()) return;
         int x = HudManager.AutoSaveIndicatorOffsetX.getAsInt();
@@ -42,7 +42,7 @@ public abstract class GuiMixin {
     }
 
     @WrapMethod(method = "renderBossOverlay")
-    private void scaleBossBar(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
+    private void modifyBossBar(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
         int scale = HudManager.BossBarScale.getAsInt();
         if (scale == 0 || HudManager.BossBarShow.isFalse()) return;
         int x = HudManager.BossBarOffsetX.getAsInt();
@@ -51,7 +51,7 @@ public abstract class GuiMixin {
     }
 
     @WrapMethod(method = "renderSubtitleOverlay")
-    private void scaleClosedCaption(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
+    private void modifyClosedCaption(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
         int scale = HudManager.ClosedCaptionScale.getAsInt();
         if (scale == 0 || HudManager.ClosedCaptionShow.isFalse()) return;
         int x = HudManager.ClosedCaptionOffsetX.getAsInt();
@@ -60,7 +60,7 @@ public abstract class GuiMixin {
     }
 
     @WrapMethod(method = "renderCrosshair")
-    private void scaleCrosshair(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
+    private void modifyCrosshair(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
         int scale = HudManager.CrosshairScale.getAsInt();
         if (scale == 0 || HudManager.CrosshairShow.isFalse()) return;
         int x = HudManager.CrosshairOffsetX.getAsInt();
@@ -69,7 +69,7 @@ public abstract class GuiMixin {
     }
 
     @WrapMethod(method = "renderDebugOverlay")
-    private void scaleDebugScreen(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
+    private void modifyDebugScreen(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
         int scale = HudManager.DebugScreenScale.getAsInt();
         if (scale == 0 || HudManager.DebugScreenShow.isFalse()) return;
         int x = HudManager.DebugScreenOffsetX.getAsInt();
@@ -77,8 +77,18 @@ public abstract class GuiMixin {
         HudManager_modifyHudElement(scale, x, y, arg0, arg1, original);
     }
 
+    /* This only works on Fabric. This method may be deleted in Neoforge.
+    @WrapMethod(method = "renderHotbarAndDecorations")
+    private void modifyHotbar(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
+        int scale = HudManager.HotbarScale.getAsInt();
+        if (scale == 0 || HudManager.HotbarShow.isFalse()) return;
+        int x = HudManager.HotbarOffsetX.getAsInt();
+        int y = HudManager.HotbarOffsetY.getAsInt();
+        HudManager_modifyHudElement(scale, x, y, arg0, arg1, original);
+    } */
+
     @WrapMethod(method = "renderTabList")
-    private void scalePlayerList(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
+    private void modifyPlayerList(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
         int scale = HudManager.PlayerListScale.getAsInt();
         if (scale == 0 || HudManager.PlayerListShow.isFalse()) return;
         int x = HudManager.PlayerListOffsetX.getAsInt();
@@ -87,7 +97,7 @@ public abstract class GuiMixin {
     }
 
     @WrapMethod(method = "renderScoreboardSidebar")
-    private void scaleScoreboardSidebar(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
+    private void modifyScoreboardSidebar(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
         int scale = HudManager.ScoreboardSidebarScale.getAsInt();
         if (scale == 0 || HudManager.ScoreboardSidebarShow.isFalse()) return;
         int x = HudManager.ScoreboardSidebarOffsetX.getAsInt();
@@ -96,7 +106,7 @@ public abstract class GuiMixin {
     }
 
     @WrapMethod(method = "renderTitle")
-    private void scaleScreenTitle(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
+    private void modifyScreenTitle(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
         int scale = HudManager.ScreenTitleScale.getAsInt();
         if (scale == 0 || HudManager.ScreenTitleShow.isFalse()) return;
         int x = HudManager.ScreenTitleOffsetX.getAsInt();
@@ -105,7 +115,7 @@ public abstract class GuiMixin {
     }
 
     @WrapMethod(method = "renderEffects")
-    private void scaleStatusEffect(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
+    private void modifyStatusEffect(GuiGraphics arg0, DeltaTracker arg1, Operation<Void> original) {
         int scale = HudManager.StatusEffectScale.getAsInt();
         if (scale == 0 || HudManager.StatusEffectShow.isFalse()) return;
         int x = HudManager.StatusEffectOffsetX.getAsInt();
