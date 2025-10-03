@@ -14,9 +14,9 @@ public abstract class OptionsMixin {
     @ModifyReturnValue(method = "showAutosaveIndicator", at = @At("RETURN"))
     public OptionInstance<Boolean> modifyAutosaveIndicatorShow(OptionInstance<Boolean> original) {
         if (original.get() != Config.AUTOSAVE_INDICATOR.Show.get()) {
-            original.set(!Global.AutosaveIndicatorFlag);
-            Config.AUTOSAVE_INDICATOR.Show.set(!Global.AutosaveIndicatorFlag);
-            Global.AutosaveIndicatorFlag = !Global.AutosaveIndicatorFlag;
+            original.set(!Global.AUTOSAVE_INDICATOR_FLAG);
+            Config.AUTOSAVE_INDICATOR.Show.set(!Global.AUTOSAVE_INDICATOR_FLAG);
+            Global.AUTOSAVE_INDICATOR_FLAG = !Global.AUTOSAVE_INDICATOR_FLAG;
         }
         return original;
     }
@@ -24,9 +24,9 @@ public abstract class OptionsMixin {
     @ModifyReturnValue(method = "showSubtitles", at = @At("RETURN"))
     public OptionInstance<Boolean> modifyClosedCaptionShow(OptionInstance<Boolean> original) {
         if (original.get() != Config.CLOSED_CAPTION.Show.get()) {
-            original.set(!Global.ClosedCaptionFlag);
-            Config.CLOSED_CAPTION.Show.set(!Global.ClosedCaptionFlag);
-            Global.ClosedCaptionFlag = !Global.ClosedCaptionFlag;
+            original.set(!Global.CLOSED_CAPTION_FLAG);
+            Config.CLOSED_CAPTION.Show.set(!Global.CLOSED_CAPTION_FLAG);
+            Global.CLOSED_CAPTION_FLAG = !Global.CLOSED_CAPTION_FLAG;
         }
         return original;
     }

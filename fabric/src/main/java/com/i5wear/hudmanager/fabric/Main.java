@@ -16,7 +16,8 @@ import java.lang.reflect.Field;
 public class Main implements ClientModInitializer {
     
     private static void modifyElement(ResourceLocation Name) {
-        HudElementRegistry.replaceElement(Name, original -> (arg0, arg1) -> {
+        HudElementRegistry.replaceElement(Name,
+                original -> (arg0, arg1) -> {
                     Config Value = Config.get(Name);
                     if (Value == null) original.render(arg0, arg1);
                     else if (Value.Size.get() > 0 && Value.Show.get()) {
