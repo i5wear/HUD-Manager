@@ -10,6 +10,8 @@
   "hudmanager.configuration.PosX.tooltip": "Adds to vanilla GUI position",
   "hudmanager.configuration.PosY": "Y Position",
   "hudmanager.configuration.PosY.tooltip": "Adds to vanilla GUI position",
+  "hudmanager.configuration.Action_Bar": "Action Bar",
+  "hudmanager.configuration.Action_Bar.tooltip": "Locates above the Hotbar, displays various texts",
   "hudmanager.configuration.Boss_Bar": "Boss Bar",
   "hudmanager.configuration.Boss_Bar.tooltip": "Locates at the top of screen, displays health of boss mobs",
   "hudmanager.configuration.Closed_Caption": "Closed Caption",
@@ -27,5 +29,7 @@
   "hudmanager.configuration.Screen_Title" : "Screen Title",
   "hudmanager.configuration.Screen_Title.tooltip" : "Locates in the middle of screen, displays various texts",
   "hudmanager.configuration.Status_Effect": "Status Effect",
-  "hudmanager.configuration.Status_Effect.tooltip": "Locates in the top right of screen, displays status effects"
+  "hudmanager.configuration.Status_Effect.tooltip": "Locates in the top right of screen, displays status effects",
+  "hudmanager.configuration.Toast": "Toast",
+  "hudmanager.configuration.Toast.tooltip": "Locates in the top right of screen, displays notifications"
 }

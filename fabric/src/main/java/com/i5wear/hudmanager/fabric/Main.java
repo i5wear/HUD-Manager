@@ -1,7 +1,6 @@
 package com.i5wear.hudmanager.fabric;
 
 import com.i5wear.hudmanager.Config;
-import com.i5wear.hudmanager.Global;
 import fuzs.forgeconfigapiport.fabric.api.v5.ConfigRegistry;
 import fuzs.forgeconfigapiport.fabric.api.v5.client.ConfigScreenFactoryRegistry;
 import net.fabricmc.api.ClientModInitializer;
@@ -34,7 +33,7 @@ public class Main implements ClientModInitializer {
             Map.entry(VanillaHudElements.STATUS_EFFECTS, Config.STATUS_EFFECT),
             Map.entry(VanillaHudElements.BOSS_BAR, Config.BOSS_BAR),
             Map.entry(VanillaHudElements.SCOREBOARD, Config.SCOREBOARD_SIDEBAR),
-            Map.entry(VanillaHudElements.OVERLAY_MESSAGE, Config.HOTBAR_GROUP),
+            Map.entry(VanillaHudElements.OVERLAY_MESSAGE, Config.ACTION_BAR),
             Map.entry(VanillaHudElements.TITLE_AND_SUBTITLE, Config.SCREEN_TITLE),
             Map.entry(VanillaHudElements.PLAYER_LIST, Config.PLAYER_LIST),
             Map.entry(VanillaHudElements.SUBTITLES, Config.CLOSED_CAPTION)
@@ -45,15 +44,14 @@ public class Main implements ClientModInitializer {
             HudElementRegistry.replaceElement(
                     Element.getKey(), original -> (arg0, arg1) -> {
                         Config Value = Element.getValue();
-                        if (Value == null) original.render(arg0, arg1);
-                        else if (Value.Size.get() > 0 && Value.Show.get()) {
-                            Global.CURRENT_SIZE = Value.Size.get();
+                        if (Value.Show.get() && Value.Size.get() > 0) {
+                            Config.CURRENT_SIZE = Value.Size.get();
                             arg0.pose().pushMatrix();
                             arg0.pose().scale(0.01f * Value.Size.get());
                             arg0.pose().translate(0.01f * Value.PosX.get() * arg0.guiWidth(), 0.01f * Value.PosY.get() * arg0.guiHeight());
                             original.render(arg0, arg1);
                             arg0.pose().popMatrix();
-                            Global.CURRENT_SIZE = 100;
+                            Config.CURRENT_SIZE = 100;
                         }
                     }
             );
@@ -61,8 +59,8 @@ public class Main implements ClientModInitializer {
     }
 
     @Override public void onInitializeClient() {
-        ConfigRegistry.INSTANCE.register(Global.MOD_ID, ModConfig.Type.CLIENT, Config.SPEC);
-        ConfigScreenFactoryRegistry.INSTANCE.register(Global.MOD_ID, (parent, screen) -> new ConfigurationScreen(Global.MOD_ID, screen));
+        ConfigRegistry.INSTANCE.register(Config.MOD_ID, ModConfig.Type.CLIENT, Config.SPEC);
+        ConfigScreenFactoryRegistry.INSTANCE.register(Config.MOD_ID, (parent, screen) -> new ConfigurationScreen(Config.MOD_ID, screen));
         Main.modifyElement();
     }
 }

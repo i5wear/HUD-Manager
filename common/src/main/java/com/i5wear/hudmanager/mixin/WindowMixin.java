@@ -1,6 +1,6 @@
 package com.i5wear.hudmanager.mixin;
 
-import com.i5wear.hudmanager.Global;
+import com.i5wear.hudmanager.Config;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.blaze3d.platform.Window;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,9 +20,9 @@ public abstract class WindowMixin {
     */
 
     @ModifyReturnValue(method = "getGuiScaledWidth", at = @At("RETURN"))
-    private int modifyGuiWidth(int original) { return 100 * original / Global.CURRENT_SIZE; }
+    private int syncGuiWidth(int original) { return 100 * original / Config.CURRENT_SIZE; }
 
     @ModifyReturnValue(method = "getGuiScaledHeight", at = @At("RETURN"))
-    private int modifyGuiHeight(int original) { return 100 * original / Global.CURRENT_SIZE; }
+    private int syncGuiHeight(int original) { return 100 * original / Config.CURRENT_SIZE; }
 
 }

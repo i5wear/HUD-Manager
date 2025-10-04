@@ -1,7 +1,6 @@
 package com.i5wear.hudmanager.neoforge;
 
 import com.i5wear.hudmanager.Config;
-import com.i5wear.hudmanager.Global;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -15,7 +14,7 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 import java.util.Map;
 
-@Mod(value = Global.MOD_ID, dist = Dist.CLIENT)
+@Mod(value = Config.MOD_ID, dist = Dist.CLIENT)
 public class Main {
 
     private static final Map<ResourceLocation, Config> Category = Map.ofEntries(
@@ -34,7 +33,7 @@ public class Main {
             Map.entry(VanillaGuiLayers.EFFECTS, Config.STATUS_EFFECT),
             Map.entry(VanillaGuiLayers.BOSS_OVERLAY, Config.BOSS_BAR),
             Map.entry(VanillaGuiLayers.SCOREBOARD_SIDEBAR, Config.SCOREBOARD_SIDEBAR),
-            Map.entry(VanillaGuiLayers.OVERLAY_MESSAGE, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.OVERLAY_MESSAGE, Config.ACTION_BAR),
             Map.entry(VanillaGuiLayers.TITLE, Config.SCREEN_TITLE),
             Map.entry(VanillaGuiLayers.TAB_LIST, Config.PLAYER_LIST),
             Map.entry(VanillaGuiLayers.SUBTITLE_OVERLAY, Config.CLOSED_CAPTION)
@@ -45,15 +44,14 @@ public class Main {
             Registry.wrapLayer(
                     Element.getKey(), original -> (arg0, arg1) -> {
                         Config Value = Element.getValue();
-                        if (Value == null) original.render(arg0, arg1);
-                        else if (Value.Size.get() > 0 && Value.Show.get()) {
-                            Global.CURRENT_SIZE = Value.Size.get();
+                        if (Value.Show.get() && Value.Size.get() > 0) {
+                            Config.CURRENT_SIZE = Value.Size.get();
                             arg0.pose().pushMatrix();
                             arg0.pose().scale(0.01f * Value.Size.get());
                             arg0.pose().translate(0.01f * Value.PosX.get() * arg0.guiWidth(), 0.01f * Value.PosY.get() * arg0.guiHeight());
                             original.render(arg0, arg1);
                             arg0.pose().popMatrix();
-                            Global.CURRENT_SIZE = 100;
+                            Config.CURRENT_SIZE = 100;
                         }
                     }
             );
