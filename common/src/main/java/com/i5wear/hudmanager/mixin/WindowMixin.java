@@ -17,7 +17,7 @@ public abstract class WindowMixin {
         Generally, a GUI Layer locates itself by GuiGraphics#guiWidth and GuiGraphics#guiHeight,
         which are just a wrapper of Window#getGuiScaleWidth and Window#getGuiScaleHeight.
         The only exception is Contextual Bar, making mixin Window.class the ultimate solution.
-     */
+    */
 
     @ModifyReturnValue(method = "getGuiScaledWidth", at = @At("RETURN"))
     private int modifyGuiWidth(int original) { return 100 * original / Global.CURRENT_SIZE; }

@@ -15,24 +15,18 @@ You will no longer need to get other stuff like Scoreboard Tweaks and Title Fixe
 
 **All the configurable HUD elements include:**
 
-Autosave Indicator, Boss Bar, Closed Caption, Crosshair, Debug Screen,
-
-Hotbar Group, Player List, Scoreboard Sidebar, Screen Title, Status Effect.
+Boss Bar, Closed Caption, Crosshair, Debug Screen, Hotbar Group, Player List, Scoreboard Sidebar, Screen Title, Status Effect.
 
 *WIP: Toast, Tooltip.*
 
 **All the configurable render states include:**
 
-Show - Determines whether to render (OFF/ON, ON in default).
+Show - Determines whether to show on screen (OFF/ON, ON in default).
 
 Size - Multiplies to vanilla GUI scale (0% - 200%, 100% in default).
 
 PosX/Y - Adds to vanilla GUI position (0 in default).
 
-*WIP: Time - Multiplies to vanilla GUI tick (0% - 200%, 100% in default).*
-
-*WIP: Color - Determines the color and alpha of texts. (0xFFFFFFFF in default).*
-
-## Future Plan: More Support
+## Plan: Even More Support
 
 Support to other mods, like Inventory HUD+, may be provided in the future.
