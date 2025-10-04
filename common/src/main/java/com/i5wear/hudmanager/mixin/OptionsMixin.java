@@ -14,9 +14,9 @@ public abstract class OptionsMixin {
     @ModifyReturnValue(method = "showSubtitles", at = @At("RETURN"))
     public OptionInstance<Boolean> syncClosedCaptionShow(OptionInstance<Boolean> original) {
         if (original.get() != Config.CLOSED_CAPTION.Show.get()) {
-            original.set(!Global.CLOSED_CAPTION_FLAG);
-            Config.CLOSED_CAPTION.Show.set(!Global.CLOSED_CAPTION_FLAG);
-            Global.CLOSED_CAPTION_FLAG = !Global.CLOSED_CAPTION_FLAG;
+            original.set(!Global.PREVIOUS_SHOW);
+            Config.CLOSED_CAPTION.Show.set(!Global.PREVIOUS_SHOW);
+            Global.PREVIOUS_SHOW = !Global.PREVIOUS_SHOW;
         }
         return original;
     }

@@ -15,9 +15,9 @@ You will no longer need to get other stuff like Scoreboard Tweaks and Title Fixe
 
 **All the configurable HUD elements include:**
 
-Boss Bar, Closed Caption, Crosshair, Debug Screen, Hotbar Group, Player List, Scoreboard Sidebar, Screen Title, Status Effect.
+Boss Bar, Closed Caption, Crosshair, Debug Screen, Hotbar Group,
 
-*WIP: Toast, Tooltip.*
+Player List, Scoreboard Sidebar, Screen Title, Status Effect, *(WIP) Toast.*
 
 **All the configurable render states include:**
 
@@ -25,7 +25,7 @@ Show - Determines whether to show on screen (OFF/ON, ON in default).
 
 Size - Multiplies to vanilla GUI scale (0% - 200%, 100% in default).
 
-PosX/Y - Adds to vanilla GUI position (0 in default).
+PosX/Y - Adds to vanilla GUI position (-100% - 100%, 0% in default).
 
 ## Plan: Even More Support
 

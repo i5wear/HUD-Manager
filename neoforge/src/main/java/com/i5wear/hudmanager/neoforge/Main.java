@@ -2,18 +2,16 @@ package com.i5wear.hudmanager.neoforge;
 
 import com.i5wear.hudmanager.Config;
 import com.i5wear.hudmanager.Global;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
-import net.neoforged.neoforge.common.NeoForge;
 
 import java.util.Map;
 
@@ -42,27 +40,29 @@ public class Main {
             Map.entry(VanillaGuiLayers.SUBTITLE_OVERLAY, Config.CLOSED_CAPTION)
     );
 
-    @SubscribeEvent private static void beforeElementRender(RenderGuiLayerEvent.Pre event) {
-        Config Value = Category.get(event.getName());
-        GuiGraphics arg0 = event.getGuiGraphics();
-        if (Value == null) arg0.pose().pushMatrix();
-        else if (Value.Size.get() == 0 || !Value.Show.get()) event.setCanceled(true);
-        else {
-            Global.CURRENT_SIZE = Value.Size.get();
-            arg0.pose().pushMatrix();
-            arg0.pose().scale(0.01f * Value.Size.get());
-            arg0.pose().translate(0.01f * Value.PosX.get() * arg0.guiWidth(), 0.01f * Value.PosY.get() * arg0.guiHeight());
+    private static void modifyElement(RegisterGuiLayersEvent Registry) {
+        for (Map.Entry<ResourceLocation, Config> Element : Category.entrySet()) {
+            Registry.wrapLayer(
+                    Element.getKey(), original -> (arg0, arg1) -> {
+                        Config Value = Element.getValue();
+                        if (Value == null) original.render(arg0, arg1);
+                        else if (Value.Size.get() > 0 && Value.Show.get()) {
+                            Global.CURRENT_SIZE = Value.Size.get();
+                            arg0.pose().pushMatrix();
+                            arg0.pose().scale(0.01f * Value.Size.get());
+                            arg0.pose().translate(0.01f * Value.PosX.get() * arg0.guiWidth(), 0.01f * Value.PosY.get() * arg0.guiHeight());
+                            original.render(arg0, arg1);
+                            arg0.pose().popMatrix();
+                            Global.CURRENT_SIZE = 100;
+                        }
+                    }
+            );
         }
     }
 
-    @SubscribeEvent private static void afterElementRender(RenderGuiLayerEvent.Post event) {
-        event.getGuiGraphics().pose().popMatrix();
-        Global.CURRENT_SIZE = 100;
-    }
-
-    public Main(ModContainer instance) {
-        instance.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
-        instance.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-        NeoForge.EVENT_BUS.register(Main.class);
+    public Main(ModContainer Instance, IEventBus Event) {
+        Instance.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
+        Instance.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        Event.addListener(Main::modifyElement);
     }
 }
