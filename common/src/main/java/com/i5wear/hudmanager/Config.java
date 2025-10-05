@@ -24,7 +24,7 @@ public class Config {
     public static final Config SCREEN_TITLE = new Config("Screen_Title");
     public static final Config STATUS_EFFECT = new Config("Status_Effect");
     public static final Config TOAST = new Config("Toast");
-    public static final Config TOOLTIP = new Config("Tooltip");
+    // public static final Config TOOLTIP = new Config("Tooltip");
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     private Config(String Name) {

@@ -29,7 +29,9 @@
   "hudmanager.configuration.Screen_Title" : "屏幕标题",
   "hudmanager.configuration.Screen_Title.tooltip" : "位于屏幕中央，显示各类文字",
   "hudmanager.configuration.Status_Effect": "状态效果",
-  "hudmanager.configuration.Status_Effect.tooltip": "位于屏幕右上角, 显示状态效果",
+  "hudmanager.configuration.Status_Effect.tooltip": "位于屏幕右上角，显示状态效果",
   "hudmanager.configuration.Toast": "弹窗",
-  "hudmanager.configuration.Toast.tooltip": "位于屏幕右上角, 显示通知事项"
+  "hudmanager.configuration.Toast.tooltip": "位于屏幕右上角，显示通知事项",
+  "hudmanager.configuration.Tooltip": "提示框",
+  "hudmanager.configuration.Tooltip.tooltip": "位于鼠标指针旁边，显示各类信息"
 }

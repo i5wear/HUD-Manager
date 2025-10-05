@@ -31,5 +31,7 @@
   "hudmanager.configuration.Status_Effect": "Status Effect",
   "hudmanager.configuration.Status_Effect.tooltip": "Locates in the top right of screen, displays status effects",
   "hudmanager.configuration.Toast": "Toast",
-  "hudmanager.configuration.Toast.tooltip": "Locates in the top right of screen, displays notifications"
+  "hudmanager.configuration.Toast.tooltip": "Locates in the top right of screen, displays notifications",
+  "hudmanager.configuration.Tooltip": "Tooltip",
+  "hudmanager.configuration.Tooltip.tooltip": "Locates beside mouse cursor, displays various information"
 }

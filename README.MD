@@ -27,6 +27,6 @@ Size - Multiplies to vanilla GUI scale (0% - 200%, 100% in default).
 
 PosX/Y - Adds to vanilla GUI position (-100% - 100%, 0% in default).
 
-## Plan: Even More Support
+## Plan: Convenience
 
-Support to other mods, like Inventory HUD+, may be provided in the future.
+I will make a Quick Config Screen, where you can simply drag all the elements.
