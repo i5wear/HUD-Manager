@@ -8,7 +8,6 @@
   },
   "client": [
     "DebugScreenOverlayMixin",
-    "OptionsMixin",
     "ToastManagerMixin",
     "WindowMixin"
   ]
