@@ -3,36 +3,30 @@
 [![CurseForge](http://cf.way2muchnoise.eu/full_1351618_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/hud-manager)
 [![Modrinth](https://img.shields.io/modrinth/dt/hbUrCPGQ?color=00cc00&label=modrinth%20downloads)](https://modrinth.com/mod/hud-manager)
 
-HUD Manager makes your screen more satisfying, by providing option of almost every HUD element.
+HUD Manager makes your screen satisfying, by providing options of almost every HUD element.
 
-Especially useful when playing in servers that has tons of things on the screen, like MCC Island.
+Especially useful when playing in servers with tons of things on the screen, like MCC Island.
 
 ## Feature: All in One
 
-With this single mod, You can manage everything on your screen properly via the mod menu.
+With this single mod, You can manage everything on your screen properly via mod menu.
 
 You will no longer need to get other stuff like Scoreboard Tweaks and Title Fixer.
 
 **All the configurable HUD elements include:**
 
-Autosave Indicator, Boss Bar, Closed Caption, Crosshair, Debug Screen,
+Action Bar, Boss Bar, Closed Caption, Crosshair, Debug Screen, Hotbar Group,
 
-Hotbar Group, Player List, Scoreboard Sidebar, Screen Title, Status Effect.
-
-*WIP: Toast, Tooltip.*
+Player List, Scoreboard Sidebar, Screen Title, Status Effect, Toast, Tooltip.
 
 **All the configurable render states include:**
 
-Show - Determines whether to render (OFF/ON, ON in default).
+Show - Determines whether to show on screen (OFF/ON, ON in default).
 
 Size - Multiplies to vanilla GUI scale (0% - 200%, 100% in default).
 
-PosX/Y - Adds to vanilla GUI position (0 in default).
+PosX/Y - Adds to vanilla GUI position (-100% - 100%, 0% in default).
 
-*WIP: Time - Multiplies to vanilla GUI tick (0% - 200%, 100% in default).*
+## Plan: Convenience
 
-*WIP: Color - Determines the color and alpha of texts. (0xFFFFFFFF in default).*
-
-## Future Plan: More Support
-
-Support to other mods, like Inventory HUD+, may be provided in the future.
+I will make a Quick Config Screen, where you can simply drag all the elements.

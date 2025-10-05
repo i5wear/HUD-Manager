@@ -1,6 +1,6 @@
 package com.i5wear.hudmanager.mixin;
 
-import com.i5wear.hudmanager.Global;
+import com.i5wear.hudmanager.Config;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.blaze3d.platform.Window;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,12 +17,12 @@ public abstract class WindowMixin {
         Generally, a GUI Layer locates itself by GuiGraphics#guiWidth and GuiGraphics#guiHeight,
         which are just a wrapper of Window#getGuiScaleWidth and Window#getGuiScaleHeight.
         The only exception is Contextual Bar, making mixin Window.class the ultimate solution.
-     */
+    */
 
     @ModifyReturnValue(method = "getGuiScaledWidth", at = @At("RETURN"))
-    private int modifyGuiWidth(int original) { return 100 * original / Global.CURRENT_SIZE; }
+    private int syncGuiWidth(int original) { return 100 * original / Config.CURRENT_SIZE; }
 
     @ModifyReturnValue(method = "getGuiScaledHeight", at = @At("RETURN"))
-    private int modifyGuiHeight(int original) { return 100 * original / Global.CURRENT_SIZE; }
+    private int syncGuiHeight(int original) { return 100 * original / Config.CURRENT_SIZE; }
 
 }

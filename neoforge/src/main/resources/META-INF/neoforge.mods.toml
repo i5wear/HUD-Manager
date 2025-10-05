@@ -15,7 +15,7 @@ logoFile = "assets/hudmanager/icon.png"
 [[dependencies.hudmanager]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.6,)"
+versionRange = "[21.9,)"
 ordering = "NONE"
 side = "BOTH"
 
