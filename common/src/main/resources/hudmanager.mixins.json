@@ -3,9 +3,6 @@
   "package": "com.i5wear.hudmanager.mixin",
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
-  "injectors": {
-    "defaultRequire": 1
-  },
   "client": [
     "DebugScreenOverlayMixin",
     "GuiGraphicsMixin",

@@ -19,10 +19,10 @@ public abstract class WindowMixin {
         The only exception is Contextual Bar, making mixin Window.class the ultimate solution.
     */
 
-    @ModifyReturnValue(method = "getGuiScaledWidth", at = @At("RETURN"))
-    private int syncGuiWidth(int original) { return 100 * original / Config.CURRENT_SIZE; }
+    @ModifyReturnValue(method = "getGuiScaledWidth", at = @At("TAIL"))
+    private int syncScreenWidth(int original) { return 100 * original / Config.CURRENT_SIZE; }
 
-    @ModifyReturnValue(method = "getGuiScaledHeight", at = @At("RETURN"))
-    private int syncGuiHeight(int original) { return 100 * original / Config.CURRENT_SIZE; }
+    @ModifyReturnValue(method = "getGuiScaledHeight", at = @At("TAIL"))
+    private int syncScreenHeight(int original) { return 100 * original / Config.CURRENT_SIZE; }
 
 }
