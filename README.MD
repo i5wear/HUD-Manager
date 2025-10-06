@@ -29,4 +29,4 @@ PosX/Y - Adds to vanilla GUI position (-100% - 100%, 0% in default).
 
 ## Plan: Convenience
 
-I will make a Quick Config Screen, where you can simply drag all the elements.
+I'm going to make a Quick Config Screen, where you can simply drag all the elements.

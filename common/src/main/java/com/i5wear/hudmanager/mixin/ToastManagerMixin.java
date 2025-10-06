@@ -8,7 +8,7 @@ import net.minecraft.client.gui.components.toasts.ToastManager;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(ToastManager.class)
-public class ToastManagerMixin {
+public abstract class ToastManagerMixin {
 
     @WrapMethod(method = "render")
     private void modifyToast(GuiGraphics arg0, Operation<Void> original) {
