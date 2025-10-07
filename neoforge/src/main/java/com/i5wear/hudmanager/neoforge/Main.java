@@ -39,28 +39,28 @@ public class Main {
             Map.entry(VanillaGuiLayers.SUBTITLE_OVERLAY, Config.CLOSED_CAPTION)
     );
 
-    private static void modifyElement(RegisterGuiLayersEvent Registry) {
+    private static void modifyElement(RegisterGuiLayersEvent event) {
         for (Map.Entry<ResourceLocation, Config> Element : Category.entrySet()) {
-            Registry.wrapLayer(
-                    Element.getKey(), original -> (arg0, arg1) -> {
-                        Config Value = Element.getValue();
-                        if (Value.Show.get() && Value.Size.get() > 0) {
-                            Config.CURRENT_SIZE = Value.Size.get();
-                            arg0.pose().pushMatrix();
-                            arg0.pose().scale(0.01f * Value.Size.get());
-                            arg0.pose().translate(0.01f * Value.PosX.get() * arg0.guiWidth(), 0.01f * Value.PosY.get() * arg0.guiHeight());
-                            original.render(arg0, arg1);
-                            arg0.pose().popMatrix();
-                            Config.CURRENT_SIZE = 100;
-                        }
+            event.wrapLayer(
+                Element.getKey(), original -> (instance, delta) -> {
+                    Config Value = Element.getValue();
+                    if (Value.Show.get() && Value.Size.get() > 0) {
+                        Config.CURRENT_SIZE = Value.Size.get();
+                        instance.pose().pushMatrix();
+                        instance.pose().scale(0.01f * Value.Size.get());
+                        instance.pose().translate(0.01f * Value.PosX.get() * instance.guiWidth(), 0.01f * Value.PosY.get() * instance.guiHeight());
+                        original.render(instance, delta);
+                        instance.pose().popMatrix();
+                        Config.CURRENT_SIZE = 100;
                     }
+                }
             );
         }
     }
 
-    public Main(ModContainer Instance, IEventBus Event) {
-        Instance.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
-        Instance.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-        Event.addListener(Main::modifyElement);
+    public Main(ModContainer instance, IEventBus event) {
+        instance.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
+        instance.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        event.addListener(Main::modifyElement);
     }
 }

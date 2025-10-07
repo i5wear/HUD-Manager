@@ -42,18 +42,18 @@ public class Main implements ClientModInitializer {
     private static void modifyElement() {
         for (Map.Entry<ResourceLocation, Config> Element : Category.entrySet()) {
             HudElementRegistry.replaceElement(
-                    Element.getKey(), original -> (arg0, arg1) -> {
-                        Config Value = Element.getValue();
-                        if (Value.Show.get() && Value.Size.get() > 0) {
-                            Config.CURRENT_SIZE = Value.Size.get();
-                            arg0.pose().pushMatrix();
-                            arg0.pose().scale(0.01f * Value.Size.get());
-                            arg0.pose().translate(0.01f * Value.PosX.get() * arg0.guiWidth(), 0.01f * Value.PosY.get() * arg0.guiHeight());
-                            original.render(arg0, arg1);
-                            arg0.pose().popMatrix();
-                            Config.CURRENT_SIZE = 100;
-                        }
+                Element.getKey(), original -> (instance, delta) -> {
+                    Config Value = Element.getValue();
+                    if (Value.Show.get() && Value.Size.get() > 0) {
+                        Config.CURRENT_SIZE = Value.Size.get();
+                        instance.pose().pushMatrix();
+                        instance.pose().scale(0.01f * Value.Size.get());
+                        instance.pose().translate(0.01f * Value.PosX.get() * instance.guiWidth(), 0.01f * Value.PosY.get() * instance.guiHeight());
+                        original.render(instance, delta);
+                        instance.pose().popMatrix();
+                        Config.CURRENT_SIZE = 100;
                     }
+                }
             );
         }
     }
