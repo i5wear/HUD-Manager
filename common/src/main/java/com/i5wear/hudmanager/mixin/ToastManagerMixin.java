@@ -11,15 +11,15 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class ToastManagerMixin {
 
     @WrapMethod(method = "render")
-    private void modifyToast(GuiGraphics arg0, Operation<Void> original) {
+    private void modifyToast(GuiGraphics instance, Operation<Void> original) {
         Config Value = Config.TOAST;
         if (Value.Show.get() && Value.Size.get() > 0) {
             Config.CURRENT_SIZE = Value.Size.get();
-            arg0.pose().pushMatrix();
-            arg0.pose().scale(0.01f * Value.Size.get());
-            arg0.pose().translate(0.01f * Value.PosX.get() * arg0.guiWidth(), 0.01f * Value.PosY.get() * arg0.guiHeight());
-            original.call(arg0);
-            arg0.pose().popMatrix();
+            instance.pose().pushMatrix();
+            instance.pose().scale(0.01f * Value.Size.get());
+            instance.pose().translate(0.01f * Value.PosX.get() * instance.guiWidth(), 0.01f * Value.PosY.get() * instance.guiHeight());
+            original.call(instance);
+            instance.pose().popMatrix();
             Config.CURRENT_SIZE = 100;
         }
     }

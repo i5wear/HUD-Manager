@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[10,)"
+loaderVersion = "[9,)"
 issueTrackerURL = "https://github.com/i5wear/HUD-Manager/issues"
 license = "MIT"
 
@@ -15,14 +15,14 @@ logoFile = "assets/hudmanager/icon.png"
 [[dependencies.hudmanager]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.9,)"
+versionRange = "[21.7,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.hudmanager]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.9,)"
+versionRange = "[1.21.7,)"
 ordering = "NONE"
 side = "BOTH"
 
