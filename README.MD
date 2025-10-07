@@ -26,23 +26,3 @@ Show - Determines whether to show on screen (OFF/ON, ON in default).
 Size - Multiplies to vanilla GUI scale (0% - 200%, 100% in default).
 
 PosX/Y - Adds to vanilla GUI position (-100% - 100%, 0% in default).
-
-## Known Issues
-
-Even though I tried my best to keep tracking and fixing issues by myself,
-
-there are still a few known issues that I'm not going to fix anymore,
-
-because they do not matter, and I'm not a Mojang staff or Fabric/Forge developer.
-
-I'm just taking use of the methods that are intended to work with, and that's it.
-
-**All the known and wont-fix issues include:**
-
-*Debug Pie does not scale and move properly with Debug Screen management.*
-
-*Closed Caption management does not work in 1.21.9 unless the game is paused.*
-
-*Status Bars do not move properly with Hotbar Group management in Fabric.*
-
-*Tooltip management does not work if Shulker Box Tooltip is installed.*
