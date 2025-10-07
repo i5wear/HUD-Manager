@@ -40,7 +40,7 @@ public class Main {
     );
 
     private static void modifyElement(RegisterGuiLayersEvent event) {
-        for (Map.Entry<ResourceLocation, Config> Element : Category.entrySet()) {
+        for (var Element : Category.entrySet()) {
             event.wrapLayer(
                 Element.getKey(), original -> (instance, delta) -> {
                     Config Value = Element.getValue();

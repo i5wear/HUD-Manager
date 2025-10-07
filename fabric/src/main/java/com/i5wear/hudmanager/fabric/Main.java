@@ -40,7 +40,7 @@ public class Main implements ClientModInitializer {
     );
     
     private static void modifyElement() {
-        for (Map.Entry<ResourceLocation, Config> Element : Category.entrySet()) {
+        for (var Element : Category.entrySet()) {
             HudElementRegistry.replaceElement(
                 Element.getKey(), original -> (instance, delta) -> {
                     Config Value = Element.getValue();
@@ -51,7 +51,8 @@ public class Main implements ClientModInitializer {
                         instance.pose().translate(0.01f * Value.PosX.get() * instance.guiWidth(), 0.01f * Value.PosY.get() * instance.guiHeight());
                         original.render(instance, delta);
                         instance.pose().popMatrix();
-                        Config.CURRENT_SIZE = 100;
+                        if (Element.getKey() != VanillaHudElements.HOTBAR) // Patch
+                            Config.CURRENT_SIZE = 100;
                     }
                 }
             );
