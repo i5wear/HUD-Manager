@@ -15,11 +15,11 @@ public abstract class DebugScreenOverlayMixin {
         Config Value = Config.DEBUG_SCREEN;
         if (Value.Show.get() && Value.Size.get() > 0) {
             Config.CURRENT_SIZE = Value.Size.get();
-            instance.pose().pushMatrix();
-            instance.pose().scale(0.01f * Value.Size.get());
-            instance.pose().translate(0.01f * Value.PosX.get() * instance.guiWidth(), 0.01f * Value.PosY.get() * instance.guiHeight());
+            instance.pose().pushPose();
+            instance.pose().scale(0.01f * Value.Size.get(), 0.01f * Value.Size.get(), 1);
+            instance.pose().translate(0.01f * Value.PosX.get() * instance.guiWidth(), 0.01f * Value.PosY.get() * instance.guiHeight(), 0);
             original.call(instance);
-            instance.pose().popMatrix();
+            instance.pose().popPose();
             Config.CURRENT_SIZE = 100;
         }
     }

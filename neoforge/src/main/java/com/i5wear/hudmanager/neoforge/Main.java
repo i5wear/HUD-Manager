@@ -20,16 +20,16 @@ public class Main {
     private static final Map<ResourceLocation, Config> Category = Map.ofEntries(
             Map.entry(VanillaGuiLayers.CROSSHAIR, Config.CROSSHAIR),
             Map.entry(VanillaGuiLayers.HOTBAR, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.JUMP_METER, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.EXPERIENCE_BAR, Config.HOTBAR_GROUP),
             Map.entry(VanillaGuiLayers.PLAYER_HEALTH, Config.HOTBAR_GROUP),
             Map.entry(VanillaGuiLayers.ARMOR_LEVEL, Config.HOTBAR_GROUP),
             Map.entry(VanillaGuiLayers.FOOD_LEVEL, Config.HOTBAR_GROUP),
             Map.entry(VanillaGuiLayers.VEHICLE_HEALTH, Config.HOTBAR_GROUP),
             Map.entry(VanillaGuiLayers.AIR_LEVEL, Config.HOTBAR_GROUP),
-            Map.entry(VanillaGuiLayers.CONTEXTUAL_INFO_BAR_BACKGROUND, Config.HOTBAR_GROUP),
-            Map.entry(VanillaGuiLayers.EXPERIENCE_LEVEL, Config.HOTBAR_GROUP),
-            Map.entry(VanillaGuiLayers.CONTEXTUAL_INFO_BAR, Config.HOTBAR_GROUP),
             Map.entry(VanillaGuiLayers.SELECTED_ITEM_NAME, Config.HOTBAR_GROUP),
             Map.entry(VanillaGuiLayers.SPECTATOR_TOOLTIP, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.EXPERIENCE_LEVEL, Config.HOTBAR_GROUP),
             Map.entry(VanillaGuiLayers.EFFECTS, Config.STATUS_EFFECT),
             Map.entry(VanillaGuiLayers.BOSS_OVERLAY, Config.BOSS_BAR),
             Map.entry(VanillaGuiLayers.SCOREBOARD_SIDEBAR, Config.SCOREBOARD_SIDEBAR),
@@ -46,11 +46,11 @@ public class Main {
                     Config Value = Element.getValue();
                     if (Value.Show.get() && Value.Size.get() > 0) {
                         Config.CURRENT_SIZE = Value.Size.get();
-                        instance.pose().pushMatrix();
-                        instance.pose().scale(0.01f * Value.Size.get());
-                        instance.pose().translate(0.01f * Value.PosX.get() * instance.guiWidth(), 0.01f * Value.PosY.get() * instance.guiHeight());
+                        instance.pose().pushPose();
+                        instance.pose().scale(0.01f * Value.Size.get(), 0.01f * Value.Size.get(), 1);
+                        instance.pose().translate(0.01f * Value.PosX.get() * instance.guiWidth(), 0.01f * Value.PosY.get() * instance.guiHeight(), 0);
                         original.render(instance, delta);
-                        instance.pose().popMatrix();
+                        instance.pose().popPose();
                         Config.CURRENT_SIZE = 100;
                     }
                 }

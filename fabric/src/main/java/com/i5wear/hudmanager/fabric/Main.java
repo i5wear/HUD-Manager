@@ -1,13 +1,13 @@
 package com.i5wear.hudmanager.fabric;
 
 import com.i5wear.hudmanager.Config;
-import fuzs.forgeconfigapiport.fabric.api.v5.ConfigRegistry;
-import fuzs.forgeconfigapiport.fabric.api.v5.client.ConfigScreenFactoryRegistry;
+import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.client.ConfigScreenFactoryRegistry;
+import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeConfigRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
+import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
@@ -18,49 +18,43 @@ import java.util.Map;
 public class Main implements ClientModInitializer {
 
     private static final Map<ResourceLocation, Config> Category = Map.ofEntries(
-            Map.entry(VanillaHudElements.CROSSHAIR, Config.CROSSHAIR),
-            Map.entry(VanillaHudElements.SPECTATOR_MENU, Config.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.HOTBAR, Config.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.ARMOR_BAR, Config.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.HEALTH_BAR, Config.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.FOOD_BAR, Config.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.AIR_BAR, Config.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.MOUNT_HEALTH, Config.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.INFO_BAR, Config.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.EXPERIENCE_LEVEL, Config.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.HELD_ITEM_TOOLTIP, Config.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.SPECTATOR_TOOLTIP, Config.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.STATUS_EFFECTS, Config.STATUS_EFFECT),
-            Map.entry(VanillaHudElements.BOSS_BAR, Config.BOSS_BAR),
-            Map.entry(VanillaHudElements.SCOREBOARD, Config.SCOREBOARD_SIDEBAR),
-            Map.entry(VanillaHudElements.OVERLAY_MESSAGE, Config.ACTION_BAR),
-            Map.entry(VanillaHudElements.TITLE_AND_SUBTITLE, Config.SCREEN_TITLE),
-            Map.entry(VanillaHudElements.PLAYER_LIST, Config.PLAYER_LIST),
-            Map.entry(VanillaHudElements.SUBTITLES, Config.CLOSED_CAPTION)
+            Map.entry(IdentifiedLayer.CROSSHAIR, Config.CROSSHAIR),
+            Map.entry(IdentifiedLayer.HOTBAR_AND_BARS, Config.HOTBAR_GROUP),
+            Map.entry(IdentifiedLayer.EXPERIENCE_LEVEL, Config.HOTBAR_GROUP),
+            Map.entry(IdentifiedLayer.STATUS_EFFECTS, Config.STATUS_EFFECT),
+            Map.entry(IdentifiedLayer.BOSS_BAR, Config.BOSS_BAR),
+            Map.entry(IdentifiedLayer.SCOREBOARD, Config.SCOREBOARD_SIDEBAR),
+            Map.entry(IdentifiedLayer.OVERLAY_MESSAGE, Config.ACTION_BAR),
+            Map.entry(IdentifiedLayer.TITLE_AND_SUBTITLE, Config.SCREEN_TITLE),
+            Map.entry(IdentifiedLayer.PLAYER_LIST, Config.PLAYER_LIST),
+            Map.entry(IdentifiedLayer.SUBTITLES, Config.CLOSED_CAPTION)
     );
     
     private static void modifyElement() {
         for (var Element : Category.entrySet()) {
-            HudElementRegistry.replaceElement(
-                Element.getKey(), original -> (instance, delta) -> {
-                    Config Value = Element.getValue();
-                    if (Value.Show.get() && Value.Size.get() > 0) {
-                        Config.CURRENT_SIZE = Value.Size.get();
-                        instance.pose().pushMatrix();
-                        instance.pose().scale(0.01f * Value.Size.get());
-                        instance.pose().translate(0.01f * Value.PosX.get() * instance.guiWidth(), 0.01f * Value.PosY.get() * instance.guiHeight());
-                        original.render(instance, delta);
-                        instance.pose().popMatrix();
-                        if (Element.getKey() != VanillaHudElements.HOTBAR) // Patch
-                            Config.CURRENT_SIZE = 100;
-                    }
-                }
+            HudLayerRegistrationCallback.EVENT.register(
+                wrapper -> wrapper.replaceLayer(
+                    Element.getKey(), original -> IdentifiedLayer.of(
+                        Element.getKey(), (instance, delta) -> {
+                            Config Value = Element.getValue();
+                            if (Value.Show.get() && Value.Size.get() > 0) {
+                                Config.CURRENT_SIZE = Value.Size.get();
+                                instance.pose().pushPose();
+                                instance.pose().scale(0.01f * Value.Size.get(), 0.01f * Value.Size.get(), 1);
+                                instance.pose().translate(0.01f * Value.PosX.get() * instance.guiWidth(), 0.01f * Value.PosY.get() * instance.guiHeight(), 0);
+                                original.render(instance, delta);
+                                instance.pose().popPose();
+                                Config.CURRENT_SIZE = 100;
+                            }
+                        }
+                    )
+                )
             );
         }
     }
 
     @Override public void onInitializeClient() {
-        ConfigRegistry.INSTANCE.register(Config.MOD_ID, ModConfig.Type.CLIENT, Config.SPEC);
+        NeoForgeConfigRegistry.INSTANCE.register(Config.MOD_ID, ModConfig.Type.CLIENT, Config.SPEC);
         ConfigScreenFactoryRegistry.INSTANCE.register(Config.MOD_ID, (parent, screen) -> new ConfigurationScreen(Config.MOD_ID, screen));
         Main.modifyElement();
     }
