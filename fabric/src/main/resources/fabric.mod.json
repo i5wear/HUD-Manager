@@ -19,7 +19,6 @@
   "depends": {
     "minecraft": "1.21.5",
     "fabric-api": "*",
-    "modmenu": "*",
     "forgeconfigapiport": "*"
   }
 }
