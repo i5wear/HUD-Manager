@@ -6,6 +6,7 @@
   "client": [
     "DebugScreenOverlayMixin",
     "GuiGraphicsMixin",
+    "GuiProfilerChartRenderStateMixin",
     "ToastManagerMixin",
     "WindowMixin"
   ]
