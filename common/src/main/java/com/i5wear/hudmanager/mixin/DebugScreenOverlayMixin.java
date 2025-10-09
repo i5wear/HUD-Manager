@@ -1,6 +1,6 @@
 package com.i5wear.hudmanager.mixin;
 
-import com.i5wear.hudmanager.Config;
+import com.i5wear.hudmanager.Manager;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.client.gui.GuiGraphics;
@@ -12,15 +12,9 @@ public abstract class DebugScreenOverlayMixin {
 
     @WrapMethod(method = "render")
     private void modifyDebugScreen(GuiGraphics instance, Operation<Void> original) {
-        Config Value = Config.DEBUG_SCREEN;
-        if (Value.Show.get() && Value.Size.get() > 0) {
-            Config.CURRENT_SIZE = Value.Size.get();
-            instance.pose().pushMatrix();
-            instance.pose().scale(0.01f * Value.Size.get());
-            instance.pose().translate(0.01f * Value.PosX.get() * instance.guiWidth(), 0.01f * Value.PosY.get() * instance.guiHeight());
+        if (Manager.DEBUG_SCREEN.apply(instance))
             original.call(instance);
-            instance.pose().popMatrix();
-            Config.CURRENT_SIZE = 100;
-        }
+        instance.pose().popMatrix();
+        Manager.CURRENT_SIZE = 100;
     }
 }
