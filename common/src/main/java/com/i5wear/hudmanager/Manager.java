@@ -37,9 +37,9 @@ public class Manager {
 
     public boolean apply(GuiGraphics instance) {
         Manager.CURRENT_SIZE = Size.get();
-        instance.pose().pushMatrix();
-        instance.pose().scale(0.01f * Size.get());
-        instance.pose().translate(0.01f * PosX.get() * instance.guiWidth(), 0.01f * PosY.get() * instance.guiHeight());
+        instance.pose().pushPose();
+        instance.pose().scale(0.01f * Size.get(), 0.01f * Size.get(), 1);
+        instance.pose().translate(0.01f * PosX.get() * instance.guiWidth(), 0.01f * PosY.get() * instance.guiHeight(), 0);
         return Show.get() && Size.get() > 0;
     }
 }

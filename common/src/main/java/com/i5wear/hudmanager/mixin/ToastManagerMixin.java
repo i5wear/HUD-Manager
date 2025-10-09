@@ -14,7 +14,7 @@ public abstract class ToastManagerMixin {
     private void modifyToast(GuiGraphics instance, Operation<Void> original) {
         if (Manager.TOAST.apply(instance))
             original.call(instance);
-        instance.pose().popMatrix();
+        instance.pose().popPose();
         Manager.CURRENT_SIZE = 100;
     }
 }
