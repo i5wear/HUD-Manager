@@ -17,26 +17,26 @@ import java.util.Map;
 @Mod(value = Manager.MOD_ID, dist = Dist.CLIENT)
 public class Main {
 
-    private static final Map<ResourceLocation, Manager> Category = Map.ofEntries(
-            Map.entry(VanillaGuiLayers.CROSSHAIR, Manager.CROSSHAIR),
-            Map.entry(VanillaGuiLayers.HOTBAR, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaGuiLayers.PLAYER_HEALTH, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaGuiLayers.ARMOR_LEVEL, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaGuiLayers.FOOD_LEVEL, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaGuiLayers.VEHICLE_HEALTH, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaGuiLayers.AIR_LEVEL, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaGuiLayers.CONTEXTUAL_INFO_BAR_BACKGROUND, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaGuiLayers.EXPERIENCE_LEVEL, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaGuiLayers.CONTEXTUAL_INFO_BAR, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaGuiLayers.SELECTED_ITEM_NAME, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaGuiLayers.SPECTATOR_TOOLTIP, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaGuiLayers.EFFECTS, Manager.STATUS_EFFECT),
-            Map.entry(VanillaGuiLayers.BOSS_OVERLAY, Manager.BOSS_BAR),
-            Map.entry(VanillaGuiLayers.SCOREBOARD_SIDEBAR, Manager.SCOREBOARD_SIDEBAR),
-            Map.entry(VanillaGuiLayers.OVERLAY_MESSAGE, Manager.ACTION_BAR),
-            Map.entry(VanillaGuiLayers.TITLE, Manager.SCREEN_TITLE),
-            Map.entry(VanillaGuiLayers.TAB_LIST, Manager.PLAYER_LIST),
-            Map.entry(VanillaGuiLayers.SUBTITLE_OVERLAY, Manager.CLOSED_CAPTION)
+    private static final Map<ResourceLocation, Config> Category = Map.ofEntries(
+            Map.entry(VanillaGuiLayers.CROSSHAIR, Config.CROSSHAIR),
+            Map.entry(VanillaGuiLayers.HOTBAR, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.JUMP_METER, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.EXPERIENCE_BAR, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.PLAYER_HEALTH, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.ARMOR_LEVEL, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.FOOD_LEVEL, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.VEHICLE_HEALTH, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.AIR_LEVEL, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.SELECTED_ITEM_NAME, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.SPECTATOR_TOOLTIP, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.EXPERIENCE_LEVEL, Config.HOTBAR_GROUP),
+            Map.entry(VanillaGuiLayers.EFFECTS, Config.STATUS_EFFECT),
+            Map.entry(VanillaGuiLayers.BOSS_OVERLAY, Config.BOSS_BAR),
+            Map.entry(VanillaGuiLayers.SCOREBOARD_SIDEBAR, Config.SCOREBOARD_SIDEBAR),
+            Map.entry(VanillaGuiLayers.OVERLAY_MESSAGE, Config.ACTION_BAR),
+            Map.entry(VanillaGuiLayers.TITLE, Config.SCREEN_TITLE),
+            Map.entry(VanillaGuiLayers.TAB_LIST, Config.PLAYER_LIST),
+            Map.entry(VanillaGuiLayers.SUBTITLE_OVERLAY, Config.CLOSED_CAPTION)
     );
 
     private static void modifyElement(RegisterGuiLayersEvent event) {
