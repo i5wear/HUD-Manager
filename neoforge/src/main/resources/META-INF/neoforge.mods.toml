@@ -7,7 +7,7 @@ version = "${version}"
 displayName = "HUD Manager"
 displayURL = "https://modrinth.com/mod/HUD-Manager"
 authors = "i5wear"
-description = '''Manages HUD elements separately.'''
+description = '''Manages HUD elements gracefully.'''
 logoFile = "assets/hudmanager/icon.png"
 
 [[dependencies.hudmanager]]
