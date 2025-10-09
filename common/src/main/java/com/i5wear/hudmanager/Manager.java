@@ -11,7 +11,6 @@ public class Manager {
     public ModConfigSpec.IntValue PosY;
 
     public static final String MOD_ID = "hudmanager";
-    public static final String MOD_MENU = "modmenu";
     public static volatile int CURRENT_SIZE = 100;
 
     public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
