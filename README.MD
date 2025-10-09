@@ -25,4 +25,4 @@ Show - Determines whether to show on screen (OFF/ON, ON in default).
 
 Size - Multiplies to vanilla GUI scale (0% - 200%, 100% in default).
 
-PosX/Y - Adds to vanilla GUI position (-100% - 100%, 0% in default).
+PosX/Y - Adds to vanilla GUI position (-100% - +100%, 0% in default).
