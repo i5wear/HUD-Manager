@@ -3,7 +3,7 @@
   "id": "hudmanager",
   "version": "${version}",
   "name": "HUD Manager",
-  "description": "Manages HUD elements separately.",
+  "description": "Manages HUD elements gracefully.",
   "authors": [ "i5wear" ],
   "contact": {
     "homepage": "https://modrinth.com/mod/HUD-Manager",
