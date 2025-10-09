@@ -40,7 +40,7 @@ public class Main {
     );
 
     private static void modifyElement(RegisterGuiLayersEvent Modifier) {
-        for (var Element : CATEGORY.entrySet()) {
+        for (var Element : Main.CATEGORY.entrySet()) {
             Modifier.wrapLayer(
                 Element.getKey(), Original -> (Instance, DeltaTick) -> {
                     if (Element.getValue().apply(Instance))

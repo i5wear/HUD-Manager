@@ -40,7 +40,7 @@ public class Main implements ClientModInitializer {
     );
     
     private static void modifyElement() {
-        for (var Element : CATEGORY.entrySet()) {
+        for (var Element : Main.CATEGORY.entrySet()) {
             HudElementRegistry.replaceElement(
                 Element.getKey(), Original -> (Instance, DeltaTick) -> {
                     if (Element.getValue().apply(Instance))
