@@ -1,6 +1,6 @@
 package com.i5wear.hudmanager.mixin;
 
-import com.i5wear.hudmanager.Config;
+import com.i5wear.hudmanager.Manager;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.client.gui.Font;
@@ -36,5 +36,15 @@ public abstract class GuiGraphicsMixin {
             instance.pose().popPose();
             Config.CURRENT_SIZE = 100;
         }
+    }
+
+    @WrapMethod(method = "submitProfilerChartRenderState")
+    private void modifyProfiler(List<ResultField> list, int PosX1, int PosY1, int PosX2, int PosY2, Operation<Void> original) {
+        GuiGraphics instance = (GuiGraphics)(Object) this;
+        PosX1 = Manager.DEBUG_SCREEN.Size.get() * (PosX1 + Manager.DEBUG_SCREEN.PosX.get() * instance.guiWidth() / 100) / 100;
+        PosX2 = Manager.DEBUG_SCREEN.Size.get() * (PosX2 + Manager.DEBUG_SCREEN.PosX.get() * instance.guiWidth() / 100) / 100;
+        PosY1 = Manager.DEBUG_SCREEN.Size.get() * (PosY1 + Manager.DEBUG_SCREEN.PosY.get() * instance.guiHeight() / 100) / 100;
+        PosY2 = Manager.DEBUG_SCREEN.Size.get() * (PosY2 + Manager.DEBUG_SCREEN.PosY.get() * instance.guiHeight() / 100) / 100;
+        original.call(list, PosX1, PosY1, PosX2, PosY2);
     }
 }

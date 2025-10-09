@@ -1,6 +1,6 @@
 package com.i5wear.hudmanager.neoforge;
 
-import com.i5wear.hudmanager.Config;
+import com.i5wear.hudmanager.Manager;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -14,7 +14,7 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 import java.util.Map;
 
-@Mod(value = Config.MOD_ID, dist = Dist.CLIENT)
+@Mod(value = Manager.MOD_ID, dist = Dist.CLIENT)
 public class Main {
 
     private static final Map<ResourceLocation, Config> Category = Map.ofEntries(
@@ -43,23 +43,17 @@ public class Main {
         for (var Element : Category.entrySet()) {
             event.wrapLayer(
                 Element.getKey(), original -> (instance, delta) -> {
-                    Config Value = Element.getValue();
-                    if (Value.Show.get() && Value.Size.get() > 0) {
-                        Config.CURRENT_SIZE = Value.Size.get();
-                        instance.pose().pushPose();
-                        instance.pose().scale(0.01f * Value.Size.get(), 0.01f * Value.Size.get(), 1);
-                        instance.pose().translate(0.01f * Value.PosX.get() * instance.guiWidth(), 0.01f * Value.PosY.get() * instance.guiHeight(), 0);
+                    if (Element.getValue().apply(instance))
                         original.render(instance, delta);
-                        instance.pose().popPose();
-                        Config.CURRENT_SIZE = 100;
-                    }
+                    instance.pose().popMatrix();
+                    Manager.CURRENT_SIZE = 100;
                 }
             );
         }
     }
 
     public Main(ModContainer instance, IEventBus event) {
-        instance.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
+        instance.registerConfig(ModConfig.Type.CLIENT, Manager.SPEC);
         instance.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
         event.addListener(Main::modifyElement);
     }

@@ -32,6 +32,14 @@ public class Main implements ClientModInitializer {
     
     private static void modifyElement() {
         for (var Element : Category.entrySet()) {
+            HudElementRegistry.replaceElement(
+                Element.getKey(), original -> (instance, delta) -> {
+                    if (Element.getValue().apply(instance))
+                        original.render(instance, delta);
+                    instance.pose().popMatrix();
+                    if (Element.getKey() != VanillaHudElements.HOTBAR) // Patch
+                        Manager.CURRENT_SIZE = 100;
+                }
             HudLayerRegistrationCallback.EVENT.register(
                 wrapper -> wrapper.replaceLayer(
                     Element.getKey(), original -> IdentifiedLayer.of(
