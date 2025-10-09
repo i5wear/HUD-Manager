@@ -50,7 +50,7 @@ public class Main implements ClientModInitializer {
 
     @Override public void onInitializeClient() {
         ConfigRegistry.INSTANCE.register(Manager.MOD_ID, ModConfig.Type.CLIENT, Manager.CONFIG_SPEC);
-        ConfigScreenFactoryRegistry.INSTANCE.register(Manager.MOD_ID, (parent, screen) -> new ConfigurationScreen(Manager.MOD_ID, screen));
+        ConfigScreenFactoryRegistry.INSTANCE.register(Manager.MOD_ID, (Parent, Screen) -> new ConfigurationScreen(Manager.MOD_ID, Screen));
         Main.modifyElement();
     }
 }
