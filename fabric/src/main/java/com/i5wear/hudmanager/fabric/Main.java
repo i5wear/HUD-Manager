@@ -17,7 +17,7 @@ import java.util.Map;
 @Environment(EnvType.CLIENT)
 public class Main implements ClientModInitializer {
 
-    private static final Map<ResourceLocation, Manager> Category = Map.ofEntries(
+    private static final Map<ResourceLocation, Manager> CATEGORY = Map.ofEntries(
             Map.entry(VanillaHudElements.CROSSHAIR, Manager.CROSSHAIR),
             Map.entry(VanillaHudElements.SPECTATOR_MENU, Manager.HOTBAR_GROUP),
             Map.entry(VanillaHudElements.HOTBAR, Manager.HOTBAR_GROUP),
@@ -40,12 +40,12 @@ public class Main implements ClientModInitializer {
     );
     
     private static void modifyElement() {
-        for (var Element : Category.entrySet()) {
+        for (var Element : CATEGORY.entrySet()) {
             HudElementRegistry.replaceElement(
-                Element.getKey(), original -> (instance, delta) -> {
-                    if (Element.getValue().apply(instance))
-                        original.render(instance, delta);
-                    instance.pose().popMatrix();
+                Element.getKey(), Original -> (Instance, DeltaTick) -> {
+                    if (Element.getValue().apply(Instance))
+                        Original.render(Instance, DeltaTick);
+                    Instance.pose().popMatrix();
                     if (Element.getKey() != VanillaHudElements.HOTBAR) // Patch
                         Manager.CURRENT_SIZE = 100;
                 }
@@ -54,8 +54,8 @@ public class Main implements ClientModInitializer {
     }
 
     @Override public void onInitializeClient() {
-        ConfigRegistry.INSTANCE.register(Manager.MOD_ID, ModConfig.Type.CLIENT, Manager.SPEC);
-        ConfigScreenFactoryRegistry.INSTANCE.register(Manager.MOD_ID, (parent, screen) -> new ConfigurationScreen(Manager.MOD_ID, screen));
+        ConfigRegistry.INSTANCE.register(Manager.MOD_ID, ModConfig.Type.CLIENT, Manager.CONFIG_SPEC);
+        ConfigScreenFactoryRegistry.INSTANCE.register(Manager.MOD_ID, (Parent, Screen) -> new ConfigurationScreen(Manager.MOD_ID, Screen));
         Main.modifyElement();
     }
 }

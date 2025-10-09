@@ -17,30 +17,30 @@ import java.util.List;
 public abstract class GuiGraphicsMixin {
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private int syncTooltipPosX(int original) { return 100 * original / Manager.TOOLTIP.Size.get(); }
+    private int syncTooltipPosX(int Original) { return 100 * Original / Manager.TOOLTIP.Size.get(); }
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 1, argsOnly = true)
-    private int syncTooltipPosY(int original) { return 100 * original / Manager.TOOLTIP.Size.get(); }
+    private int syncTooltipPosY(int Original) { return 100 * Original / Manager.TOOLTIP.Size.get(); }
 
     @WrapOperation(method = "setTooltipForNextFrameInternal", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/GuiGraphics;deferredTooltip:Ljava/lang/Runnable;", opcode = Opcodes.PUTFIELD))
-    private void modifyTooltip(GuiGraphics instance, Runnable variable, Operation<Void> original) {
-        Runnable OriginalTooltip = variable;
-        variable = () -> {
-            if (Manager.TOOLTIP.apply(instance))
+    private void modifyTooltip(GuiGraphics Instance, Runnable Tooltip, Operation<Void> Original) {
+        Runnable OriginalTooltip = Tooltip;
+        Tooltip = () -> {
+            if (Manager.TOOLTIP.apply(Instance))
                 OriginalTooltip.run();
-            instance.pose().popMatrix();
+            Instance.pose().popMatrix();
             Manager.CURRENT_SIZE = 100;
         };
-        original.call(instance, variable);
+        Original.call(Instance, Tooltip);
     }
 
     @WrapMethod(method = "submitProfilerChartRenderState")
-    private void modifyProfiler(List<ResultField> list, int PosX1, int PosY1, int PosX2, int PosY2, Operation<Void> original) {
-        GuiGraphics instance = (GuiGraphics)(Object) this;
-        PosX1 = (PosX1 + instance.guiWidth() * Manager.DEBUG_SCREEN.PosX.get() / 100) * Manager.DEBUG_SCREEN.Size.get() / 100;
-        PosX2 = (PosX2 + instance.guiWidth() * Manager.DEBUG_SCREEN.PosX.get() / 100) * Manager.DEBUG_SCREEN.Size.get() / 100;
-        PosY1 = (PosY1 + instance.guiHeight() * Manager.DEBUG_SCREEN.PosY.get() / 100) * Manager.DEBUG_SCREEN.Size.get() / 100;
-        PosY2 = (PosY2 + instance.guiHeight() * Manager.DEBUG_SCREEN.PosY.get() / 100) * Manager.DEBUG_SCREEN.Size.get() / 100;
-        original.call(list, PosX1, PosY1, PosX2, PosY2);
+    private void modifyProfiler(List<ResultField> list, int PosX1, int PosY1, int PosX2, int PosY2, Operation<Void> Original) {
+        GuiGraphics Instance = (GuiGraphics)(Object) this;
+        PosX1 = (PosX1 + Instance.guiWidth() * Manager.DEBUG_SCREEN.PosX.get() / 100) * Manager.DEBUG_SCREEN.Size.get() / 100;
+        PosX2 = (PosX2 + Instance.guiWidth() * Manager.DEBUG_SCREEN.PosX.get() / 100) * Manager.DEBUG_SCREEN.Size.get() / 100;
+        PosY1 = (PosY1 + Instance.guiHeight() * Manager.DEBUG_SCREEN.PosY.get() / 100) * Manager.DEBUG_SCREEN.Size.get() / 100;
+        PosY2 = (PosY2 + Instance.guiHeight() * Manager.DEBUG_SCREEN.PosY.get() / 100) * Manager.DEBUG_SCREEN.Size.get() / 100;
+        Original.call(list, PosX1, PosY1, PosX2, PosY2);
     }
 }

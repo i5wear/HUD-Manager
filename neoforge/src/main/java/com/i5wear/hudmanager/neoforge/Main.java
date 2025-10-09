@@ -17,7 +17,7 @@ import java.util.Map;
 @Mod(value = Manager.MOD_ID, dist = Dist.CLIENT)
 public class Main {
 
-    private static final Map<ResourceLocation, Manager> Category = Map.ofEntries(
+    private static final Map<ResourceLocation, Manager> CATEGORY = Map.ofEntries(
             Map.entry(VanillaGuiLayers.CROSSHAIR, Manager.CROSSHAIR),
             Map.entry(VanillaGuiLayers.HOTBAR, Manager.HOTBAR_GROUP),
             Map.entry(VanillaGuiLayers.PLAYER_HEALTH, Manager.HOTBAR_GROUP),
@@ -39,22 +39,22 @@ public class Main {
             Map.entry(VanillaGuiLayers.SUBTITLE_OVERLAY, Manager.CLOSED_CAPTION)
     );
 
-    private static void modifyElement(RegisterGuiLayersEvent event) {
-        for (var Element : Category.entrySet()) {
-            event.wrapLayer(
-                Element.getKey(), original -> (instance, delta) -> {
-                    if (Element.getValue().apply(instance))
-                        original.render(instance, delta);
-                    instance.pose().popMatrix();
+    private static void modifyElement(RegisterGuiLayersEvent Modifier) {
+        for (var Element : CATEGORY.entrySet()) {
+            Modifier.wrapLayer(
+                Element.getKey(), Original -> (Instance, DeltaTick) -> {
+                    if (Element.getValue().apply(Instance))
+                        Original.render(Instance, DeltaTick);
+                    Instance.pose().popMatrix();
                     Manager.CURRENT_SIZE = 100;
                 }
             );
         }
     }
 
-    public Main(ModContainer instance, IEventBus event) {
-        instance.registerConfig(ModConfig.Type.CLIENT, Manager.SPEC);
-        instance.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-        event.addListener(Main::modifyElement);
+    public Main(ModContainer Instance, IEventBus Event) {
+        Instance.registerConfig(ModConfig.Type.CLIENT, Manager.CONFIG_SPEC);
+        Instance.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        Event.addListener(Main::modifyElement);
     }
 }

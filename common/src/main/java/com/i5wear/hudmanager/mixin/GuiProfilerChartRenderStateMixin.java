@@ -10,6 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class GuiProfilerChartRenderStateMixin {
 
     @ModifyReturnValue(method = "scale", at = @At("TAIL"))
-    private float syncProfilerSize(float original) { return original * Manager.DEBUG_SCREEN.Size.get() / 100; }
+    private float syncProfilerSize(float Original) { return Original * Manager.DEBUG_SCREEN.Size.get() / 100; }
 
 }

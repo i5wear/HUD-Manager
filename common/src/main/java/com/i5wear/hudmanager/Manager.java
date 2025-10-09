@@ -26,7 +26,7 @@ public class Manager {
     public static final Manager STATUS_EFFECT = new Manager("Status_Effect");
     public static final Manager TOAST = new Manager("Toast");
     public static final Manager TOOLTIP = new Manager("Tooltip");
-    public static final ModConfigSpec SPEC = BUILDER.build();
+    public static final ModConfigSpec CONFIG_SPEC = BUILDER.build();
 
     private Manager(String Name) {
         Show = BUILDER.define(Name + ".Show", true);
@@ -35,11 +35,11 @@ public class Manager {
         PosY = BUILDER.defineInRange(Name + ".PosY", 0, -100, +100);
     }
 
-    public boolean apply(GuiGraphics instance) {
+    public boolean apply(GuiGraphics Instance) {
         Manager.CURRENT_SIZE = Size.get();
-        instance.pose().pushMatrix();
-        instance.pose().scale(0.01f * Size.get());
-        instance.pose().translate(0.01f * PosX.get() * instance.guiWidth(), 0.01f * PosY.get() * instance.guiHeight());
+        Instance.pose().pushMatrix();
+        Instance.pose().scale(0.01f * Size.get());
+        Instance.pose().translate(0.01f * PosX.get() * Instance.guiWidth(), 0.01f * PosY.get() * Instance.guiHeight());
         return Show.get() && Size.get() > 0;
     }
 }
