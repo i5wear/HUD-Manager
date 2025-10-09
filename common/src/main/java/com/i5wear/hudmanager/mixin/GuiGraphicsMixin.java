@@ -37,10 +37,10 @@ public abstract class GuiGraphicsMixin {
     @WrapMethod(method = "submitProfilerChartRenderState")
     private void modifyProfiler(List<ResultField> list, int PosX1, int PosY1, int PosX2, int PosY2, Operation<Void> original) {
         GuiGraphics instance = (GuiGraphics)(Object) this;
-        PosX1 = Manager.DEBUG_SCREEN.Size.get() * (PosX1 + Manager.DEBUG_SCREEN.PosX.get() * instance.guiWidth() / 100) / 100;
-        PosX2 = Manager.DEBUG_SCREEN.Size.get() * (PosX2 + Manager.DEBUG_SCREEN.PosX.get() * instance.guiWidth() / 100) / 100;
-        PosY1 = Manager.DEBUG_SCREEN.Size.get() * (PosY1 + Manager.DEBUG_SCREEN.PosY.get() * instance.guiHeight() / 100) / 100;
-        PosY2 = Manager.DEBUG_SCREEN.Size.get() * (PosY2 + Manager.DEBUG_SCREEN.PosY.get() * instance.guiHeight() / 100) / 100;
+        PosX1 = (PosX1 + instance.guiWidth() * Manager.DEBUG_SCREEN.PosX.get() / 100) * Manager.DEBUG_SCREEN.Size.get() / 100;
+        PosX2 = (PosX2 + instance.guiWidth() * Manager.DEBUG_SCREEN.PosX.get() / 100) * Manager.DEBUG_SCREEN.Size.get() / 100;
+        PosY1 = (PosY1 + instance.guiHeight() * Manager.DEBUG_SCREEN.PosY.get() / 100) * Manager.DEBUG_SCREEN.Size.get() / 100;
+        PosY2 = (PosY2 + instance.guiHeight() * Manager.DEBUG_SCREEN.PosY.get() / 100) * Manager.DEBUG_SCREEN.Size.get() / 100;
         original.call(list, PosX1, PosY1, PosX2, PosY2);
     }
 }
