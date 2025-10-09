@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class WindowMixin {
 
     @ModifyReturnValue(method = "getGuiScaledWidth", at = @At("TAIL"))
-    private int syncScreenWidth(int original) { return 100 * original / Manager.CURRENT_SIZE; }
+    private int syncScreenWidth(int Original) { return 100 * Original / Manager.CURRENT_SIZE; }
 
     @ModifyReturnValue(method = "getGuiScaledHeight", at = @At("TAIL"))
-    private int syncScreenHeight(int original) { return 100 * original / Manager.CURRENT_SIZE; }
+    private int syncScreenHeight(int Original) { return 100 * Original / Manager.CURRENT_SIZE; }
 
 }

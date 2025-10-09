@@ -17,7 +17,7 @@ import java.util.Map;
 @Environment(EnvType.CLIENT)
 public class Main implements ClientModInitializer {
 
-    private static final Map<ResourceLocation, Manager> Category = Map.ofEntries(
+    private static final Map<ResourceLocation, Manager> CATEGORY = Map.ofEntries(
             Map.entry(IdentifiedLayer.CROSSHAIR, Manager.CROSSHAIR),
             Map.entry(IdentifiedLayer.HOTBAR_AND_BARS, Manager.HOTBAR_GROUP),
             Map.entry(IdentifiedLayer.EXPERIENCE_LEVEL, Manager.HOTBAR_GROUP),
@@ -32,14 +32,14 @@ public class Main implements ClientModInitializer {
     );
     
     private static void modifyElement() {
-        for (var Element : Category.entrySet()) {
+        for (var Element : Main.CATEGORY.entrySet()) {
             HudLayerRegistrationCallback.EVENT.register(
-                wrapper -> wrapper.replaceLayer(
-                    Element.getKey(), original -> IdentifiedLayer.of(
-                        Element.getKey(), (instance, delta) -> {
-                            if (Element.getValue().apply(instance))
-                                original.render(instance, delta);
-                            instance.pose().popPose();
+                Modifier -> Modifier.replaceLayer(
+                    Element.getKey(), Original -> IdentifiedLayer.of(
+                        Original.id(), (Instance, DeltaTick) -> {
+                            if (Element.getValue().apply(Instance))
+                                Original.render(Instance, DeltaTick);
+                            Instance.pose().popPose();
                             Manager.CURRENT_SIZE = 100;
                         }
                     )
@@ -49,7 +49,7 @@ public class Main implements ClientModInitializer {
     }
 
     @Override public void onInitializeClient() {
-        ConfigRegistry.INSTANCE.register(Manager.MOD_ID, ModConfig.Type.CLIENT, Manager.SPEC);
+        ConfigRegistry.INSTANCE.register(Manager.MOD_ID, ModConfig.Type.CLIENT, Manager.CONFIG_SPEC);
         ConfigScreenFactoryRegistry.INSTANCE.register(Manager.MOD_ID, (parent, screen) -> new ConfigurationScreen(Manager.MOD_ID, screen));
         Main.modifyElement();
     }

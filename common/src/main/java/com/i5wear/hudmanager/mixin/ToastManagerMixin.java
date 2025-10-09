@@ -11,10 +11,10 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class ToastManagerMixin {
 
     @WrapMethod(method = "render")
-    private void modifyToast(GuiGraphics instance, Operation<Void> original) {
-        if (Manager.TOAST.apply(instance))
-            original.call(instance);
-        instance.pose().popPose();
+    private void modifyToast(GuiGraphics Instance, Operation<Void> Original) {
+        if (Manager.TOAST.apply(Instance))
+            Original.call(Instance);
+        Instance.pose().popPose();
         Manager.CURRENT_SIZE = 100;
     }
 }
