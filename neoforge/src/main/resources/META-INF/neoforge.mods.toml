@@ -1,3 +1,4 @@
+modLoader="javafml"
 issueTrackerURL = "https://github.com/i5wear/HUD-Manager/issues"
 license = "MIT"
 
@@ -9,6 +10,13 @@ displayURL = "https://modrinth.com/mod/HUD-Manager"
 authors = "i5wear"
 description = '''Manages HUD elements gracefully.'''
 logoFile = "assets/hudmanager/icon.png"
+
+[[dependencies.hudmanager]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.7,)"
+ordering = "NONE"
+side = "BOTH"
 
 [[dependencies.hudmanager]]
 modId = "minecraft"
