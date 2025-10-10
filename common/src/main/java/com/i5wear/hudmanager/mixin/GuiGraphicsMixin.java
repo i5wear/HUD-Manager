@@ -24,14 +24,14 @@ public abstract class GuiGraphicsMixin {
 
     @WrapOperation(method = "setTooltipForNextFrameInternal", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/GuiGraphics;deferredTooltip:Ljava/lang/Runnable;", opcode = Opcodes.PUTFIELD))
     private void modifyTooltip(GuiGraphics Instance, Runnable Tooltip, Operation<Void> Original) {
-        Runnable OriginalTooltip = Tooltip;
-        Tooltip = () -> {
-            if (Manager.TOOLTIP.apply(Instance))
-                OriginalTooltip.run();
-            Instance.pose().popMatrix();
-            Manager.CURRENT_SIZE = 100;
-        };
-        Original.call(Instance, Tooltip);
+        Original.call(
+            Instance, (Runnable) () -> {
+                if (Manager.TOOLTIP.apply(Instance))
+                    Tooltip.run();
+                Instance.pose().popMatrix();
+                Manager.CURRENT_SIZE = 100;
+            }
+        );
     }
 
     @WrapMethod(method = "submitProfilerChartRenderState")

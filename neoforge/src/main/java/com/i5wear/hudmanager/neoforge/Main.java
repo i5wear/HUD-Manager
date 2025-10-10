@@ -52,9 +52,9 @@ public class Main {
         }
     }
 
-    public Main(ModContainer Instance, IEventBus Event) {
+    public Main(ModContainer Instance, IEventBus Subscriber) {
         Instance.registerConfig(ModConfig.Type.CLIENT, Manager.CONFIG_SPEC);
         Instance.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-        Event.addListener(Main::modifyElement);
+        Subscriber.addListener(Main::modifyElement);
     }
 }
