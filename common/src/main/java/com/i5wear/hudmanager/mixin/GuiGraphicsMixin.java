@@ -35,7 +35,7 @@ public abstract class GuiGraphicsMixin {
     }
 
     @WrapMethod(method = "submitProfilerChartRenderState")
-    private void modifyProfiler(List<ResultField> list, int PosX1, int PosY1, int PosX2, int PosY2, Operation<Void> Original) {
+    private void modifyProfilerChart(List<ResultField> list, int PosX1, int PosY1, int PosX2, int PosY2, Operation<Void> Original) {
         GuiGraphics Instance = (GuiGraphics)(Object) this;
         PosX1 = (PosX1 + Instance.guiWidth() * Manager.DEBUG_SCREEN.PosX.get() / 100) * Manager.DEBUG_SCREEN.Size.get() / 100;
         PosX2 = (PosX2 + Instance.guiWidth() * Manager.DEBUG_SCREEN.PosX.get() / 100) * Manager.DEBUG_SCREEN.Size.get() / 100;
