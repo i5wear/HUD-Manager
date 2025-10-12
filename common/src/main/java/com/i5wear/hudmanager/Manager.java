@@ -6,12 +6,14 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 public class Manager {
 
     public ModConfigSpec.BooleanValue Show;
-    public ModConfigSpec.IntValue Size;
+    public ModConfigSpec.IntValue Scale;
+    public ModConfigSpec.IntValue Alpha;
     public ModConfigSpec.IntValue PosX;
     public ModConfigSpec.IntValue PosY;
 
     public static final String MOD_ID = "hudmanager";
-    public static volatile int CURRENT_SIZE = 100;
+    public static volatile int CURRENT_SCALE = 100;
+    public static volatile int CURRENT_ALPHA = 100;
 
     public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final Manager ACTION_BAR = new Manager("Action_Bar");
@@ -30,16 +32,24 @@ public class Manager {
 
     private Manager(String Name) {
         Show = BUILDER.define(Name + ".Show", true);
-        Size = BUILDER.defineInRange(Name + ".Size", 100, 0, 200);
+        Scale = BUILDER.defineInRange(Name + ".Scale", 100, 0, 200);
+        Alpha = BUILDER.defineInRange(Name + ".Alpha", 100, 0, 200);
         PosX = BUILDER.defineInRange(Name + ".PosX", 0, -100, +100);
         PosY = BUILDER.defineInRange(Name + ".PosY", 0, -100, +100);
     }
 
     public boolean apply(GuiGraphics Instance) {
-        Manager.CURRENT_SIZE = Size.get();
+        CURRENT_SCALE = Scale.get();
+        CURRENT_ALPHA = Alpha.get();
         Instance.pose().pushMatrix();
-        Instance.pose().scale(0.01f * Size.get());
+        Instance.pose().scale(0.01f * Scale.get());
         Instance.pose().translate(0.01f * PosX.get() * Instance.guiWidth(), 0.01f * PosY.get() * Instance.guiHeight());
-        return Show.get() && Size.get() > 0;
+        return Show.get() && Scale.get() > 0;
+    }
+
+    public static void reset(GuiGraphics Instance) {
+        Instance.pose().popMatrix();
+        CURRENT_SCALE = 100;
+        CURRENT_ALPHA = 100;
     }
 }

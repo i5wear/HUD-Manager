@@ -10,11 +10,10 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(DebugScreenOverlay.class)
 public abstract class DebugScreenOverlayMixin {
 
-    @WrapMethod(method = "render")
+    @WrapMethod(method = "render*")
     private void modifyDebugScreen(GuiGraphics Instance, Operation<Void> Original) {
         if (Manager.DEBUG_SCREEN.apply(Instance))
             Original.call(Instance);
-        Instance.pose().popMatrix();
-        Manager.CURRENT_SIZE = 100;
+        Manager.reset(Instance);
     }
 }

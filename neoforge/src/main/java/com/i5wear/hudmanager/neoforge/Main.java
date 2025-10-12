@@ -40,13 +40,12 @@ public class Main {
     );
 
     private static void modifyElement(RegisterGuiLayersEvent Modifier) {
-        for (var Element : Main.CATEGORY.entrySet()) {
+        for (var Element : CATEGORY.entrySet()) {
             Modifier.wrapLayer(
                 Element.getKey(), Original -> (Instance, DeltaTick) -> {
                     if (Element.getValue().apply(Instance))
                         Original.render(Instance, DeltaTick);
-                    Instance.pose().popMatrix();
-                    Manager.CURRENT_SIZE = 100;
+                    Manager.reset(Instance);
                 }
             );
         }

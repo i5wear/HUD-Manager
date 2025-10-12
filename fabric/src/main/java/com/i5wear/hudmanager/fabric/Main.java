@@ -40,14 +40,14 @@ public class Main implements ClientModInitializer {
     );
     
     private static void modifyElement() {
-        for (var Element : Main.CATEGORY.entrySet()) {
+        for (var Element : CATEGORY.entrySet()) {
             HudElementRegistry.replaceElement(
                 Element.getKey(), Original -> (Instance, DeltaTick) -> {
                     if (Element.getValue().apply(Instance))
                         Original.render(Instance, DeltaTick);
-                    Instance.pose().popMatrix();
-                    if (Element.getKey() != VanillaHudElements.HOTBAR) // Patch
-                        Manager.CURRENT_SIZE = 100;
+                    if (Element.getKey() == VanillaHudElements.HOTBAR) // Patch
+                        Instance.pose().popMatrix();
+                    else Manager.reset(Instance);
                 }
             );
         }
@@ -56,6 +56,6 @@ public class Main implements ClientModInitializer {
     @Override public void onInitializeClient() {
         ConfigRegistry.INSTANCE.register(Manager.MOD_ID, ModConfig.Type.CLIENT, Manager.CONFIG_SPEC);
         ConfigScreenFactoryRegistry.INSTANCE.register(Manager.MOD_ID, (Parent, Screen) -> new ConfigurationScreen(Manager.MOD_ID, Screen));
-        Main.modifyElement();
+        modifyElement();
     }
 }
