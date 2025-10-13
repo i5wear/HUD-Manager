@@ -8,9 +8,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(GuiTextRenderState.class)
-public class GuiTextRenderStateMixin {
+public abstract class GuiTextRenderStateMixin {
 
     @ModifyVariable(method = "<init>", at = @At("CTOR_HEAD"), ordinal = 2, argsOnly = true)
-    private int syncTextAlpha(int original) { return ARGB.color(Math.min(ARGB.alpha(original) * Manager.CURRENT_ALPHA / 100, 255), original); }
+    private int syncTextTextureAlpha(int original) { return ARGB.color(Math.min(ARGB.alpha(original) * Manager.CURRENT_ALPHA / 100, 255), original); }
 
 }

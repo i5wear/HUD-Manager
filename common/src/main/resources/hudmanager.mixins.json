@@ -5,9 +5,9 @@
     "DebugScreenOverlayMixin",
     "GuiGraphicsMixin",
     "GuiItemRenderStateMixin",
-    "GuiProfilerChartRenderStateMixin",
     "GuiRendererMixin",
     "GuiTextRenderStateMixin",
+    "PictureInPictureRendererMixin",
     "ToastManagerMixin",
     "WindowMixin"
   ]

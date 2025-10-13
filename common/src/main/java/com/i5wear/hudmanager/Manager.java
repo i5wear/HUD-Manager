@@ -38,18 +38,18 @@ public class Manager {
         PosY = BUILDER.defineInRange(Name + ".PosY", 0, -100, +100);
     }
 
-    public boolean apply(GuiGraphics Instance) {
+    public boolean apply(GuiGraphics Target) {
         CURRENT_SCALE = Scale.get();
         CURRENT_ALPHA = Alpha.get();
-        Instance.pose().pushMatrix();
-        Instance.pose().scale(0.01f * Scale.get(), 0.01f * Scale.get());
-        Instance.pose().translate(0.01f * PosX.get() * Instance.guiWidth(), 0.01f * PosY.get() * Instance.guiHeight());
+        Target.pose().pushMatrix();
+        Target.pose().scale(0.01f * Scale.get(), 0.01f * Scale.get());
+        Target.pose().translate(0.01f * PosX.get() * Target.guiWidth(), 0.01f * PosY.get() * Target.guiHeight());
         return Show.get() && Scale.get() > 0;
     }
 
-    public static void reset(GuiGraphics Instance) {
+    public static void reset(GuiGraphics Target) {
         CURRENT_SCALE = 100;
         CURRENT_ALPHA = 100;
-        Instance.pose().popMatrix();
+        Target.pose().popMatrix();
     }
 }
