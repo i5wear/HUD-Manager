@@ -7,6 +7,8 @@ HUD Manager makes your screen satisfying, by providing options of almost every H
 
 Especially useful when playing in servers with tons of things on the screen, like MCC Island.
 
+Compatible with Apple Skin, Better F3, Shulker Box Tooltip, hopefully all the popular mods!
+
 ## Feature: All in One
 
 With this single mod, You can manage everything on your screen properly via mod menu.
