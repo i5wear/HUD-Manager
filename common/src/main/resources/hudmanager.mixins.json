@@ -2,11 +2,11 @@
   "required": true,
   "package": "com.i5wear.hudmanager.mixin",
   "client": [
-    "BlitRenderStateMixin",
-    "ColoredRectangleRenderStateMixin",
     "DebugScreenOverlayMixin",
     "GuiGraphicsMixin",
+    "GuiItemRenderStateMixin",
     "GuiProfilerChartRenderStateMixin",
+    "GuiRendererMixin",
     "GuiTextRenderStateMixin",
     "ToastManagerMixin",
     "WindowMixin"

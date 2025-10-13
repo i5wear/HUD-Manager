@@ -42,20 +42,20 @@ public class Main implements ClientModInitializer {
     private static void modifyElement() {
         for (var Element : CATEGORY.entrySet()) {
             HudElementRegistry.replaceElement(
-                Element.getKey(), Original -> (Instance, DeltaTick) -> {
-                    if (Element.getValue().apply(Instance))
-                        Original.render(Instance, DeltaTick);
+                Element.getKey(), original -> (graphics, tracker) -> {
+                    if (Element.getValue().apply(graphics))
+                        original.render(graphics, tracker);
                     if (Element.getKey() == VanillaHudElements.HOTBAR) // Patch
-                        Instance.pose().popMatrix();
-                    else Manager.reset(Instance);
+                        graphics.pose().popMatrix();
+                    else Manager.reset(graphics);
                 }
             );
         }
     }
 
     @Override public void onInitializeClient() {
-        ConfigRegistry.INSTANCE.register(Manager.MOD_ID, ModConfig.Type.CLIENT, Manager.CONFIG_SPEC);
-        ConfigScreenFactoryRegistry.INSTANCE.register(Manager.MOD_ID, (Parent, Screen) -> new ConfigurationScreen(Manager.MOD_ID, Screen));
+        ConfigRegistry.INSTANCE.register(Manager.IDENTITY, ModConfig.Type.CLIENT, Manager.CONFIG);
+        ConfigScreenFactoryRegistry.INSTANCE.register(Manager.IDENTITY, (Parent, Screen) -> new ConfigurationScreen(Manager.IDENTITY, Screen));
         modifyElement();
     }
 }

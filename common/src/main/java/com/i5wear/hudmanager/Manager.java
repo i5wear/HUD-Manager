@@ -11,7 +11,7 @@ public class Manager {
     public ModConfigSpec.IntValue PosX;
     public ModConfigSpec.IntValue PosY;
 
-    public static final String MOD_ID = "hudmanager";
+    public static final String IDENTITY = "hudmanager";
     public static volatile int CURRENT_SCALE = 100;
     public static volatile int CURRENT_ALPHA = 100;
 
@@ -28,7 +28,7 @@ public class Manager {
     public static final Manager STATUS_EFFECT = new Manager("Status_Effect");
     public static final Manager TOAST = new Manager("Toast");
     public static final Manager TOOLTIP = new Manager("Tooltip");
-    public static final ModConfigSpec CONFIG_SPEC = BUILDER.build();
+    public static final ModConfigSpec CONFIG = BUILDER.build();
 
     private Manager(String Name) {
         Show = BUILDER.define(Name + ".Show", true);
@@ -42,14 +42,14 @@ public class Manager {
         CURRENT_SCALE = Scale.get();
         CURRENT_ALPHA = Alpha.get();
         Instance.pose().pushMatrix();
-        Instance.pose().scale(0.01f * Scale.get());
+        Instance.pose().scale(0.01f * Scale.get(), 0.01f * Scale.get());
         Instance.pose().translate(0.01f * PosX.get() * Instance.guiWidth(), 0.01f * PosY.get() * Instance.guiHeight());
         return Show.get() && Scale.get() > 0;
     }
 
     public static void reset(GuiGraphics Instance) {
-        Instance.pose().popMatrix();
         CURRENT_SCALE = 100;
         CURRENT_ALPHA = 100;
+        Instance.pose().popMatrix();
     }
 }

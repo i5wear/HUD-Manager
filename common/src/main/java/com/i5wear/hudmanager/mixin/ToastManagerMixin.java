@@ -10,10 +10,10 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(ToastManager.class)
 public abstract class ToastManagerMixin {
 
-    @WrapMethod(method = "render*")
-    private void modifyToast(GuiGraphics Instance, Operation<Void> Original) {
-        if (Manager.TOAST.apply(Instance))
-            Original.call(Instance);
-        Manager.reset(Instance);
+    @WrapMethod(method = "render")
+    private void modifyToast(GuiGraphics graphics, Operation<Void> original) {
+        if (Manager.TOAST.apply(graphics))
+            original.call(graphics);
+        Manager.reset(graphics);
     }
 }

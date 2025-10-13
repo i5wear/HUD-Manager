@@ -14,7 +14,7 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 import java.util.Map;
 
-@Mod(value = Manager.MOD_ID, dist = Dist.CLIENT)
+@Mod(value = Manager.IDENTITY, dist = Dist.CLIENT)
 public class Main {
 
     private static final Map<ResourceLocation, Manager> CATEGORY = Map.ofEntries(
@@ -39,21 +39,21 @@ public class Main {
             Map.entry(VanillaGuiLayers.SUBTITLE_OVERLAY, Manager.CLOSED_CAPTION)
     );
 
-    private static void modifyElement(RegisterGuiLayersEvent Modifier) {
+    private static void modifyElement(RegisterGuiLayersEvent event) {
         for (var Element : CATEGORY.entrySet()) {
-            Modifier.wrapLayer(
-                Element.getKey(), Original -> (Instance, DeltaTick) -> {
-                    if (Element.getValue().apply(Instance))
-                        Original.render(Instance, DeltaTick);
-                    Manager.reset(Instance);
+            event.wrapLayer(
+                Element.getKey(), original -> (graphics, tracker) -> {
+                    if (Element.getValue().apply(graphics))
+                        original.render(graphics, tracker);
+                    Manager.reset(graphics);
                 }
             );
         }
     }
 
-    public Main(ModContainer Instance, IEventBus Subscriber) {
-        Instance.registerConfig(ModConfig.Type.CLIENT, Manager.CONFIG_SPEC);
-        Instance.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-        Subscriber.addListener(Main::modifyElement);
+    public Main(ModContainer container, IEventBus event) {
+        container.registerConfig(ModConfig.Type.CLIENT, Manager.CONFIG);
+        container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        event.addListener(Main::modifyElement);
     }
 }
