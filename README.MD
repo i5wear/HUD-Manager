@@ -1,8 +1,8 @@
 # HUD Manager
 
 [![CurseForge](http://cf.way2muchnoise.eu/full_1351618_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/hud-manager)
-[![Modrinth](https://img.shields.io/modrinth/dt/hbUrCPGQ?color=00cc00&label=modrinth%20downloads)](https://modrinth.com/mod/hud-manager)
-[![GitHub Release](https://img.shields.io/github/v/release/i5wear/hud-manager)](https://github.com/i5wear/hud-manager)
+[![Modrinth](https://img.shields.io/modrinth/dt/hbUrCPGQ?color=00bb00&label=modrinth%20downloads)](https://modrinth.com/mod/hud-manager)
+[![GitHub Release](https://img.shields.io/github/v/release/i5wear/hud-manager?label=latest%20release)](https://github.com/i5wear/hud-manager)
 
 HUD Manager makes your screen satisfying, by providing options of almost every HUD element.
 
