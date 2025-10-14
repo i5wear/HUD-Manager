@@ -20,7 +20,7 @@ public abstract class PictureInPictureRendererMixin {
         return !(instance instanceof GuiProfilerChartRenderState) ? original : new BlitRenderState(
             original.pipeline(), original.textureSetup(), new Matrix3x2f().scale(0.01f * Manager.DEBUG_SCREEN.Scale.get()),
             original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
-            ARGB.color(Math.min(255 * Manager.DEBUG_SCREEN.Alpha.get() / 100, 255), -1), original.scissorArea()
+            ARGB.color(Math.min(255 * Manager.DEBUG_SCREEN.Opacity.get() / 100, 255), -1), original.scissorArea()
         );
     }
 }

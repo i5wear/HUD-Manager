@@ -14,16 +14,16 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class GuiGraphicsMixin {
 
     @ModifyVariable(method = "submitBlit", at = @At("HEAD"), ordinal = 4, argsOnly = true)
-    private int syncTextureAlpha1(int original) { return ARGB.color(Math.min(ARGB.alpha(original) * Manager.CURRENT_ALPHA / 100, 255), original); }
+    private int syncTextureAlpha1(int original) { return ARGB.color(Math.min(ARGB.alpha(original) * Manager.CURRENT_OPACITY / 100, 255), original); }
 
     @ModifyVariable(method = "submitTiledBlit", at = @At("HEAD"), ordinal = 6, argsOnly = true)
-    private int syncTextureAlpha2(int original) { return ARGB.color(Math.min(ARGB.alpha(original) * Manager.CURRENT_ALPHA / 100, 255), original); }
+    private int syncTextureAlpha2(int original) { return ARGB.color(Math.min(ARGB.alpha(original) * Manager.CURRENT_OPACITY / 100, 255), original); }
 
     @ModifyVariable(method = "submitColoredRectangle", at = @At("HEAD"), ordinal = 4, argsOnly = true)
-    private int syncBackgroundAlpha1(int original) { return ARGB.color(Math.min(ARGB.alpha(original) * Manager.CURRENT_ALPHA / 100, 255), original); }
+    private int syncBackgroundAlpha1(int original) { return ARGB.color(Math.min(ARGB.alpha(original) * Manager.CURRENT_OPACITY / 100, 255), original); }
 
     @ModifyVariable(method = "submitColoredRectangle", at = @At("HEAD"), ordinal = 5, argsOnly = true)
-    private int syncBackgroundAlpha2(int original) { return ARGB.color(Math.min(ARGB.alpha(original) * Manager.CURRENT_ALPHA / 100, 255), original); }
+    private int syncBackgroundAlpha2(int original) { return ARGB.color(Math.min(ARGB.alpha(original) * Manager.CURRENT_OPACITY / 100, 255), original); }
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private int syncTooltipPosX(int original) { return 100 * original / Manager.TOOLTIP.Scale.get(); }

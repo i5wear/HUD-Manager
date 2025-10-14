@@ -5,15 +5,16 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class Manager {
 
-    public ModConfigSpec.BooleanValue Show;
+    public ModConfigSpec.BooleanValue Render;
+    public ModConfigSpec.BooleanValue Capture;
     public ModConfigSpec.IntValue Scale;
-    public ModConfigSpec.IntValue Alpha;
-    public ModConfigSpec.IntValue PosX;
-    public ModConfigSpec.IntValue PosY;
+    public ModConfigSpec.IntValue Opacity;
+    public ModConfigSpec.IntValue OffsetX;
+    public ModConfigSpec.IntValue OffsetY;
 
     public static final String IDENTITY = "hudmanager";
     public static volatile int CURRENT_SCALE = 100;
-    public static volatile int CURRENT_ALPHA = 100;
+    public static volatile int CURRENT_OPACITY = 100;
 
     public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final Manager ACTION_BAR = new Manager("Action_Bar");
@@ -31,25 +32,26 @@ public class Manager {
     public static final ModConfigSpec CONFIG = BUILDER.build();
 
     private Manager(String Name) {
-        Show = BUILDER.define(Name + ".Show", true);
+        Render = BUILDER.define(Name + ".Render", true);
+        Capture = BUILDER.define(Name + ".Capture", true);
         Scale = BUILDER.defineInRange(Name + ".Scale", 100, 0, 200);
-        Alpha = BUILDER.defineInRange(Name + ".Alpha", 100, 0, 200);
-        PosX = BUILDER.defineInRange(Name + ".PosX", 0, -100, +100);
-        PosY = BUILDER.defineInRange(Name + ".PosY", 0, -100, +100);
+        Opacity = BUILDER.defineInRange(Name + ".Opacity", 100, 0, 200);
+        OffsetX = BUILDER.defineInRange(Name + ".OffsetX", 0, -100, +100);
+        OffsetY = BUILDER.defineInRange(Name + ".OffsetY", 0, -100, +100);
     }
 
     public boolean apply(GuiGraphics Target) {
         CURRENT_SCALE = Scale.get();
-        CURRENT_ALPHA = Alpha.get();
+        CURRENT_OPACITY = Opacity.get();
         Target.pose().pushMatrix();
         Target.pose().scale(0.01f * Scale.get(), 0.01f * Scale.get());
-        Target.pose().translate(0.01f * PosX.get() * Target.guiWidth(), 0.01f * PosY.get() * Target.guiHeight());
-        return Show.get() && Scale.get() > 0;
+        Target.pose().translate(0.01f * OffsetX.get() * Target.guiWidth(), 0.01f * OffsetY.get() * Target.guiHeight());
+        return Render.get() && Scale.get() > 0;
     }
 
     public static void reset(GuiGraphics Target) {
         CURRENT_SCALE = 100;
-        CURRENT_ALPHA = 100;
+        CURRENT_OPACITY = 100;
         Target.pose().popMatrix();
     }
 }

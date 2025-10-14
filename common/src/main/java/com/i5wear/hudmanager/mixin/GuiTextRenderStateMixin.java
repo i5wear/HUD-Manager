@@ -11,6 +11,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class GuiTextRenderStateMixin {
 
     @ModifyVariable(method = "<init>", at = @At("CTOR_HEAD"), ordinal = 2, argsOnly = true)
-    private int syncTextTextureAlpha(int original) { return ARGB.color(Math.min(ARGB.alpha(original) * Manager.CURRENT_ALPHA / 100, 255), original); }
+    private int syncTextTextureAlpha(int original) { return ARGB.color(Math.min(ARGB.alpha(original) * Manager.CURRENT_OPACITY / 100, 255), original); }
 
 }

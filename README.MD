@@ -23,10 +23,14 @@ Player List, Scoreboard Sidebar, Screen Title, Status Effect, Toast, Tooltip.
 
 **All the configurable render states include:**
 
-Show - Determines whether to show on screen (OFF/ON, ON in default).
+Render - Determines whether to render on screen (OFF/ON, ON in default).
+
+Capture - Determines whether to show in screenshot (OFF/ON, ON in default).
 
 Scale - Multiplies to vanilla GUI scale (0% - 200%, 100% in default).
 
-Alpha - Multiplies to vanilla GUI alpha (0% - 200%, 100% in default).
+Opacity - Multiplies to vanilla GUI opacity (0% - 200%, 100% in default).
 
-PosX/Y - Adds to vanilla GUI position (-100% - +100%, 0% in default).
+X Offset - Adds to vanilla GUI position (-100% - +100%, 0% in default).
+
+Y Offset - Adds to vanilla GUI position (-100% - +100%, 0% in default).
