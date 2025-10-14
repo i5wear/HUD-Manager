@@ -8,7 +8,7 @@ HUD Manager的整个实现都仅对界面渲染的“准备过程”作修改，
 
 各界面元素通过`render`方法启动渲染，通过参数`GuiGraphics`控制大小、位置与图层，并绘制形状、文字和物品等纹理。
 
-`GuiGraphics.pose`字段存储矩阵`Matrix3x2f`，通过`Matrix3x2f#scale`和`Matrix3x2f#translate`方法可以实现缩放和移动。
+`GuiGraphics.pose`字段存储矩阵栈`Matrix3x2fStack`，通过其`scale`和`translate`方法可以实现界面元素的缩放和移动。
 
 其中缩放是以屏幕左上角为中心的，通过放缩`Window.guiScaledWidth`和`Window.guiScaledHeight`，就可以保持位置的正确。
 
@@ -16,7 +16,7 @@ HUD Manager的整个实现都仅对界面渲染的“准备过程”作修改，
 
 ## GuiRenderState
 
-`GuiGraphics`最终将数据提交给`GuiRenderState`，其接受并通过`pose`和`color`字段存储后续渲染所需的数据，但有例外：
+`GuiGraphics`最终将数据提交给`GuiRenderState`，其接受并通过`pose`和`color`字段存储后续渲染所需数据，但有例外。
 
 渲染物品的`GuiItemRenderState`没有`color`字段，其信息由`GuiItemRenderStateMixin.STORED_COLOR`补充。
 
@@ -26,8 +26,8 @@ HUD Manager的整个实现都仅对界面渲染的“准备过程”作修改，
 
 `GuiRenderState`将由`GuiRenderer`处理，其中上述数据将被渲染为实际的纹理，再次提交给`GuiRenderState`。
 
-`GuiRenderer#submitBlitFromItemAtlas`方法将`GuiItemRenderState`转换为`BlitRenderState`。
+`GuiRenderer#submitBlitFromItemAtlas`方法最终将`GuiItemRenderState`转换为`BlitRenderState`。
 
-`PictureInPictureRenderer#blitTexture`方法将`GuiProfilerChartRenderState`转换为`BlitRenderState`。
+`PictureInPictureRenderer#blitTexture`方法最终将`GuiProfilerChartRenderState`转换为`BlitRenderState`。
 
 通过改变上述方法所得`BlitRenderState`的值，就可将物品和饼图也给予正确的大小、位置和颜色，实现完整功能。
