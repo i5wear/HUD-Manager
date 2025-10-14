@@ -5,11 +5,11 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class Manager {
 
-    public ModConfigSpec.BooleanValue State;
-    public ModConfigSpec.IntValue Scale;
-    public ModConfigSpec.IntValue Opacity;
-    public ModConfigSpec.IntValue OffsetX;
-    public ModConfigSpec.IntValue OffsetY;
+    public ModConfigSpec.ConfigValue<Boolean> State;
+    public ModConfigSpec.ConfigValue<Integer> Scale;
+    public ModConfigSpec.ConfigValue<Integer> Opacity;
+    public ModConfigSpec.ConfigValue<Integer> OffsetX;
+    public ModConfigSpec.ConfigValue<Integer> OffsetY;
 
     public static final String IDENTITY = "hudmanager";
     public static volatile int CURRENT_SCALE = 100;
