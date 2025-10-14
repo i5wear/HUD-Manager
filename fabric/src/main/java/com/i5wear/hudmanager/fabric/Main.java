@@ -39,7 +39,7 @@ public class Main implements ClientModInitializer {
             Map.entry(VanillaHudElements.SUBTITLES, Manager.CLOSED_CAPTION)
     );
     
-    private static void modifyElement() {
+    private static void registerModifier() {
         for (var Element : CATEGORY.entrySet()) {
             HudElementRegistry.replaceElement(
                 Element.getKey(), original -> (graphics, tracker) -> {
@@ -56,6 +56,6 @@ public class Main implements ClientModInitializer {
     @Override public void onInitializeClient() {
         ConfigRegistry.INSTANCE.register(Manager.IDENTITY, ModConfig.Type.CLIENT, Manager.CONFIG);
         ConfigScreenFactoryRegistry.INSTANCE.register(Manager.IDENTITY, (Parent, Screen) -> new ConfigurationScreen(Manager.IDENTITY, Screen));
-        modifyElement();
+        registerModifier();
     }
 }

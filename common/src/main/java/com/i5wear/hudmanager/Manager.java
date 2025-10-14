@@ -5,8 +5,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class Manager {
 
-    public ModConfigSpec.BooleanValue Render;
-    public ModConfigSpec.BooleanValue Capture;
+    public ModConfigSpec.BooleanValue State;
     public ModConfigSpec.IntValue Scale;
     public ModConfigSpec.IntValue Opacity;
     public ModConfigSpec.IntValue OffsetX;
@@ -32,8 +31,7 @@ public class Manager {
     public static final ModConfigSpec CONFIG = BUILDER.build();
 
     private Manager(String Name) {
-        Render = BUILDER.define(Name + ".Render", true);
-        Capture = BUILDER.define(Name + ".Capture", true);
+        State = BUILDER.define(Name + ".State", true);
         Scale = BUILDER.defineInRange(Name + ".Scale", 100, 0, 200);
         Opacity = BUILDER.defineInRange(Name + ".Opacity", 100, 0, 200);
         OffsetX = BUILDER.defineInRange(Name + ".OffsetX", 0, -100, +100);
@@ -46,7 +44,7 @@ public class Manager {
         Target.pose().pushMatrix();
         Target.pose().scale(0.01f * Scale.get(), 0.01f * Scale.get());
         Target.pose().translate(0.01f * OffsetX.get() * Target.guiWidth(), 0.01f * OffsetY.get() * Target.guiHeight());
-        return Render.get() && Scale.get() > 0;
+        return State.get() && Scale.get() > 0;
     }
 
     public static void reset(GuiGraphics Target) {

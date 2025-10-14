@@ -39,7 +39,7 @@ public class Main {
             Map.entry(VanillaGuiLayers.SUBTITLE_OVERLAY, Manager.CLOSED_CAPTION)
     );
 
-    private static void modifyElement(RegisterGuiLayersEvent event) {
+    public static void registerModifier(RegisterGuiLayersEvent event) {
         for (var Element : CATEGORY.entrySet()) {
             event.wrapLayer(
                 Element.getKey(), original -> (graphics, tracker) -> {
@@ -54,6 +54,6 @@ public class Main {
     public Main(ModContainer container, IEventBus event) {
         container.registerConfig(ModConfig.Type.CLIENT, Manager.CONFIG);
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-        event.addListener(Main::modifyElement);
+        event.addListener(Main::registerModifier);
     }
 }

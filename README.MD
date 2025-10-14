@@ -24,9 +24,7 @@ Player List, Scoreboard Sidebar, Screen Title, Status Effect, Toast, Tooltip.
 
 **All the configurable render states include:**
 
-Render - Whether to render on screen (OFF/ON, ON in default).
-
-Capture - Whether to show in screenshot (OFF/ON, ON in default).
+State - Whether to show on screen (OFF/ON, ON in default).
 
 Scale - Multiplies to vanilla GUI scale (0% - 200%, 100% in default).
 
