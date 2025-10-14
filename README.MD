@@ -2,6 +2,7 @@
 
 [![CurseForge](http://cf.way2muchnoise.eu/full_1351618_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/hud-manager)
 [![Modrinth](https://img.shields.io/modrinth/dt/hbUrCPGQ?color=00cc00&label=modrinth%20downloads)](https://modrinth.com/mod/hud-manager)
+[![GitHub Release](https://img.shields.io/github/v/release/i5wear/hud-manager)](https://github.com/i5wear/hud-manager)
 
 HUD Manager makes your screen satisfying, by providing options of almost every HUD element.
 
@@ -23,14 +24,12 @@ Player List, Scoreboard Sidebar, Screen Title, Status Effect, Toast, Tooltip.
 
 **All the configurable render states include:**
 
-Render - Determines whether to render on screen (OFF/ON, ON in default).
+Render - Whether to render on screen (OFF/ON, ON in default).
 
-Capture - Determines whether to show in screenshot (OFF/ON, ON in default).
+Capture - Whether to show in screenshot (OFF/ON, ON in default).
 
 Scale - Multiplies to vanilla GUI scale (0% - 200%, 100% in default).
 
 Opacity - Multiplies to vanilla GUI opacity (0% - 200%, 100% in default).
 
-X Offset - Adds to vanilla GUI position (-100% - +100%, 0% in default).
-
-Y Offset - Adds to vanilla GUI position (-100% - +100%, 0% in default).
+X/Y Offset - Adds to vanilla GUI position (-100% - +100%, 0% in default).
