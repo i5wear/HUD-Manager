@@ -30,13 +30,9 @@ public class Manager {
     public static final Manager TOOLTIP = new Manager("Tooltip");
     public static final ModConfigSpec CONFIG = BUILDER.build();
 
-    private Manager(String Name) {
-        State = BUILDER.define(Name + ".State", true);
-        Scale = BUILDER.defineInRange(Name + ".Scale", 100, 0, 200);
-        Opacity = BUILDER.defineInRange(Name + ".Opacity", 100, 0, 200);
-        OffsetX = BUILDER.defineInRange(Name + ".OffsetX", 0, -100, +100);
-        OffsetY = BUILDER.defineInRange(Name + ".OffsetY", 0, -100, +100);
-    }
+    public static int modifyScreen(int Screen, int Scale) { return Scale == 0 ? Integer.MAX_VALUE : 100 * Screen / Scale; }
+
+    public static int modifyColor(int Color, int Opacity) { return Math.min(Opacity * (Color >>> 24) / 100, 255) << 24 | Color & 0xFFFFFF; }
 
     public boolean apply(GuiGraphics Target) {
         CURRENT_SCALE = Scale.get();
@@ -44,12 +40,20 @@ public class Manager {
         Target.pose().pushMatrix();
         Target.pose().scale(0.01f * Scale.get(), 0.01f * Scale.get());
         Target.pose().translate(0.01f * OffsetX.get() * Target.guiWidth(), 0.01f * OffsetY.get() * Target.guiHeight());
-        return State.get() && Scale.get() > 0;
+        return State.get();
     }
 
     public static void reset(GuiGraphics Target) {
         CURRENT_SCALE = 100;
         CURRENT_OPACITY = 100;
         Target.pose().popMatrix();
+    }
+
+    private Manager(String Name) {
+        State = BUILDER.define(Name + ".State", true);
+        Scale = BUILDER.defineInRange(Name + ".Scale", 100, 0, 200);
+        Opacity = BUILDER.defineInRange(Name + ".Opacity", 100, 0, 200);
+        OffsetX = BUILDER.defineInRange(Name + ".OffsetX", 0, -100, +100);
+        OffsetY = BUILDER.defineInRange(Name + ".OffsetY", 0, -100, +100);
     }
 }

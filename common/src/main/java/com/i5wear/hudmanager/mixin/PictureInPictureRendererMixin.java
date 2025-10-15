@@ -6,7 +6,6 @@ import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
 import net.minecraft.client.gui.render.state.BlitRenderState;
 import net.minecraft.client.gui.render.state.pip.GuiProfilerChartRenderState;
 import net.minecraft.client.gui.render.state.pip.PictureInPictureRenderState;
-import net.minecraft.util.ARGB;
 import org.joml.Matrix3x2f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,7 +19,7 @@ public abstract class PictureInPictureRendererMixin {
         return !(instance instanceof GuiProfilerChartRenderState) ? original : new BlitRenderState(
             original.pipeline(), original.textureSetup(), new Matrix3x2f().scale(0.01f * Manager.DEBUG_SCREEN.Scale.get()),
             original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
-            ARGB.color(Math.min(255 * Manager.DEBUG_SCREEN.Opacity.get() / 100, 255), -1), original.scissorArea()
+            Manager.modifyColor(0xFFFFFFFF, Manager.DEBUG_SCREEN.Opacity.get()), original.scissorArea()
         );
     }
 }

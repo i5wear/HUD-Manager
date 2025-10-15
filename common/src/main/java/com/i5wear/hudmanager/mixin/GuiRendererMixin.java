@@ -18,7 +18,7 @@ public abstract class GuiRendererMixin {
         return new BlitRenderState(
             original.pipeline(), original.textureSetup(), original.pose(),
             original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
-            ((Supplier<Integer>)(Object) instance).get(), original.scissorArea()
+            ((Supplier<Integer>)(Object)(instance)).get(), original.scissorArea()
         );
     }
 }
