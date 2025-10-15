@@ -39,7 +39,7 @@ public class Main {
             Map.entry(VanillaGuiLayers.SUBTITLE_OVERLAY, Manager.CLOSED_CAPTION)
     );
 
-    public static void registerModifier(RegisterGuiLayersEvent event) {
+    private static void registerModifier(RegisterGuiLayersEvent event) {
         for (var Element : CATEGORY.entrySet()) {
             event.wrapLayer(
                 Element.getKey(), original -> (graphics, tracker) -> {
