@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 @Mixin(GuiItemRenderState.class)
 public abstract class GuiItemRenderStateMixin implements Supplier<Integer> {
 
-    @Unique public int STORED_COLOR = ARGB.color(Math.min(255 * Manager.CURRENT_OPACITY / 100, 255), -1);
+    @Unique private final int STORED_COLOR = ARGB.color(Math.min(255 * Manager.CURRENT_OPACITY / 100, 255), -1);
 
     @Override public Integer get() { return STORED_COLOR; }
 
