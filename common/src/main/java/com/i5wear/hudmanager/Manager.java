@@ -30,7 +30,7 @@ public class Manager {
     public static final Manager TOOLTIP = new Manager("Tooltip");
     public static final ModConfigSpec CONFIG = BUILDER.build();
 
-    public static int modifyScreen(int Screen, int Scale) { return Scale == 0 ? Integer.MAX_VALUE : 100 * Screen / Scale; }
+    public static int modifyPoint(int Point, int Scale) { return Scale == 0 ? Integer.MAX_VALUE : 100 * Point / Scale; }
 
     public static int modifyColor(int Color, int Opacity) { return Math.min(Opacity * (Color >>> 24) / 100, 255) << 24 | Color & 0xFFFFFF; }
 
