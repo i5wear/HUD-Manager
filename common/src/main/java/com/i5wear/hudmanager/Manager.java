@@ -30,7 +30,7 @@ public class Manager {
     public static final Manager TOOLTIP = new Manager("Tooltip");
     public static final ModConfigSpec CONFIG = BUILDER.build();
 
-    public static int modifyPoint(int Point, int Scale) { return Scale == 0 ? Integer.MAX_VALUE : 100 * Point / Scale; }
+    public static int modifyVector(int Vector, int Scale) { return Scale == 0 ? Integer.MAX_VALUE : 100 * Vector / Scale; }
 
     public static int modifyColor(int Color, int Opacity) { return Math.min(Opacity * (Color >>> 24) / 100, 255) << 24 | Color & 0xFFFFFF; }
 
@@ -49,11 +49,11 @@ public class Manager {
         Target.pose().popMatrix();
     }
 
-    private Manager(String Name) {
-        State = BUILDER.define(Name + ".State", true);
-        Scale = BUILDER.defineInRange(Name + ".Scale", 100, 0, 200);
-        Opacity = BUILDER.defineInRange(Name + ".Opacity", 100, 0, 200);
-        OffsetX = BUILDER.defineInRange(Name + ".OffsetX", 0, -100, +100);
-        OffsetY = BUILDER.defineInRange(Name + ".OffsetY", 0, -100, +100);
+    private Manager(String Identity) {
+        State = BUILDER.define(Identity + ".State", true);
+        Scale = BUILDER.defineInRange(Identity + ".Scale", 100, 0, 200);
+        Opacity = BUILDER.defineInRange(Identity + ".Opacity", 100, 0, 200);
+        OffsetX = BUILDER.defineInRange(Identity + ".OffsetX", 0, -100, +100);
+        OffsetY = BUILDER.defineInRange(Identity + ".OffsetY", 0, -100, +100);
     }
 }

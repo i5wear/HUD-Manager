@@ -25,10 +25,10 @@ public abstract class GuiGraphicsMixin {
     private int syncBackgroundAlpha2(int original) { return Manager.modifyColor(original, Manager.CURRENT_OPACITY); }
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private int syncTooltipPosX(int original) { return Manager.modifyPoint(original, Manager.TOOLTIP.Scale.get()); }
+    private int syncTooltipPosX(int original) { return Manager.modifyVector(original, Manager.TOOLTIP.Scale.get()); }
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 1, argsOnly = true)
-    private int syncTooltipPosY(int original) { return Manager.modifyPoint(original, Manager.TOOLTIP.Scale.get()); }
+    private int syncTooltipPosY(int original) { return Manager.modifyVector(original, Manager.TOOLTIP.Scale.get()); }
 
     @WrapOperation(method = "setTooltipForNextFrameInternal", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/GuiGraphics;deferredTooltip:Ljava/lang/Runnable;", opcode = Opcodes.PUTFIELD))
     private void modifyTooltip(GuiGraphics graphics, Runnable instance, Operation<Void> original) {
