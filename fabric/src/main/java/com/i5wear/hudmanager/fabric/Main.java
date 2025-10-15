@@ -55,7 +55,7 @@ public class Main implements ClientModInitializer {
 
     @Override public void onInitializeClient() {
         ConfigRegistry.INSTANCE.register(Manager.IDENTITY, ModConfig.Type.CLIENT, Manager.CONFIG);
-        ConfigScreenFactoryRegistry.INSTANCE.register(Manager.IDENTITY, (Parent, Screen) -> new ConfigurationScreen(Manager.IDENTITY, Screen));
+        ConfigScreenFactoryRegistry.INSTANCE.register(Manager.IDENTITY, ConfigurationScreen::new);
         registerModifier();
     }
 }
