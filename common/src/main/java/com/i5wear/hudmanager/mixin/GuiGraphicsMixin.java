@@ -13,22 +13,22 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class GuiGraphicsMixin {
 
     @ModifyVariable(method = "submitBlit", at = @At("HEAD"), ordinal = 4, argsOnly = true)
-    private int syncTextureAlpha1(int original) { return Manager.modifyColor(original, Manager.CURRENT_OPACITY); }
+    private int storeTextureColor1(int original) { return Manager.modifyColor(original, Manager.CURRENT_OPACITY); }
 
     @ModifyVariable(method = "submitTiledBlit", at = @At("HEAD"), ordinal = 6, argsOnly = true)
-    private int syncTextureAlpha2(int original) { return Manager.modifyColor(original, Manager.CURRENT_OPACITY); }
+    private int storeTextureColor2(int original) { return Manager.modifyColor(original, Manager.CURRENT_OPACITY); }
 
     @ModifyVariable(method = "submitColoredRectangle", at = @At("HEAD"), ordinal = 4, argsOnly = true)
-    private int syncBackgroundAlpha1(int original) { return Manager.modifyColor(original, Manager.CURRENT_OPACITY); }
+    private int storeBackgroundColor1(int original) { return Manager.modifyColor(original, Manager.CURRENT_OPACITY); }
 
     @ModifyVariable(method = "submitColoredRectangle", at = @At("HEAD"), ordinal = 5, argsOnly = true)
-    private int syncBackgroundAlpha2(int original) { return Manager.modifyColor(original, Manager.CURRENT_OPACITY); }
+    private int storeBackgroundColor2(int original) { return Manager.modifyColor(original, Manager.CURRENT_OPACITY); }
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private int syncTooltipPosX(int original) { return Manager.modifyVector(original, Manager.TOOLTIP.Scale.get()); }
+    private int storeTooltipAxisX(int original) { return Manager.modifyVector(original, Manager.TOOLTIP.Scale.get()); }
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 1, argsOnly = true)
-    private int syncTooltipPosY(int original) { return Manager.modifyVector(original, Manager.TOOLTIP.Scale.get()); }
+    private int storeTooltipAxisY(int original) { return Manager.modifyVector(original, Manager.TOOLTIP.Scale.get()); }
 
     @WrapOperation(method = "setTooltipForNextFrameInternal", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/GuiGraphics;deferredTooltip:Ljava/lang/Runnable;", opcode = Opcodes.PUTFIELD))
     private void modifyTooltip(GuiGraphics graphics, Runnable instance, Operation<Void> original) {

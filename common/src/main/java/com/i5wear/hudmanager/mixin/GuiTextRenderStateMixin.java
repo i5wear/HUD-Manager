@@ -10,6 +10,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class GuiTextRenderStateMixin {
 
     @ModifyVariable(method = "<init>", at = @At("CTOR_HEAD"), ordinal = 2, argsOnly = true)
-    private int syncTextTextureAlpha(int original) { return Manager.modifyColor(original, Manager.CURRENT_OPACITY); }
+    private int storeTextColor(int original) { return Manager.modifyColor(original, Manager.CURRENT_OPACITY); }
 
 }

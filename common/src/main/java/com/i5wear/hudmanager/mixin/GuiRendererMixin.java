@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public abstract class GuiRendererMixin {
 
     @ModifyArg(method = "submitBlitFromItemAtlas", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/render/state/GuiRenderState;submitBlitToCurrentLayer(Lnet/minecraft/client/gui/render/state/BlitRenderState;)V"))
-    private BlitRenderState syncItemTextureAlpha(BlitRenderState original, @Local(ordinal = 0, argsOnly = true) GuiItemRenderState instance) {
+    private BlitRenderState storeItemColor(BlitRenderState original, @Local(ordinal = 0, argsOnly = true) GuiItemRenderState instance) {
         return new BlitRenderState(
             original.pipeline(), original.textureSetup(), original.pose(),
             original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
