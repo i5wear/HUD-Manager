@@ -16,7 +16,7 @@ HUD Manager的整个实现都仅对界面渲染的“准备过程”作修改，
 
 ## GuiRenderState
 
-`GuiGraphics`最终将数据提交给`GuiRenderState`，其接受并通过`pose`和`color`字段存储后续渲染所需数据，但有例外。
+`GuiGraphics`最终将数据提交给`GuiRenderState`，其通过`pose`和`color`等字段接收并存储后续渲染所需数据，但有例外。
 
 渲染物品的`GuiItemRenderState`没有`color`字段，其信息由`GuiItemRenderStateMixin.STORED_COLOR`补充。
 
