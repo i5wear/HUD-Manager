@@ -38,7 +38,7 @@ public class Manager {
         CURRENT_SCALE = Scale.get();
         CURRENT_OPACITY = Opacity.get();
         Target.pose().pushMatrix();
-        Target.pose().scale(0.01f * Scale.get(), 0.01f * Scale.get());
+        Target.pose().scale(0.01f * Scale.get());
         Target.pose().translate(0.01f * OffsetX.get() * Target.guiWidth(), 0.01f * OffsetY.get() * Target.guiHeight());
         return State.get();
     }
