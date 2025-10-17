@@ -18,27 +18,27 @@ import java.util.Map;
 public class Main implements ClientModInitializer {
 
     private static final Map<ResourceLocation, Manager> CATEGORY = Map.ofEntries(
-            Map.entry(VanillaHudElements.CROSSHAIR, Manager.CROSSHAIR),
-            Map.entry(VanillaHudElements.SPECTATOR_MENU, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.HOTBAR, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.ARMOR_BAR, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.HEALTH_BAR, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.FOOD_BAR, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.AIR_BAR, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.MOUNT_HEALTH, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.INFO_BAR, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.EXPERIENCE_LEVEL, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.HELD_ITEM_TOOLTIP, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.SPECTATOR_TOOLTIP, Manager.HOTBAR_GROUP),
-            Map.entry(VanillaHudElements.STATUS_EFFECTS, Manager.STATUS_EFFECT),
-            Map.entry(VanillaHudElements.BOSS_BAR, Manager.BOSS_BAR),
-            Map.entry(VanillaHudElements.SCOREBOARD, Manager.SCOREBOARD_SIDEBAR),
-            Map.entry(VanillaHudElements.OVERLAY_MESSAGE, Manager.ACTION_BAR),
-            Map.entry(VanillaHudElements.TITLE_AND_SUBTITLE, Manager.SCREEN_TITLE),
-            Map.entry(VanillaHudElements.PLAYER_LIST, Manager.PLAYER_LIST),
-            Map.entry(VanillaHudElements.SUBTITLES, Manager.CLOSED_CAPTION)
+        Map.entry(VanillaHudElements.CROSSHAIR, Manager.CROSSHAIR),
+        Map.entry(VanillaHudElements.SPECTATOR_MENU, Manager.HOTBAR_GROUP),
+        Map.entry(VanillaHudElements.HOTBAR, Manager.HOTBAR_GROUP),
+        Map.entry(VanillaHudElements.ARMOR_BAR, Manager.HOTBAR_GROUP),
+        Map.entry(VanillaHudElements.HEALTH_BAR, Manager.HOTBAR_GROUP),
+        Map.entry(VanillaHudElements.FOOD_BAR, Manager.HOTBAR_GROUP),
+        Map.entry(VanillaHudElements.AIR_BAR, Manager.HOTBAR_GROUP),
+        Map.entry(VanillaHudElements.MOUNT_HEALTH, Manager.HOTBAR_GROUP),
+        Map.entry(VanillaHudElements.INFO_BAR, Manager.HOTBAR_GROUP),
+        Map.entry(VanillaHudElements.EXPERIENCE_LEVEL, Manager.HOTBAR_GROUP),
+        Map.entry(VanillaHudElements.HELD_ITEM_TOOLTIP, Manager.HOTBAR_GROUP),
+        Map.entry(VanillaHudElements.SPECTATOR_TOOLTIP, Manager.HOTBAR_GROUP),
+        Map.entry(VanillaHudElements.STATUS_EFFECTS, Manager.STATUS_EFFECT),
+        Map.entry(VanillaHudElements.BOSS_BAR, Manager.BOSS_BAR),
+        Map.entry(VanillaHudElements.SCOREBOARD, Manager.SCOREBOARD_SIDEBAR),
+        Map.entry(VanillaHudElements.OVERLAY_MESSAGE, Manager.ACTION_BAR),
+        Map.entry(VanillaHudElements.TITLE_AND_SUBTITLE, Manager.SCREEN_TITLE),
+        Map.entry(VanillaHudElements.PLAYER_LIST, Manager.PLAYER_LIST),
+        Map.entry(VanillaHudElements.SUBTITLES, Manager.CLOSED_CAPTION)
     );
-    
+
     private static void modifyElement() {
         for (var Element : CATEGORY.entrySet()) {
             HudElementRegistry.replaceElement(
