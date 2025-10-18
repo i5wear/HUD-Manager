@@ -28,9 +28,7 @@ public class Manager {
     public static final Manager TOOLTIP = new Manager("Tooltip");
     public static final ModConfigSpec CONFIG = BUILDER.build();
 
-    public static int modifyVector(int Vector, int Scale) { return Scale == 0 ? Vector < 0 ? Integer.MIN_VALUE : Integer.MAX_VALUE : 100 * Vector / Scale; }
-
-    public static int modifyColor(int Color, int Opacity) { return Math.min(Opacity * (Color >>> 24) / 100, 255) << 24 | Color & 0xFFFFFF; }
+    public static int modify(int Value, int Scale) { return Scale == 0 ? Value < 0 ? Integer.MIN_VALUE : Integer.MAX_VALUE : 100 * Value / Scale; }
 
     public boolean apply(GuiGraphics Target) {
         CURRENT_SCALE = Scale.get();
