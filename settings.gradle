@@ -7,8 +7,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'hudmanager'
-
-include 'common'
-include 'fabric'
-include 'neoforge'
+rootProject.name = archives_name
+include('common', 'fabric', 'neoforge')

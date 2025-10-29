@@ -1,11 +1,8 @@
-architectury {
-    common rootProject.enabled_platforms.split(',')
-}
+architectury.common("fabric", "neoforge")
 
 dependencies {
-    // We depend on Fabric Loader here to use the Fabric @Environment annotations,
-    // which get remapped to the correct annotations on each platform.
-    // Do NOT use other classes from Fabric Loader.
-    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
-    modImplementation "fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:$rootProject.forgeconfigapiport_version"
+    mappings loom.officialMojangMappings()
+    minecraft "net.minecraft:minecraft:$minecraft_version"
+    modImplementation "net.fabricmc:fabric-loader:$fabric_loader_version"
+    modImplementation "fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:$forgeconfigapiport_version"
 }
