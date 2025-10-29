@@ -28,6 +28,4 @@ State - Whether to show on screen (OFF/ON, ON in default).
 
 Scale - Multiplies to vanilla GUI scale (0% - 200%, 100% in default).
 
-Opacity - Multiplies to vanilla GUI opacity (0% - 200%, 100% in default).
-
 X/Y Offset - Adds to vanilla GUI position (-100% - +100%, 0% in default).

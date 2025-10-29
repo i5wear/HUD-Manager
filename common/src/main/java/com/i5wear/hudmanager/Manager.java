@@ -7,13 +7,11 @@ public class Manager {
 
     public final ModConfigSpec.ConfigValue<Boolean> State;
     public final ModConfigSpec.ConfigValue<Integer> Scale;
-    public final ModConfigSpec.ConfigValue<Integer> Opacity;
     public final ModConfigSpec.ConfigValue<Integer> OffsetX;
     public final ModConfigSpec.ConfigValue<Integer> OffsetY;
 
     public static final String IDENTITY = "hudmanager";
     public static volatile int CURRENT_SCALE = 100;
-    public static volatile int CURRENT_OPACITY = 100;
 
     public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final Manager ACTION_BAR = new Manager("Action_Bar");
@@ -30,29 +28,24 @@ public class Manager {
     public static final Manager TOOLTIP = new Manager("Tooltip");
     public static final ModConfigSpec CONFIG = BUILDER.build();
 
-    public static int modifyVector(int Vector, int Scale) { return Scale == 0 ? Vector < 0 ? Integer.MIN_VALUE : Integer.MAX_VALUE : 100 * Vector / Scale; }
-
-    public static int modifyColor(int Color, int Opacity) { return Math.min(Opacity * (Color >>> 24) / 100, 255) << 24 | Color & 0xFFFFFF; }
+    public static int modify(int Value, int Scale) { return Scale == 0 ? Value < 0 ? Integer.MIN_VALUE : Integer.MAX_VALUE : 100 * Value / Scale; }
 
     public boolean apply(GuiGraphics Target) {
         CURRENT_SCALE = Scale.get();
-        CURRENT_OPACITY = Opacity.get();
-        Target.pose().pushMatrix();
-        Target.pose().scale(0.01f * Scale.get());
-        Target.pose().translate(0.01f * OffsetX.get() * Target.guiWidth(), 0.01f * OffsetY.get() * Target.guiHeight());
+        Target.pose().pushPose();
+        Target.pose().scale(0.01f * Scale.get(), 0.01f * Scale.get(), 1);
+        Target.pose().translate(0.01f * OffsetX.get() * Target.guiWidth(), 0.01f * OffsetY.get() * Target.guiHeight(), 0);
         return State.get();
     }
 
     public static void reset(GuiGraphics Target) {
         CURRENT_SCALE = 100;
-        CURRENT_OPACITY = 100;
-        Target.pose().popMatrix();
+        Target.pose().popPose();
     }
 
     private Manager(String Identity) {
         State = BUILDER.define(Identity + ".State", true);
         Scale = BUILDER.defineInRange(Identity + ".Scale", 100, 0, 200);
-        Opacity = BUILDER.defineInRange(Identity + ".Opacity", 100, 0, 200);
         OffsetX = BUILDER.defineInRange(Identity + ".OffsetX", 0, -100, +100);
         OffsetY = BUILDER.defineInRange(Identity + ".OffsetY", 0, -100, +100);
     }
