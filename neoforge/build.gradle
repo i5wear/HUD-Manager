@@ -1,5 +1,7 @@
-architectury.neoForge()
-architectury.platformSetupLoomIde()
+architectury {
+    platformSetupLoomIde(); neoForge()
+    minecraft = minecraft_version
+}
 
 configurations {
     common { canBeResolved = true; canBeConsumed = false }
@@ -11,8 +13,8 @@ configurations {
 
 dependencies {
     mappings loom.officialMojangMappings()
-    minecraft "net.minecraft:minecraft:$minecraft_version"
-    neoForge "net.neoforged:neoforge:$neoforge_version"
+    minecraft 'net.minecraft:minecraft:' + minecraft_version
+    neoForge 'net.neoforged:neoforge:' + neoforge_version
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle(project(path: ':common', configuration: 'transformProductionNeoForge'))
 }
