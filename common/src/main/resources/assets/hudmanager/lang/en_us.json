@@ -6,8 +6,6 @@
   "hudmanager.configuration.State.tooltip": "Whether to show on screen",
   "hudmanager.configuration.Scale": "Scale",
   "hudmanager.configuration.Scale.tooltip": "Multiplies to vanilla GUI scale",
-  "hudmanager.configuration.Opacity": "Opacity",
-  "hudmanager.configuration.Opacity.tooltip": "Multiplies to vanilla GUI opacity",
   "hudmanager.configuration.OffsetX": "X Offset",
   "hudmanager.configuration.OffsetX.tooltip": "Adds to vanilla GUI position",
   "hudmanager.configuration.OffsetY": "Y Offset",
