@@ -5,7 +5,7 @@ architectury {
 
 configurations {
     common { canBeResolved = true; canBeConsumed = false }
-    shadow { canBeResolved = true; canBeConsumed = false }
+    bundle { canBeResolved = true; canBeConsumed = false }
     compileClasspath.extendsFrom(common)
     runtimeClasspath.extendsFrom(common)
     developmentFabric.extendsFrom(common)
@@ -18,18 +18,16 @@ dependencies {
     modImplementation 'net.fabricmc.fabric-api:fabric-api:' + fabric_api_version
     modImplementation 'com.terraformersmc:modmenu:' + modmenu_version
     modImplementation 'fuzs.forgeconfigapiport:forgeconfigapiport-fabric:' + forgeconfigapiport_version
-    common(project(path: ':common', configuration: 'namedElements'))
-    shadow(project(path: ':common', configuration: 'transformProductionFabric'))
+    common project(path: ':common', configuration: 'namedElements')
+    bundle project(path: ':common', configuration: 'transformProductionFabric')
 }
 
 shadowJar {
-    archiveBaseName = archives_name
-    configurations = [project.configurations.shadow]
+    configurations = [project.configurations.bundle]
     archiveClassifier = project.name + '-dev-shadow'
 }
 
 remapJar {
-    archiveBaseName = archives_name
     inputFile = shadowJar.archiveFile
     archiveClassifier = project.name
 }

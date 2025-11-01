@@ -5,7 +5,7 @@ architectury {
 
 configurations {
     common { canBeResolved = true; canBeConsumed = false }
-    shadow { canBeResolved = true; canBeConsumed = false }
+    bundle { canBeResolved = true; canBeConsumed = false }
     compileClasspath.extendsFrom(common)
     runtimeClasspath.extendsFrom(common)
     developmentNeoForge.extendsFrom(common)
@@ -15,18 +15,16 @@ dependencies {
     mappings loom.officialMojangMappings()
     minecraft 'net.minecraft:minecraft:' + minecraft_version
     neoForge 'net.neoforged:neoforge:' + neoforge_version
-    common(project(path: ':common', configuration: 'namedElements'))
-    shadow(project(path: ':common', configuration: 'transformProductionNeoForge'))
+    common project(path: ':common', configuration: 'namedElements')
+    bundle project(path: ':common', configuration: 'transformProductionNeoForge')
 }
 
 shadowJar {
-    archiveBaseName = archives_name
-    configurations = [project.configurations.shadow]
+    configurations = [project.configurations.bundle]
     archiveClassifier = project.name + '-dev-shadow'
 }
 
 remapJar {
-    archiveBaseName = archives_name
     inputFile = shadowJar.archiveFile
     archiveClassifier = project.name
 }
