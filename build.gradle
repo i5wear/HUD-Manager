@@ -27,6 +27,6 @@ subprojects {
 
     processResources {
         filesMatching('fabric.mod.json') { expand version: mod_version }
-        filesMatching('neoforge.mods.toml') { expand version: mod_version }
+        filesMatching('META-INF/neoforge.mods.toml') { expand version: mod_version }
     }
 }
