@@ -21,7 +21,7 @@ public abstract class GuiGraphicsMixin {
     @ModifyVariable(method = "submitColoredRectangle", at = @At("HEAD"), ordinal = 4, argsOnly = true)
     private int storeBackgroundColor1(int original) { return Manager.modifyColor(original, Manager.CURRENT_OPACITY); }
 
-    @ModifyVariable(method = "submitColoredRectangle", at = @At("HEAD"), ordinal = 5, argsOnly = true)
+    @ModifyVariable(method = "fillGradient", at = @At("HEAD"), ordinal = 5, argsOnly = true)
     private int storeBackgroundColor2(int original) { return Manager.modifyColor(original, Manager.CURRENT_OPACITY); }
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 0, argsOnly = true)
