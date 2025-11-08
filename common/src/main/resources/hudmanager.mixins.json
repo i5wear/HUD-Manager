@@ -2,12 +2,14 @@
   "required": true,
   "package": "com.i5wear.hudmanager.mixin",
   "client": [
+    "BossHealthOverlayMixin",
     "DebugScreenOverlayMixin",
     "GuiGraphicsMixin",
     "GuiItemRenderStateMixin",
     "GuiRendererMixin",
     "GuiTextRenderStateMixin",
     "PictureInPictureRendererMixin",
+    "SubtitleOverlayMixin",
     "ToastManagerMixin",
     "WindowMixin"
   ]
