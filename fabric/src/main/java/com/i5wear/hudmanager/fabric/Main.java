@@ -38,17 +38,17 @@ public class Main implements ClientModInitializer {
     );
 
     private static void modifyElement() {
-        for (var Element : CATEGORY.entrySet()) {
-            HudElementRegistry.replaceElement(
-                Element.getKey(), original -> (graphics, tracker) -> {
-                    if (Element.getValue().apply(graphics))
+        CATEGORY.forEach(
+            (key, value) -> HudElementRegistry.replaceElement(
+                key, original -> (graphics, tracker) -> {
+                    if (value.apply(graphics))
                         original.render(graphics, tracker);
-                    if (Element.getKey() == VanillaHudElements.HOTBAR) // Patch
+                    if (key == VanillaHudElements.HOTBAR) // Patch
                         graphics.pose().popMatrix();
                     else Manager.reset(graphics);
                 }
-            );
-        }
+            )
+        );
     }
 
     @Override public void onInitializeClient() {

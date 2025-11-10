@@ -38,15 +38,15 @@ public class Main {
     );
 
     private static void modifyElement(RegisterGuiLayersEvent event) {
-        for (var Element : CATEGORY.entrySet()) {
-            event.wrapLayer(
-                Element.getKey(), original -> (graphics, tracker) -> {
-                    if (Element.getValue().apply(graphics))
+        CATEGORY.forEach(
+            (key, value) -> event.wrapLayer(
+                key, original -> (graphics, tracker) -> {
+                    if (value.apply(graphics))
                         original.render(graphics, tracker);
                     Manager.reset(graphics);
                 }
-            );
-        }
+            )
+        );
     }
 
     public Main(ModContainer container, IEventBus event) {
