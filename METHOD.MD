@@ -20,7 +20,11 @@ HUD Manager的整个实现都仅对界面渲染的“准备过程”作修改，
 
 渲染物品的`GuiItemRenderState`没有`color`字段，其信息由`GuiItemRenderStateMixin.STORED_COLOR`补充。
 
+这也为渲染过大物品的`OversizedItemRenderState`提供了颜色信息，因为其包含一个`GuiItemRenderState`对象。
+
 渲染饼图的`GuiProfilerChartRenderState`没有`pose`和`color`字段，其信息由`Manager.DEBUG_SCREEN`补充。
+
+`OversizedItemRenderState`和`GuiProfilerChartRenderState`均为`PictureInPictureRenderState`的实现。
 
 ## GuiRenderer
 
@@ -28,6 +32,6 @@ HUD Manager的整个实现都仅对界面渲染的“准备过程”作修改，
 
 `GuiRenderer#submitBlitFromItemAtlas`方法最终将`GuiItemRenderState`转换为`BlitRenderState`。
 
-`PictureInPictureRenderer#blitTexture`方法最终将`GuiProfilerChartRenderState`转换为`BlitRenderState`。
+`PictureInPictureRenderer#blitTexture`方法最终将`PictureInPictureRenderState`转换为`BlitRenderState`。
 
 通过改变上述方法所得`BlitRenderState`的值，就可将物品和饼图也给予正确的大小、位置和颜色，实现完整功能。
