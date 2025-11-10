@@ -6,8 +6,6 @@
   "hudmanager.configuration.State.tooltip": "是否在屏幕上显示",
   "hudmanager.configuration.Scale": "尺寸",
   "hudmanager.configuration.Scale.tooltip": "与原版界面尺寸相乘",
-  "hudmanager.configuration.Opacity": "不透明度",
-  "hudmanager.configuration.Opacity.tooltip": "与原版界面不透明度相乘",
   "hudmanager.configuration.OffsetX": "横轴偏移",
   "hudmanager.configuration.OffsetX.tooltip": "与原版界面坐标相加",
   "hudmanager.configuration.OffsetY": "纵轴偏移",
