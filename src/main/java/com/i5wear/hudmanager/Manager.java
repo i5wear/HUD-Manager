@@ -5,11 +5,11 @@ import net.minecraft.client.gui.GuiGraphics;
 
 public class Manager {
 
-    public final boolean State;
-    public final int Scale;
-    public final int Opacity;
-    public final int OffsetX;
-    public final int OffsetY;
+    public final boolean State = true;
+    public final int Scale = 50;
+    public final int Opacity = 50;
+    public final int OffsetX = 0;
+    public final int OffsetY = 0;
 
     public static final String IDENTITY = "hudmanager";
     public static volatile int CURRENT_SCALE = 100;
@@ -30,6 +30,8 @@ public class Manager {
     public static final Manager TOOLTIP = new Manager("Tooltip");
     //public static final ModConfigSpec CONFIG = BUILDER.build();
 
+    private Manager(String Identity) {}
+
     public static int modifyVector(int Vector, int Scale) { return Scale == 0 ? Vector < 0 ? Integer.MIN_VALUE : Integer.MAX_VALUE : 100 * Vector / Scale; }
 
     public static int modifyColor(int Color, int Opacity) { return Math.min(Opacity * (Color >>> 24) / 100, 255) << 24 | Color & 0xFFFFFF; }
@@ -47,13 +49,5 @@ public class Manager {
         CURRENT_SCALE = 100;
         CURRENT_OPACITY = 100;
         Target.pose().popMatrix();
-    }
-
-    private Manager(String Identity) {
-        State = true;
-        Scale = 50;
-        Opacity = 50;
-        OffsetX = 0;
-        OffsetY = 0;
     }
 }
