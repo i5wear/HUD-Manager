@@ -1,23 +1,23 @@
 package com.i5wear.hudmanager.fabric;
 
 import com.i5wear.hudmanager.Manager;
-import fuzs.forgeconfigapiport.fabric.api.v5.ConfigRegistry;
-import fuzs.forgeconfigapiport.fabric.api.v5.client.ConfigScreenFactoryRegistry;
+//import fuzs.forgeconfigapiport.fabric.api.v5.ConfigRegistry;
+//import fuzs.forgeconfigapiport.fabric.api.v5.client.ConfigScreenFactoryRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.minecraft.resources.Identifier;
+//import net.neoforged.fml.config.ModConfig;
+//import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class Main implements ClientModInitializer {
 
-    private static final Map<ResourceLocation, Manager> CATEGORY = Map.ofEntries(
+    private static final Map<Identifier, Manager> CATEGORY = Map.ofEntries(
         Map.entry(VanillaHudElements.CROSSHAIR, Manager.CROSSHAIR),
         Map.entry(VanillaHudElements.SPECTATOR_MENU, Manager.HOTBAR_GROUP),
         Map.entry(VanillaHudElements.HOTBAR, Manager.HOTBAR_GROUP),
@@ -52,8 +52,8 @@ public class Main implements ClientModInitializer {
     }
 
     @Override public void onInitializeClient() {
-        ConfigRegistry.INSTANCE.register(Manager.IDENTITY, ModConfig.Type.CLIENT, Manager.CONFIG);
-        ConfigScreenFactoryRegistry.INSTANCE.register(Manager.IDENTITY, ConfigurationScreen::new);
+        //ConfigRegistry.INSTANCE.register(Manager.IDENTITY, ModConfig.Type.CLIENT, Manager.CONFIG);
+        //ConfigScreenFactoryRegistry.INSTANCE.register(Manager.IDENTITY, ConfigurationScreen::new);
         modifyElement();
     }
 }
