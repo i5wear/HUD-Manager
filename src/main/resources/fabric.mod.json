@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "hudmanager",
+  "version": "test",
+  "name": "HUD Manager",
+  "environment": "client",
+  "entrypoints": {
+    "client": [ "com.i5wear.hudmanager.fabric.Main" ]
+  },
+  "mixins": [ "hudmanager.mixins.json" ]
+}
