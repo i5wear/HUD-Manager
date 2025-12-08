@@ -1,6 +1,7 @@
 package com.i5wear.hudmanager.neoforge;
 
 import com.i5wear.hudmanager.Manager;
+import com.i5wear.hudmanager.config.ConfigScreen;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -8,7 +9,6 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
@@ -51,7 +51,7 @@ public class Main {
 
     public Main(ModContainer container, IEventBus event) {
         container.registerConfig(ModConfig.Type.CLIENT, Manager.CONFIG);
-        container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        container.registerExtensionPoint(IConfigScreenFactory.class, (ignored, parent) -> new ConfigScreen(parent));
         event.addListener(Main::modifyElement);
     }
 }

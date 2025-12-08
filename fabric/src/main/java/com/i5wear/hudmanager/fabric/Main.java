@@ -1,6 +1,7 @@
 package com.i5wear.hudmanager.fabric;
 
 import com.i5wear.hudmanager.Manager;
+import com.i5wear.hudmanager.config.ConfigScreen;
 import fuzs.forgeconfigapiport.fabric.api.v5.ConfigRegistry;
 import fuzs.forgeconfigapiport.fabric.api.v5.client.ConfigScreenFactoryRegistry;
 import net.fabricmc.api.ClientModInitializer;
@@ -10,7 +11,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 
 import java.util.Map;
 
@@ -53,7 +53,7 @@ public class Main implements ClientModInitializer {
 
     @Override public void onInitializeClient() {
         ConfigRegistry.INSTANCE.register(Manager.IDENTITY, ModConfig.Type.CLIENT, Manager.CONFIG);
-        ConfigScreenFactoryRegistry.INSTANCE.register(Manager.IDENTITY, ConfigurationScreen::new);
+        ConfigScreenFactoryRegistry.INSTANCE.register(Manager.IDENTITY, (ignored, parent) -> new ConfigScreen(parent));
         modifyElement();
     }
 }
