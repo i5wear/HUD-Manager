@@ -1,6 +1,7 @@
 package com.i5wear.hudmanager.mixin;
 
-import com.i5wear.hudmanager.Manager;
+import com.i5wear.hudmanager.HudConfig;
+import com.i5wear.hudmanager.HudManager;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.client.gui.GuiGraphics;
@@ -12,8 +13,8 @@ public abstract class BossHealthOverlayMixin {
 
     @WrapMethod(method = "render")
     private void modifyBossBar(GuiGraphics graphics, Operation<Void> original) {
-        if (Manager.BOSS_BAR.apply(graphics))
+        if (HudConfig.INSTANCE.BossBar.apply(graphics))
             original.call(graphics);
-        Manager.reset(graphics);
+        HudManager.reset(graphics);
     }
 }

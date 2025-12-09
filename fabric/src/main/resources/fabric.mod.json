@@ -18,7 +18,6 @@
   "mixins": [ "hudmanager.mixins.json" ],
   "depends": {
     "minecraft": ">=1.21.6",
-    "fabric-api": "*",
-    "forgeconfigapiport": "*"
+    "fabric-api": "*"
   }
 }
