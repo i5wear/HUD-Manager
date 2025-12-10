@@ -2,6 +2,9 @@ package com.i5wear.hudmanager.fabric;
 
 import com.i5wear.hudmanager.HudConfig;
 import com.i5wear.hudmanager.HudManager;
+import com.i5wear.hudmanager.screen.HudPreviewScreen;
+import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
@@ -10,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.Map;
 
-public class Main implements ClientModInitializer {
+public class Main implements ClientModInitializer, ModMenuApi {
 
     private static final Map<ResourceLocation, HudManager> CATEGORY = Map.ofEntries(
         Map.entry(VanillaHudElements.CROSSHAIR, HudConfig.INSTANCE.Crosshair),
@@ -38,7 +41,7 @@ public class Main implements ClientModInitializer {
                 key, original -> (graphics, tracker) -> {
                     if (value.apply(graphics))
                         original.render(graphics, tracker);
-                    if (key == VanillaHudElements.HOTBAR) // Patch
+                    if (key == VanillaHudElements.HOTBAR) // PATCH #13
                         graphics.pose().popMatrix();
                     else HudManager.reset(graphics);
                 }
@@ -46,9 +49,13 @@ public class Main implements ClientModInitializer {
         );
     }
 
+    @Override public ConfigScreenFactory<?> getModConfigScreenFactory() {
+        return HudPreviewScreen::new;
+    }
+
     @Override public void onInitializeClient() {
-        HudConfig.load(FabricLoader.getInstance().getConfigDir().resolve("hudmanager.json").toFile());
-        HudConfig.save(FabricLoader.getInstance().getConfigDir().resolve("hudmanager.json").toFile());
+        HudConfig.CONFIG = FabricLoader.getInstance().getConfigDir().resolve("hudmanager.json").toFile();
+        HudConfig.load(); HudConfig.save();
         modifyElement();
     }
 }

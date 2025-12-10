@@ -1,4 +1,4 @@
-package com.i5wear.hudmanager.config;
+package com.i5wear.hudmanager.screen;
 
 import com.i5wear.hudmanager.HudManager;
 import net.minecraft.client.gui.GuiGraphics;
@@ -9,7 +9,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 
-public class ElementPreview extends AbstractWidget {
+public class HudPreviewWidget extends AbstractWidget {
 
     private final Screen Parent;
     private final HudManager Identity;
@@ -18,7 +18,7 @@ public class ElementPreview extends AbstractWidget {
     private MouseButtonEvent MouseOrigin = null;
     private MouseButtonEvent MouseCurrent = null;
 
-    public ElementPreview(Screen Parent, HudManager Identity, int... Property) {
+    public HudPreviewWidget(Screen Parent, HudManager Identity, int... Property) {
         super(0, 0, 0, 0, Component.literal("abc"));
         this.Parent = Parent;
         this.Identity = Identity;

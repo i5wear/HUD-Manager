@@ -4,16 +4,20 @@ import net.minecraft.client.gui.GuiGraphics;
 
 public class HudManager {
 
-    public static volatile int CURRENT_RESIZER = 100;
-    public static volatile int CURRENT_OPACITY = 100;
+    public static int CURRENT_RESIZER = 100;
+    public static int CURRENT_OPACITY = 100;
 
+    public final String Path;
     public boolean Visible = true;
+    public boolean Preview = true;
     public int Resizer = 100;
     public int Opacity = 100;
     public int OffsetX = 0;
     public int OffsetY = 0;
 
-    public static int rescale(int Input, int Resizer) { return Resizer == 0 ? Input < 0 ? -2147483648 : 2147483647 : 100 * Input / Resizer; }
+    public HudManager(String Identity) { this.Path = "hudmanager." + Identity; }
+
+    public static int rescale(int Input, int Resizer) { return Resizer == 0 ? Integer.MAX_VALUE : 100 * Input / Resizer; }
 
     public static int recolor(int Input, int Opacity) { return Math.min(Opacity * (Input >>> 24) / 100, 255) << 24 | Input & 0xFFFFFF; }
 

@@ -2,6 +2,7 @@ package com.i5wear.hudmanager.neoforge;
 
 import com.i5wear.hudmanager.HudConfig;
 import com.i5wear.hudmanager.HudManager;
+import com.i5wear.hudmanager.screen.HudPreviewScreen;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -50,9 +51,9 @@ public class Main {
     }
 
     public Main(ModContainer container, IEventBus event) {
-        HudConfig.load(FMLPaths.CONFIGDIR.get().resolve("hudmanager.json").toFile());
-        HudConfig.save(FMLPaths.CONFIGDIR.get().resolve("hudmanager.json").toFile());
-        container.registerExtensionPoint(IConfigScreenFactory.class, (IConfigScreenFactory) null);
+        container.registerExtensionPoint(IConfigScreenFactory.class, (ignored, screen) -> new HudPreviewScreen(screen));
+        HudConfig.CONFIG = FMLPaths.CONFIGDIR.get().resolve("hudmanager.json").toFile();
+        HudConfig.load(); HudConfig.save();
         event.addListener(Main::modifyElement);
     }
 }
