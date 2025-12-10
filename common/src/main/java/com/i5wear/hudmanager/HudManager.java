@@ -7,15 +7,12 @@ public class HudManager {
     public static int CURRENT_RESIZER = 100;
     public static int CURRENT_OPACITY = 100;
 
-    public final String Path;
     public boolean Visible = true;
     public boolean Preview = true;
     public int Resizer = 100;
     public int Opacity = 100;
     public int OffsetX = 0;
     public int OffsetY = 0;
-
-    public HudManager(String Identity) { this.Path = "hudmanager." + Identity; }
 
     public static int rescale(int Input, int Resizer) { return Resizer == 0 ? Integer.MAX_VALUE : 100 * Input / Resizer; }
 

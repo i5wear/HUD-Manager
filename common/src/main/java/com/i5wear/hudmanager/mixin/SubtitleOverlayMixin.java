@@ -1,6 +1,6 @@
 package com.i5wear.hudmanager.mixin;
 
-import com.i5wear.hudmanager.HudConfig;
+import com.i5wear.hudmanager.HudOptions;
 import com.i5wear.hudmanager.HudManager;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -13,7 +13,7 @@ public abstract class SubtitleOverlayMixin {
 
     @WrapMethod(method = "render")
     private void modifyClosedCaption(GuiGraphics graphics, Operation<Void> original) {
-        if (HudConfig.INSTANCE.ClosedCaption.apply(graphics))
+        if (HudOptions.INSTANCE.ClosedCaption.apply(graphics))
             original.call(graphics);
         HudManager.reset(graphics);
     }

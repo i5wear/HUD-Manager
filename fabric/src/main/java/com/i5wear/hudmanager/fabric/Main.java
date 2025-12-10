@@ -1,8 +1,8 @@
 package com.i5wear.hudmanager.fabric;
 
-import com.i5wear.hudmanager.HudConfig;
+import com.i5wear.hudmanager.HudOptions;
 import com.i5wear.hudmanager.HudManager;
-import com.i5wear.hudmanager.screen.HudPreviewScreen;
+import com.i5wear.hudmanager.screen.HudOptionsScreen;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.ClientModInitializer;
@@ -16,23 +16,23 @@ import java.util.Map;
 public class Main implements ClientModInitializer, ModMenuApi {
 
     private static final Map<ResourceLocation, HudManager> CATEGORY = Map.ofEntries(
-        Map.entry(VanillaHudElements.CROSSHAIR, HudConfig.INSTANCE.Crosshair),
-        Map.entry(VanillaHudElements.SPECTATOR_MENU, HudConfig.INSTANCE.HotbarGroup),
-        Map.entry(VanillaHudElements.HOTBAR, HudConfig.INSTANCE.HotbarGroup),
-        Map.entry(VanillaHudElements.ARMOR_BAR, HudConfig.INSTANCE.HotbarGroup),
-        Map.entry(VanillaHudElements.HEALTH_BAR, HudConfig.INSTANCE.HotbarGroup),
-        Map.entry(VanillaHudElements.FOOD_BAR, HudConfig.INSTANCE.HotbarGroup),
-        Map.entry(VanillaHudElements.AIR_BAR, HudConfig.INSTANCE.HotbarGroup),
-        Map.entry(VanillaHudElements.MOUNT_HEALTH, HudConfig.INSTANCE.HotbarGroup),
-        Map.entry(VanillaHudElements.INFO_BAR, HudConfig.INSTANCE.HotbarGroup),
-        Map.entry(VanillaHudElements.EXPERIENCE_LEVEL, HudConfig.INSTANCE.HotbarGroup),
-        Map.entry(VanillaHudElements.HELD_ITEM_TOOLTIP, HudConfig.INSTANCE.HotbarGroup),
-        Map.entry(VanillaHudElements.SPECTATOR_TOOLTIP, HudConfig.INSTANCE.HotbarGroup),
-        Map.entry(VanillaHudElements.STATUS_EFFECTS, HudConfig.INSTANCE.StatusEffect),
-        Map.entry(VanillaHudElements.SCOREBOARD, HudConfig.INSTANCE.Scoreboard),
-        Map.entry(VanillaHudElements.OVERLAY_MESSAGE, HudConfig.INSTANCE.ActionBar),
-        Map.entry(VanillaHudElements.TITLE_AND_SUBTITLE, HudConfig.INSTANCE.ScreenTitle),
-        Map.entry(VanillaHudElements.PLAYER_LIST, HudConfig.INSTANCE.PlayerList)
+        Map.entry(VanillaHudElements.CROSSHAIR, HudOptions.INSTANCE.Crosshair),
+        Map.entry(VanillaHudElements.SPECTATOR_MENU, HudOptions.INSTANCE.HotbarGroup),
+        Map.entry(VanillaHudElements.HOTBAR, HudOptions.INSTANCE.HotbarGroup),
+        Map.entry(VanillaHudElements.ARMOR_BAR, HudOptions.INSTANCE.HotbarGroup),
+        Map.entry(VanillaHudElements.HEALTH_BAR, HudOptions.INSTANCE.HotbarGroup),
+        Map.entry(VanillaHudElements.FOOD_BAR, HudOptions.INSTANCE.HotbarGroup),
+        Map.entry(VanillaHudElements.AIR_BAR, HudOptions.INSTANCE.HotbarGroup),
+        Map.entry(VanillaHudElements.MOUNT_HEALTH, HudOptions.INSTANCE.HotbarGroup),
+        Map.entry(VanillaHudElements.INFO_BAR, HudOptions.INSTANCE.HotbarGroup),
+        Map.entry(VanillaHudElements.EXPERIENCE_LEVEL, HudOptions.INSTANCE.HotbarGroup),
+        Map.entry(VanillaHudElements.HELD_ITEM_TOOLTIP, HudOptions.INSTANCE.HotbarGroup),
+        Map.entry(VanillaHudElements.SPECTATOR_TOOLTIP, HudOptions.INSTANCE.HotbarGroup),
+        Map.entry(VanillaHudElements.STATUS_EFFECTS, HudOptions.INSTANCE.StatusEffect),
+        Map.entry(VanillaHudElements.SCOREBOARD, HudOptions.INSTANCE.Scoreboard),
+        Map.entry(VanillaHudElements.OVERLAY_MESSAGE, HudOptions.INSTANCE.ActionBar),
+        Map.entry(VanillaHudElements.TITLE_AND_SUBTITLE, HudOptions.INSTANCE.ScreenTitle),
+        Map.entry(VanillaHudElements.PLAYER_LIST, HudOptions.INSTANCE.PlayerList)
     );
 
     private static void modifyElement() {
@@ -49,13 +49,10 @@ public class Main implements ClientModInitializer, ModMenuApi {
         );
     }
 
-    @Override public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return HudPreviewScreen::new;
-    }
+    @Override public ConfigScreenFactory<?> getModConfigScreenFactory() { return HudOptionsScreen::new; }
 
     @Override public void onInitializeClient() {
-        HudConfig.CONFIG = FabricLoader.getInstance().getConfigDir().resolve("hudmanager.json").toFile();
-        HudConfig.load(); HudConfig.save();
-        modifyElement();
+        HudOptions.CONFIG = FabricLoader.getInstance().getConfigDir().resolve("hudmanager.json").toFile();
+        HudOptions.load(); HudOptions.save(); modifyElement();
     }
 }

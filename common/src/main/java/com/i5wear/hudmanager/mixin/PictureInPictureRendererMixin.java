@@ -1,6 +1,6 @@
 package com.i5wear.hudmanager.mixin;
 
-import com.i5wear.hudmanager.HudConfig;
+import com.i5wear.hudmanager.HudOptions;
 import com.i5wear.hudmanager.HudManager;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
@@ -21,15 +21,15 @@ public abstract class PictureInPictureRendererMixin {
     @ModifyArg(method = "blitTexture", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/render/state/GuiRenderState;submitBlitToCurrentLayer(Lnet/minecraft/client/gui/render/state/BlitRenderState;)V"))
     private BlitRenderState modifySpecialElement(BlitRenderState original, @Local(ordinal = 0, argsOnly = true) PictureInPictureRenderState instance) {
         return switch (instance) {
-            case GuiProfilerChartRenderState ignored -> new BlitRenderState(
-                original.pipeline(), original.textureSetup(), original.pose().scale(0.01f * HudConfig.INSTANCE.DebugScreen.Resizer, new Matrix3x2f()),
+            case GuiProfilerChartRenderState ignore -> new BlitRenderState(
+                original.pipeline(), original.textureSetup(), original.pose().scale(0.01f * HudOptions.INSTANCE.DebugScreen.Resizer, new Matrix3x2f()),
                 original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
-                HudManager.recolor(0xFFFFFFFF, HudConfig.INSTANCE.DebugScreen.Opacity), original.scissorArea()
+                HudManager.recolor(0xFFFFFFFF, HudOptions.INSTANCE.DebugScreen.Opacity), original.scissorArea()
             );
-            case OversizedItemRenderState ignored -> new BlitRenderState(
+            case OversizedItemRenderState ignore -> new BlitRenderState(
                 original.pipeline(), original.textureSetup(), original.pose(),
                 original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
-                ((Supplier<Integer>)(Object)(ignored.guiItemRenderState())).get(), original.scissorArea()
+                ((Supplier<Integer>)(Object)(ignore.guiItemRenderState())).get(), original.scissorArea()
             );
             default -> original;
         };

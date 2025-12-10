@@ -1,6 +1,6 @@
 package com.i5wear.hudmanager.mixin;
 
-import com.i5wear.hudmanager.HudConfig;
+import com.i5wear.hudmanager.HudOptions;
 import com.i5wear.hudmanager.HudManager;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -26,16 +26,16 @@ public abstract class GuiGraphicsMixin {
     private int storeBackgroundColor2(int original) { return HudManager.recolor(original, HudManager.CURRENT_OPACITY); }
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private int storeTooltipAxisX(int original) { return HudManager.rescale(original, HudConfig.INSTANCE.Tooltip.Resizer); }
+    private int storeTooltipAxisX(int original) { return HudManager.rescale(original, HudOptions.INSTANCE.Tooltip.Resizer); }
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 1, argsOnly = true)
-    private int storeTooltipAxisY(int original) { return HudManager.rescale(original, HudConfig.INSTANCE.Tooltip.Resizer); }
+    private int storeTooltipAxisY(int original) { return HudManager.rescale(original, HudOptions.INSTANCE.Tooltip.Resizer); }
 
     @WrapOperation(method = "setTooltipForNextFrameInternal", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/GuiGraphics;deferredTooltip:Ljava/lang/Runnable;", opcode = Opcodes.PUTFIELD))
     private void modifyTooltip(GuiGraphics graphics, Runnable instance, Operation<Void> original) {
         original.call(
             graphics, (Runnable)() -> {
-                if (HudConfig.INSTANCE.Tooltip.apply(graphics))
+                if (HudOptions.INSTANCE.Tooltip.apply(graphics))
                     instance.run();
                 HudManager.reset(graphics);
             }
