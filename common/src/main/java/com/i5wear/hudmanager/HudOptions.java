@@ -22,7 +22,7 @@ public class HudOptions {
     public final HudManager Scoreboard = new HudManager();
     public final HudManager ScreenTitle = new HudManager();
     public final HudManager StatusEffect = new HudManager();
-    public final HudManager Toast = new HudManager();
+    public final HudManager ToastMessage = new HudManager();
     public final HudManager Tooltip = new HudManager();
 
     public static void load() {

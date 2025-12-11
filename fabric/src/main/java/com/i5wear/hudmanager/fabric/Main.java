@@ -53,6 +53,6 @@ public class Main implements ClientModInitializer, ModMenuApi {
 
     @Override public void onInitializeClient() {
         HudOptions.CONFIG = FabricLoader.getInstance().getConfigDir().resolve("hudmanager.json").toFile();
-        HudOptions.load(); HudOptions.save(); Main.modifyElement();
+        HudOptions.load(); HudOptions.save(); modifyElement();
     }
 }

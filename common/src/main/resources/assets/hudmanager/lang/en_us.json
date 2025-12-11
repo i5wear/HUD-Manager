@@ -16,6 +16,6 @@
   "hudmanager.Scoreboard": "Scoreboard Sidebar",
   "hudmanager.ScreenTitle": "Screen Title",
   "hudmanager.StatusEffect": "Status Effect",
-  "hudmanager.Toast": "Toast",
+  "hudmanager.ToastMessage": "Toast Message",
   "hudmanager.Tooltip": "Tooltip"
 }

@@ -10,6 +10,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class GuiTextRenderStateMixin {
 
     @ModifyVariable(method = "<init>", at = @At("CTOR_HEAD"), ordinal = 2, argsOnly = true)
-    private int storeTextColor(int original) { return HudManager.recolor(original, HudManager.CURRENT_OPACITY); }
+    private int storeTextColor(int original) { return HudManager.recolor(original, HudManager.CURRENT_OPACITY.getValue()); }
 
 }

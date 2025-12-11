@@ -13,7 +13,7 @@ public abstract class ToastManagerMixin {
 
     @WrapMethod(method = "render")
     private void modifyToast(GuiGraphics graphics, Operation<Void> original) {
-        if (HudOptions.INSTANCE.Toast.apply(graphics))
+        if (HudOptions.INSTANCE.ToastMessage.apply(graphics))
             original.call(graphics);
         HudManager.reset(graphics);
     }

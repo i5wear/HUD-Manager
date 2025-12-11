@@ -26,7 +26,7 @@ public class HudOptionsScreen extends OptionsSubScreen {
         makeEntry(HudOptions.INSTANCE.Scoreboard, Component.translatable("hudmanager.Scoreboard"));
         makeEntry(HudOptions.INSTANCE.ScreenTitle, Component.translatable("hudmanager.ScreenTitle"));
         makeEntry(HudOptions.INSTANCE.StatusEffect, Component.translatable("hudmanager.StatusEffect"));
-        makeEntry(HudOptions.INSTANCE.Toast, Component.translatable("hudmanager.Toast"));
+        makeEntry(HudOptions.INSTANCE.ToastMessage, Component.translatable("hudmanager.ToastMessage"));
         makeEntry(HudOptions.INSTANCE.Tooltip, Component.translatable("hudmanager.Tooltip"));
     }
 

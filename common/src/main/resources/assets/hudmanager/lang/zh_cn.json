@@ -1,7 +1,7 @@
 {
   "hudmanager": "界面管理器",
-  "hudmanager.Visible": "显示",
-  "hudmanager.Preview": "预览",
+  "hudmanager.Visible": "启用显示",
+  "hudmanager.Preview": "启用预览",
   "hudmanager.Resizer": "尺寸修正",
   "hudmanager.Opacity": "不透明度",
   "hudmanager.OffsetX": "横轴偏移",
@@ -16,6 +16,6 @@
   "hudmanager.Scoreboard": "记分板侧边栏",
   "hudmanager.ScreenTitle": "屏幕标题",
   "hudmanager.StatusEffect": "状态效果",
-  "hudmanager.Toast": "弹窗",
+  "hudmanager.ToastMessage": "消息弹窗",
   "hudmanager.Tooltip": "提示框"
 }

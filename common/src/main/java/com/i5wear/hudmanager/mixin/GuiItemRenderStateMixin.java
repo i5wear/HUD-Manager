@@ -10,7 +10,7 @@ import java.util.function.IntSupplier;
 @Mixin(GuiItemRenderState.class)
 public abstract class GuiItemRenderStateMixin implements IntSupplier {
 
-    @Unique private final int STORED_COLOR = HudManager.recolor(0xFFFFFFFF, HudManager.CURRENT_OPACITY);
+    @Unique private final int STORED_COLOR = HudManager.recolor(0xFFFFFFFF, HudManager.CURRENT_OPACITY.getValue());
 
     @Override public int getAsInt() { return STORED_COLOR; }
 
