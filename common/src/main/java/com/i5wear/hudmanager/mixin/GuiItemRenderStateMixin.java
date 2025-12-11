@@ -5,13 +5,13 @@ import net.minecraft.client.gui.render.state.GuiItemRenderState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-import java.util.function.Supplier;
+import java.util.function.IntSupplier;
 
 @Mixin(GuiItemRenderState.class)
-public abstract class GuiItemRenderStateMixin implements Supplier<Integer> {
+public abstract class GuiItemRenderStateMixin implements IntSupplier {
 
     @Unique private final int STORED_COLOR = HudManager.recolor(0xFFFFFFFF, HudManager.CURRENT_OPACITY);
 
-    @Override public Integer get() { return STORED_COLOR; }
+    @Override public int getAsInt() { return STORED_COLOR; }
 
 }

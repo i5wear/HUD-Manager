@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import java.util.function.Supplier;
+import java.util.function.IntSupplier;
 
 @Mixin(PictureInPictureRenderer.class)
 public abstract class PictureInPictureRendererMixin {
@@ -22,14 +22,14 @@ public abstract class PictureInPictureRendererMixin {
     private BlitRenderState modifySpecialElement(BlitRenderState original, @Local(ordinal = 0, argsOnly = true) PictureInPictureRenderState instance) {
         return switch (instance) {
             case GuiProfilerChartRenderState ignore -> new BlitRenderState(
-                original.pipeline(), original.textureSetup(), original.pose().scale(0.01f * HudOptions.INSTANCE.DebugScreen.Resizer, new Matrix3x2f()),
+                original.pipeline(), original.textureSetup(), new Matrix3x2f().scale(HudOptions.INSTANCE.DebugScreen.Resizer.getValue()),
                 original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
-                HudManager.recolor(0xFFFFFFFF, HudOptions.INSTANCE.DebugScreen.Opacity), original.scissorArea()
+                HudManager.recolor(0xFFFFFFFF, HudOptions.INSTANCE.DebugScreen.Opacity.getValue()), original.scissorArea()
             );
-            case OversizedItemRenderState ignore -> new BlitRenderState(
+            case OversizedItemRenderState item -> new BlitRenderState(
                 original.pipeline(), original.textureSetup(), original.pose(),
                 original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
-                ((Supplier<Integer>)(Object)(ignore.guiItemRenderState())).get(), original.scissorArea()
+                ((IntSupplier)(Object)(item.guiItemRenderState())).getAsInt(), original.scissorArea()
             );
             default -> original;
         };

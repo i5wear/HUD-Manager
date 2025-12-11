@@ -53,7 +53,6 @@ public class Main {
     public Main(ModContainer container, IEventBus event) {
         container.registerExtensionPoint(IConfigScreenFactory.class, (ignore, screen) -> new HudOptionsScreen(screen));
         HudOptions.CONFIG = FMLPaths.CONFIGDIR.get().resolve("hudmanager.json").toFile();
-        HudOptions.load(); HudOptions.save();
-        event.addListener(Main::modifyElement);
+        HudOptions.load(); HudOptions.save(); event.addListener(Main::modifyElement);
     }
 }

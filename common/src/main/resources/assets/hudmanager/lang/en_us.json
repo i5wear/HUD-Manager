@@ -1,7 +1,8 @@
 {
   "hudmanager": "HUD Manager",
-  "hudmanager.State": "State",
-  "hudmanager.Scale": "Scale",
+  "hudmanager.Visible": "Visible",
+  "hudmanager.Preview": "Preview",
+  "hudmanager.Resizer": "Resizer",
   "hudmanager.Opacity": "Opacity",
   "hudmanager.OffsetX": "X Offset",
   "hudmanager.OffsetY": "Y Offset",

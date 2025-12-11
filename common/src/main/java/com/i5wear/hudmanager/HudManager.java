@@ -1,35 +1,37 @@
 package com.i5wear.hudmanager;
 
 import net.minecraft.client.gui.GuiGraphics;
+import org.apache.commons.lang3.mutable.MutableBoolean;
+import org.apache.commons.lang3.mutable.MutableFloat;
 
 public class HudManager {
 
-    public static int CURRENT_RESIZER = 100;
-    public static int CURRENT_OPACITY = 100;
+    public static float CURRENT_RESIZER = 1;
+    public static float CURRENT_OPACITY = 1;
 
-    public boolean Visible = true;
-    public boolean Preview = true;
-    public int Resizer = 100;
-    public int Opacity = 100;
-    public int OffsetX = 0;
-    public int OffsetY = 0;
+    public final MutableBoolean Visible = new MutableBoolean(true);
+    public final MutableBoolean Preview = new MutableBoolean(true);
+    public final MutableFloat Resizer = new MutableFloat(1);
+    public final MutableFloat Opacity = new MutableFloat(1);
+    public final MutableFloat OffsetX = new MutableFloat(0);
+    public final MutableFloat OffsetY = new MutableFloat(0);
 
-    public static int rescale(int Input, int Resizer) { return Resizer == 0 ? Integer.MAX_VALUE : 100 * Input / Resizer; }
+    public static int rescale(int input, float resizer) { return resizer == 0 ? Integer.MAX_VALUE : (int)(input / resizer); }
 
-    public static int recolor(int Input, int Opacity) { return Math.min(Opacity * (Input >>> 24) / 100, 255) << 24 | Input & 0xFFFFFF; }
+    public static int recolor(int input, float opacity) { return Math.min((int)(opacity * (input >>> 24)), 255) << 24 | input & 0xFFFFFF; }
 
-    public boolean apply(GuiGraphics Target) {
-        CURRENT_RESIZER = Resizer;
-        CURRENT_OPACITY = Opacity;
-        Target.pose().pushMatrix();
-        Target.pose().scale(0.01f * Resizer, 0.01f * Resizer);
-        Target.pose().translate(0.01f * OffsetX * Target.guiWidth(), 0.01f * OffsetY * Target.guiHeight());
-        return Visible;
+    public boolean apply(GuiGraphics target) {
+        CURRENT_RESIZER = Resizer.getValue();
+        CURRENT_OPACITY = Opacity.getValue();
+        target.pose().pushMatrix();
+        target.pose().scale(Resizer.getValue(), Resizer.getValue());
+        target.pose().translate(OffsetX.getValue() * target.guiWidth(), OffsetY.getValue() * target.guiHeight());
+        return Visible.getValue();
     }
 
-    public static void reset(GuiGraphics Target) {
-        CURRENT_RESIZER = 100;
-        CURRENT_OPACITY = 100;
-        Target.pose().popMatrix();
+    public static void reset(GuiGraphics target) {
+        CURRENT_RESIZER = 1;
+        CURRENT_OPACITY = 1;
+        target.pose().popMatrix();
     }
 }

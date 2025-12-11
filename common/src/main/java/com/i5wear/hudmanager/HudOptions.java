@@ -28,12 +28,12 @@ public class HudOptions {
     public static void load() {
         var Gson = new GsonBuilder().setPrettyPrinting().create();
         try (var Reader = new FileReader(CONFIG)) { INSTANCE = Gson.fromJson(Reader, HudOptions.class); }
-        catch (Exception err) { LoggerFactory.getLogger("hudmanager").warn(err.getMessage()); }
+        catch (Exception e) { LoggerFactory.getLogger("hudmanager").warn(e.getMessage()); }
     }
 
     public static void save() {
         var Gson = new GsonBuilder().setPrettyPrinting().create();
         try (var Writer = new FileWriter(CONFIG)) { Gson.toJson(INSTANCE, Writer); }
-        catch (Exception err) { LoggerFactory.getLogger("hudmanager").warn(err.getMessage()); }
+        catch (Exception e) { LoggerFactory.getLogger("hudmanager").warn(e.getMessage()); }
     }
 }

@@ -13,14 +13,7 @@ public class HudOptionsScreen extends OptionsSubScreen {
 
     public static final Component TITLE = Component.translatable("hudmanager");
 
-    public HudOptionsScreen(Screen LastScreen) { super(LastScreen, Minecraft.getInstance().options, TITLE); }
-
-    protected void makeEntry(HudManager Target, Component Title) {
-        super.list.addSmall(
-            new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, Title, super.getFont()),
-            Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new HudManagerScreen(this, Target, Title))).build()
-        );
-    }
+    public HudOptionsScreen(Screen screen) { super(screen, Minecraft.getInstance().options, TITLE); }
 
     @Override protected void addOptions() {
         makeEntry(HudOptions.INSTANCE.ActionBar, Component.translatable("hudmanager.ActionBar"));
@@ -35,5 +28,13 @@ public class HudOptionsScreen extends OptionsSubScreen {
         makeEntry(HudOptions.INSTANCE.StatusEffect, Component.translatable("hudmanager.StatusEffect"));
         makeEntry(HudOptions.INSTANCE.Toast, Component.translatable("hudmanager.Toast"));
         makeEntry(HudOptions.INSTANCE.Tooltip, Component.translatable("hudmanager.Tooltip"));
+    }
+
+    @Override public void removed() { HudOptions.save(); }
+
+    private void makeEntry(HudManager target, Component title) {
+        var widget0 = new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title, super.getFont());
+        var widget1 = Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new HudManagerScreen(this, target, title))).build();
+        super.list.addSmall(widget0, widget1);
     }
 }

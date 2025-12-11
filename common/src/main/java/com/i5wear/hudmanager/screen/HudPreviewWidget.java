@@ -42,14 +42,14 @@ public class HudPreviewWidget extends AbstractWidget {
 
     @Override protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
         update();
-        graphics.fill(getX(), getY(), getRight(), getBottom(), HudManager.recolor(0x7FFFFFFF, Identity.Opacity));
+        graphics.fill(getX(), getY(), getRight(), getBottom(), HudManager.recolor(0x7FFFFFFF, Identity.Opacity.getValue()));
     }
 
     private void update() {
-        setSize(Identity.Resizer * Property[0] / 50, Identity.Resizer * Property[1] / 50);
-        setX(Identity.Resizer * (Property[2] - Property[0]) / 100 + (Identity.OffsetX + Property[4]) * Parent.width / 100);
-        setY(Identity.Resizer * (Property[3] - Property[1]) / 100 + (Identity.OffsetY + Property[5]) * Parent.height / 100);
-        if (MouseOrigin != null && MouseCurrent != null)
-            setPosition(getX() + (int)(MouseCurrent.x() - MouseOrigin.x()), getY() + (int)(MouseCurrent.y() - MouseOrigin.y()));
+        //setSize((int)(2 * Identity.Resizer * Property[0]), (int)(2 * Identity.Resizer * Property[1]));
+        //setX((int)(Identity.Resizer * (Property[2] - Property[0]) + (Identity.OffsetX + Property[4]) * Parent.width));
+        //setY((int)(Identity.Resizer * (Property[3] - Property[1]) + (Identity.OffsetY + Property[5]) * Parent.height));
+        //if (MouseOrigin != null && MouseCurrent != null)
+            //setPosition(getX() + (int)(MouseCurrent.x() - MouseOrigin.x()), getY() + (int)(MouseCurrent.y() - MouseOrigin.y()));
     }
 }

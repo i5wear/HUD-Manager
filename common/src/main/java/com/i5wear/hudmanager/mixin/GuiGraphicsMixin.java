@@ -26,10 +26,10 @@ public abstract class GuiGraphicsMixin {
     private int storeBackgroundColor2(int original) { return HudManager.recolor(original, HudManager.CURRENT_OPACITY); }
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private int storeTooltipAxisX(int original) { return HudManager.rescale(original, HudOptions.INSTANCE.Tooltip.Resizer); }
+    private int storeTooltipAxisX(int original) { return HudManager.rescale(original, HudOptions.INSTANCE.Tooltip.Resizer.getValue()); }
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 1, argsOnly = true)
-    private int storeTooltipAxisY(int original) { return HudManager.rescale(original, HudOptions.INSTANCE.Tooltip.Resizer); }
+    private int storeTooltipAxisY(int original) { return HudManager.rescale(original, HudOptions.INSTANCE.Tooltip.Resizer.getValue()); }
 
     @WrapOperation(method = "setTooltipForNextFrameInternal", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/GuiGraphics;deferredTooltip:Ljava/lang/Runnable;", opcode = Opcodes.PUTFIELD))
     private void modifyTooltip(GuiGraphics graphics, Runnable instance, Operation<Void> original) {
