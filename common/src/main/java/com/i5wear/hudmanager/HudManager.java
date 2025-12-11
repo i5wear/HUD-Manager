@@ -1,16 +1,14 @@
 package com.i5wear.hudmanager;
 
 import net.minecraft.client.gui.GuiGraphics;
-import org.apache.commons.lang3.mutable.MutableBoolean;
 import org.apache.commons.lang3.mutable.MutableFloat;
 
 public class HudManager {
 
-    public static final MutableFloat CURRENT_RESIZER = new MutableFloat(1);
-    public static final MutableFloat CURRENT_OPACITY = new MutableFloat(1);
+    public static float CURRENT_RESIZER = 1;
+    public static float CURRENT_OPACITY = 1;
 
-    public final MutableBoolean Visible = new MutableBoolean(true);
-    public final MutableBoolean Preview = new MutableBoolean(true);
+    public boolean Display = true;
     public final MutableFloat Resizer = new MutableFloat(1);
     public final MutableFloat Opacity = new MutableFloat(1);
     public final MutableFloat OffsetX = new MutableFloat(0);
@@ -21,17 +19,17 @@ public class HudManager {
     public static int recolor(int input, float opacity) { return Math.min((int)(opacity * (input >>> 24)), 255) << 24 | input & 0xFFFFFF; }
 
     public boolean apply(GuiGraphics target) {
-        CURRENT_RESIZER.setValue(Resizer);
-        CURRENT_OPACITY.setValue(Opacity);
+        CURRENT_RESIZER = Resizer.getValue();
+        CURRENT_OPACITY = Opacity.getValue();
         target.pose().pushMatrix();
         target.pose().scale(Resizer.getValue(), Resizer.getValue());
         target.pose().translate(OffsetX.getValue() * target.guiWidth(), OffsetY.getValue() * target.guiHeight());
-        return Visible.getValue();
+        return Display;
     }
 
     public static void reset(GuiGraphics target) {
-        CURRENT_RESIZER.setValue(1);
-        CURRENT_OPACITY.setValue(1);
+        CURRENT_RESIZER = 1;
+        CURRENT_OPACITY = 1;
         target.pose().popMatrix();
     }
 }

@@ -14,16 +14,16 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class GuiGraphicsMixin {
 
     @ModifyVariable(method = "submitBlit", at = @At("HEAD"), ordinal = 4, argsOnly = true)
-    private int storeTextureColor1(int original) { return HudManager.recolor(original, HudManager.CURRENT_OPACITY.getValue()); }
+    private int storeTextureColor1(int original) { return HudManager.recolor(original, HudManager.CURRENT_OPACITY); }
 
     @ModifyVariable(method = "submitTiledBlit", at = @At("HEAD"), ordinal = 6, argsOnly = true)
-    private int storeTextureColor2(int original) { return HudManager.recolor(original, HudManager.CURRENT_OPACITY.getValue()); }
+    private int storeTextureColor2(int original) { return HudManager.recolor(original, HudManager.CURRENT_OPACITY); }
 
     @ModifyVariable(method = "submitColoredRectangle", at = @At("HEAD"), ordinal = 4, argsOnly = true)
-    private int storeBackgroundColor1(int original) { return HudManager.recolor(original, HudManager.CURRENT_OPACITY.getValue()); }
+    private int storeBackgroundColor1(int original) { return HudManager.recolor(original, HudManager.CURRENT_OPACITY); }
 
     @ModifyVariable(method = "fillGradient", at = @At("HEAD"), ordinal = 5, argsOnly = true)
-    private int storeBackgroundColor2(int original) { return HudManager.recolor(original, HudManager.CURRENT_OPACITY.getValue()); }
+    private int storeBackgroundColor2(int original) { return HudManager.recolor(original, HudManager.CURRENT_OPACITY); }
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private int storeTooltipAxisX(int original) { return HudManager.rescale(original, HudOptions.INSTANCE.Tooltip.Resizer.getValue()); }

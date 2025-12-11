@@ -10,7 +10,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.Component;
 import org.apache.commons.lang3.mutable.Mutable;
-import org.apache.commons.lang3.mutable.MutableBoolean;
 import org.slf4j.LoggerFactory;
 
 import java.text.NumberFormat;
@@ -25,17 +24,16 @@ public class HudManagerScreen extends OptionsSubScreen {
     }
 
     @Override protected void addOptions() {
-        makeEntry(Options.Visible, Component.translatable("hudmanager.Visible"));
-        makeEntry(Options.Preview, Component.translatable("hudmanager.Preview"));
+        initEntry(Component.translatable("hudmanager.Visible"));
         makeEntry(Options.Resizer, Component.translatable("hudmanager.Resizer"));
         makeEntry(Options.Opacity, Component.translatable("hudmanager.Opacity"));
         makeEntry(Options.OffsetX, Component.translatable("hudmanager.OffsetX"));
         makeEntry(Options.OffsetY, Component.translatable("hudmanager.OffsetY"));
     }
 
-    private void makeEntry(MutableBoolean target, Component title) {
+    private void initEntry(Component title) {
         var widget0 = new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title, super.getFont());
-        var widget1 = CycleButton.onOffBuilder(target.getValue()).displayOnlyValue().create(title, (ignore, input) -> target.setValue(input));
+        var widget1 = CycleButton.onOffBuilder(Options.Display).displayOnlyValue().create(title, (ignore, input) -> Options.Display = input);
         super.list.addSmall(widget0, widget1);
     }
 

@@ -1,7 +1,6 @@
 {
   "hudmanager": "界面管理器",
   "hudmanager.Visible": "启用显示",
-  "hudmanager.Preview": "启用预览",
   "hudmanager.Resizer": "尺寸修正",
   "hudmanager.Opacity": "不透明度",
   "hudmanager.OffsetX": "横轴偏移",
