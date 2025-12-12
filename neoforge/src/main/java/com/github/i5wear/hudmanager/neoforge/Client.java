@@ -1,8 +1,8 @@
-package com.i5wear.hudmanager.neoforge;
+package com.github.i5wear.hudmanager.neoforge;
 
-import com.i5wear.hudmanager.HudOptions;
-import com.i5wear.hudmanager.HudManager;
-import com.i5wear.hudmanager.screen.HudOptionsScreen;
+import com.github.i5wear.hudmanager.HudOptions;
+import com.github.i5wear.hudmanager.HudManager;
+import com.github.i5wear.hudmanager.screen.HudOptionsScreen;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;

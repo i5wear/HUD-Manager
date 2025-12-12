@@ -1,4 +1,4 @@
-package com.i5wear.hudmanager;
+package com.github.i5wear.hudmanager;
 
 import com.fasterxml.jackson.annotation.JsonMerge;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -8,7 +8,7 @@ import java.io.File;
 
 public class HudOptions {
 
-    public static volatile File CONFIG = null; // Initialized by Fabric/NeoForge.
+    public static volatile File CONFIG = null; // From Loader
     public static final JsonMapper MAPPER = new JsonMapper();
     public static final HudOptions INSTANCE = new HudOptions();
 

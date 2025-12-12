@@ -13,8 +13,8 @@
   "icon": "assets/hudmanager/icon.png",
   "environment": "client",
   "entrypoints": {
-    "client": [ "com.i5wear.hudmanager.fabric.Client" ],
-    "modmenu": [ "com.i5wear.hudmanager.fabric.ModMenu" ]
+    "client": [ "com.github.i5wear.hudmanager.fabric.Client" ],
+    "modmenu": [ "com.github.i5wear.hudmanager.fabric.ModMenu" ]
   },
   "mixins": [ "hudmanager.mixins.json" ],
   "depends": {

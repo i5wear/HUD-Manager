@@ -1,6 +1,6 @@
-package com.i5wear.hudmanager.mixin;
+package com.github.i5wear.hudmanager.mixin;
 
-import com.i5wear.hudmanager.HudManager;
+import com.github.i5wear.hudmanager.HudManager;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.blaze3d.platform.Window;
 import org.spongepowered.asm.mixin.Mixin;

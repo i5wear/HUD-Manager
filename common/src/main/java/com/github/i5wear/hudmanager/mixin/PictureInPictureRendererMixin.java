@@ -1,6 +1,6 @@
-package com.i5wear.hudmanager.mixin;
+package com.github.i5wear.hudmanager.mixin;
 
-import com.i5wear.hudmanager.HudOptions;
+import com.github.i5wear.hudmanager.HudOptions;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
 import net.minecraft.client.gui.render.state.BlitRenderState;

@@ -1,4 +1,4 @@
-package com.i5wear.hudmanager.mixin;
+package com.github.i5wear.hudmanager.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.render.GuiRenderer;

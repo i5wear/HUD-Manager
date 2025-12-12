@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "com.i5wear.hudmanager.mixin",
+  "package": "com.github.i5wear.hudmanager.mixin",
   "client": [
     "BossHealthOverlayMixin",
     "DebugScreenOverlayMixin",

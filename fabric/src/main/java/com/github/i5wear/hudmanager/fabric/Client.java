@@ -1,7 +1,7 @@
-package com.i5wear.hudmanager.fabric;
+package com.github.i5wear.hudmanager.fabric;
 
-import com.i5wear.hudmanager.HudOptions;
-import com.i5wear.hudmanager.HudManager;
+import com.github.i5wear.hudmanager.HudOptions;
+import com.github.i5wear.hudmanager.HudManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;

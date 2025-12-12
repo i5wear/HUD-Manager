@@ -1,4 +1,4 @@
-package com.i5wear.hudmanager;
+package com.github.i5wear.hudmanager;
 
 import net.minecraft.client.gui.GuiGraphics;
 

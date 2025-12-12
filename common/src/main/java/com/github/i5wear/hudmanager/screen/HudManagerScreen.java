@@ -1,6 +1,6 @@
-package com.i5wear.hudmanager.screen;
+package com.github.i5wear.hudmanager.screen;
 
-import com.i5wear.hudmanager.HudManager;
+import com.github.i5wear.hudmanager.HudManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.Screen;

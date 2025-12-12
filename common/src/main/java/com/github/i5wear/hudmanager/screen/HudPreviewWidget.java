@@ -1,6 +1,6 @@
-package com.i5wear.hudmanager.screen;
+package com.github.i5wear.hudmanager.screen;
 
-import com.i5wear.hudmanager.HudManager;
+import com.github.i5wear.hudmanager.HudManager;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarratedElementType;
@@ -42,7 +42,6 @@ public class HudPreviewWidget extends AbstractWidget {
 
     @Override protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
         update();
-        graphics.fill(getX(), getY(), getRight(), getBottom(), HudManager.recolor(0x7FFFFFFF, Identity.Opacity));
     }
 
     private void update() {

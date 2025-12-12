@@ -1,6 +1,6 @@
-package com.i5wear.hudmanager.fabric;
+package com.github.i5wear.hudmanager.fabric;
 
-import com.i5wear.hudmanager.screen.HudOptionsScreen;
+import com.github.i5wear.hudmanager.screen.HudOptionsScreen;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 

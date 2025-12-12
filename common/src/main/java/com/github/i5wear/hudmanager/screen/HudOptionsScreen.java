@@ -1,7 +1,7 @@
-package com.i5wear.hudmanager.screen;
+package com.github.i5wear.hudmanager.screen;
 
-import com.i5wear.hudmanager.HudOptions;
-import com.i5wear.hudmanager.HudManager;
+import com.github.i5wear.hudmanager.HudOptions;
+import com.github.i5wear.hudmanager.HudManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.StringWidget;
@@ -12,7 +12,7 @@ import net.minecraft.network.chat.Component;
 public class HudOptionsScreen extends OptionsSubScreen {
 
     private static final Component TITLE = Component.translatable("hudmanager");
-    private static final Component OPTIONS = Component.translatable("menu.options");
+    private static final Component ENTRY = Component.translatable("menu.options");
 
     public HudOptionsScreen(Screen screen) { super(screen, Minecraft.getInstance().options, TITLE); }
 
@@ -36,7 +36,7 @@ public class HudOptionsScreen extends OptionsSubScreen {
     private void makeEntry(HudManager target, Component title) {
         super.list.addSmall(
             new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title, super.getFont()),
-            Button.builder(OPTIONS, ignore -> Minecraft.getInstance().setScreen(new HudManagerScreen(this, target, title))).build()
+            Button.builder(ENTRY, ignore -> Minecraft.getInstance().setScreen(new HudPreviewScreen(this, target, title))).build()
         );
     }
 }
