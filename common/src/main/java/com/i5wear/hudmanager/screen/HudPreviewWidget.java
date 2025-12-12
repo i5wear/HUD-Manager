@@ -42,7 +42,7 @@ public class HudPreviewWidget extends AbstractWidget {
 
     @Override protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
         update();
-        graphics.fill(getX(), getY(), getRight(), getBottom(), HudManager.recolor(0x7FFFFFFF, Identity.Opacity.getValue()));
+        graphics.fill(getX(), getY(), getRight(), getBottom(), HudManager.recolor(0x7FFFFFFF, Identity.Opacity));
     }
 
     private void update() {

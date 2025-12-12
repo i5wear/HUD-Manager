@@ -2,9 +2,6 @@ package com.i5wear.hudmanager.fabric;
 
 import com.i5wear.hudmanager.HudOptions;
 import com.i5wear.hudmanager.HudManager;
-import com.i5wear.hudmanager.screen.HudOptionsScreen;
-import com.terraformersmc.modmenu.api.ConfigScreenFactory;
-import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
@@ -13,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.Map;
 
-public class Main implements ClientModInitializer, ModMenuApi {
+public class Client implements ClientModInitializer {
 
     private static final Map<ResourceLocation, HudManager> CATEGORY = Map.ofEntries(
         Map.entry(VanillaHudElements.CROSSHAIR, HudOptions.INSTANCE.Crosshair),
@@ -41,7 +38,7 @@ public class Main implements ClientModInitializer, ModMenuApi {
                 key, original -> (graphics, tracker) -> {
                     if (value.apply(graphics))
                         original.render(graphics, tracker);
-                    if (key == VanillaHudElements.HOTBAR) // PATCH #13
+                    if (key == VanillaHudElements.HOTBAR) // Patch #13
                         graphics.pose().popMatrix();
                     else HudManager.reset(graphics);
                 }
@@ -49,10 +46,8 @@ public class Main implements ClientModInitializer, ModMenuApi {
         );
     }
 
-    @Override public ConfigScreenFactory<?> getModConfigScreenFactory() { return HudOptionsScreen::new; }
-
     @Override public void onInitializeClient() {
-        HudOptions.CONFIG = FabricLoader.getInstance().getConfigDir().resolve("hudmanager.json").toFile();
+        HudOptions.FILE = FabricLoader.getInstance().getConfigDir().resolve("hudmanager.json").toFile();
         HudOptions.load(); HudOptions.save(); modifyElement();
     }
 }

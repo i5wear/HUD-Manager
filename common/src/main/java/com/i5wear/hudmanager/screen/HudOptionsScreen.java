@@ -11,7 +11,8 @@ import net.minecraft.network.chat.Component;
 
 public class HudOptionsScreen extends OptionsSubScreen {
 
-    public static final Component TITLE = Component.translatable("hudmanager");
+    private static final Component TITLE = Component.translatable("hudmanager");
+    private static final Component OPTIONS = Component.translatable("menu.options");
 
     public HudOptionsScreen(Screen screen) { super(screen, Minecraft.getInstance().options, TITLE); }
 
@@ -33,8 +34,9 @@ public class HudOptionsScreen extends OptionsSubScreen {
     @Override public void removed() { HudOptions.save(); }
 
     private void makeEntry(HudManager target, Component title) {
-        var widget0 = new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title, super.getFont());
-        var widget1 = Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new HudManagerScreen(this, target, title))).build();
-        super.list.addSmall(widget0, widget1);
+        super.list.addSmall(
+            new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title, super.getFont()),
+            Button.builder(OPTIONS, ignore -> Minecraft.getInstance().setScreen(new HudManagerScreen(this, target, title))).build()
+        );
     }
 }

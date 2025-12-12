@@ -1,8 +1,7 @@
 package com.i5wear.hudmanager;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -11,8 +10,8 @@ import java.io.FileWriter;
 
 public class HudOptions {
 
-    public static File CONFIG = null; // FROM LOADER
-    public static ObjectMapper MAPPER = new JsonMapper();
+    public static File FILE = null; // Initialized by Fabric/NeoForge.
+    public static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static HudOptions INSTANCE = new HudOptions();
 
     public final HudManager ActionBar = new HudManager();
@@ -29,13 +28,12 @@ public class HudOptions {
     public final HudManager Tooltip = new HudManager();
 
     public static void load() {
-        try (var Reader = new FileReader(CONFIG)) { INSTANCE = MAPPER.readValue(Reader, HudOptions.class); }
-        catch (Exception e) { LoggerFactory.getLogger("hudmanager").warn(e.getMessage()); }
+        try (var Reader = new FileReader(FILE)) { INSTANCE = GSON.fromJson(Reader, HudOptions.class); }
+        catch (Exception e) { LoggerFactory.getLogger(HudOptions.class).warn(e.getMessage()); }
     }
 
     public static void save() {
-        MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
-        try (var Writer = new FileWriter(CONFIG)) { MAPPER.writeValue(Writer, INSTANCE); }
-        catch (Exception e) { LoggerFactory.getLogger("hudmanager").warn(e.getMessage()); }
+        try (var Writer = new FileWriter(FILE)) { GSON.toJson(INSTANCE, Writer); }
+        catch (Exception e) { LoggerFactory.getLogger(HudOptions.class).warn(e.getMessage()); }
     }
 }

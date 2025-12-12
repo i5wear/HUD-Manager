@@ -1,7 +1,6 @@
 package com.i5wear.hudmanager;
 
 import net.minecraft.client.gui.GuiGraphics;
-import org.apache.commons.lang3.mutable.MutableFloat;
 
 public class HudManager {
 
@@ -9,21 +8,19 @@ public class HudManager {
     public static float CURRENT_OPACITY = 1;
 
     public boolean Display = true;
-    public final MutableFloat Resizer = new MutableFloat(1);
-    public final MutableFloat Opacity = new MutableFloat(1);
-    public final MutableFloat OffsetX = new MutableFloat(0);
-    public final MutableFloat OffsetY = new MutableFloat(0);
+    public float Resizer = 1, Opacity = 1;
+    public float OffsetX = 0, OffsetY = 0;
 
-    public static int rescale(int input, float resizer) { return resizer == 0 ? Integer.MAX_VALUE : (int)(input / resizer); }
+    public static int rescale(int input, float resizer) { return resizer == 0 ? Integer.MAX_VALUE : (int) (input / resizer); }
 
-    public static int recolor(int input, float opacity) { return Math.min((int)(opacity * (input >>> 24)), 255) << 24 | input & 0xFFFFFF; }
+    public static int recolor(int input, float opacity) { return Math.min((int) (opacity * (input >>> 24)), 255) << 24 | input & 0xFFFFFF; }
 
     public boolean apply(GuiGraphics target) {
-        CURRENT_RESIZER = Resizer.getValue();
-        CURRENT_OPACITY = Opacity.getValue();
+        CURRENT_RESIZER = Resizer;
+        CURRENT_OPACITY = Opacity;
         target.pose().pushMatrix();
-        target.pose().scale(Resizer.getValue(), Resizer.getValue());
-        target.pose().translate(OffsetX.getValue() * target.guiWidth(), OffsetY.getValue() * target.guiHeight());
+        target.pose().translate(OffsetX, OffsetY);
+        target.pose().scale(Resizer);
         return Display;
     }
 

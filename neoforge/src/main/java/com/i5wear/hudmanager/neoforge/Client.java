@@ -16,7 +16,7 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import java.util.Map;
 
 @Mod(value = "hudmanager", dist = Dist.CLIENT)
-public class Main {
+public class Client {
 
     private static final Map<ResourceLocation, HudManager> CATEGORY = Map.ofEntries(
         Map.entry(VanillaGuiLayers.CROSSHAIR, HudOptions.INSTANCE.Crosshair),
@@ -50,9 +50,9 @@ public class Main {
         );
     }
 
-    public Main(ModContainer container, IEventBus event) {
+    public Client(ModContainer container, IEventBus event) {
         container.registerExtensionPoint(IConfigScreenFactory.class, (ignore, screen) -> new HudOptionsScreen(screen));
-        HudOptions.CONFIG = FMLPaths.CONFIGDIR.get().resolve("hudmanager.json").toFile();
-        HudOptions.load(); HudOptions.save(); event.addListener(Main::modifyElement);
+        HudOptions.FILE = FMLPaths.CONFIGDIR.get().resolve("hudmanager.json").toFile();
+        HudOptions.load(); HudOptions.save(); event.addListener(Client::modifyElement);
     }
 }
