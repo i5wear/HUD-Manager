@@ -1,13 +1,13 @@
 package com.i5wear.hudmanager.mixin;
 
 import com.i5wear.hudmanager.HudOptions;
-import com.i5wear.hudmanager.HudManager;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
 import net.minecraft.client.gui.render.state.BlitRenderState;
 import net.minecraft.client.gui.render.state.pip.GuiProfilerChartRenderState;
 import net.minecraft.client.gui.render.state.pip.OversizedItemRenderState;
 import net.minecraft.client.gui.render.state.pip.PictureInPictureRenderState;
+import net.minecraft.util.ARGB;
 import org.joml.Matrix3x2f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,7 +24,7 @@ public abstract class PictureInPictureRendererMixin {
             case GuiProfilerChartRenderState ignore -> new BlitRenderState(
                 original.pipeline(), original.textureSetup(), new Matrix3x2f().scale(HudOptions.INSTANCE.DebugScreen.Resizer),
                 original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
-                HudManager.recolor(0xFFFFFFFF, HudOptions.INSTANCE.DebugScreen.Opacity), original.scissorArea()
+                ARGB.white(HudOptions.INSTANCE.DebugScreen.Opacity), original.scissorArea()
             );
             case OversizedItemRenderState item -> new BlitRenderState(
                 original.pipeline(), original.textureSetup(), original.pose(),

@@ -16,6 +16,8 @@ public class HudOptionsScreen extends OptionsSubScreen {
 
     public HudOptionsScreen(Screen screen) { super(screen, Minecraft.getInstance().options, TITLE); }
 
+    @Override public void removed() { HudOptions.save(); }
+
     @Override protected void addOptions() {
         makeEntry(HudOptions.INSTANCE.ActionBar, Component.translatable("hudmanager.ActionBar"));
         makeEntry(HudOptions.INSTANCE.BossBar, Component.translatable("hudmanager.BossBar"));
@@ -30,8 +32,6 @@ public class HudOptionsScreen extends OptionsSubScreen {
         makeEntry(HudOptions.INSTANCE.ToastMessage, Component.translatable("hudmanager.ToastMessage"));
         makeEntry(HudOptions.INSTANCE.Tooltip, Component.translatable("hudmanager.Tooltip"));
     }
-
-    @Override public void removed() { HudOptions.save(); }
 
     private void makeEntry(HudManager target, Component title) {
         super.list.addSmall(

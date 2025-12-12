@@ -52,7 +52,7 @@ public class Client {
 
     public Client(ModContainer container, IEventBus event) {
         container.registerExtensionPoint(IConfigScreenFactory.class, (ignore, screen) -> new HudOptionsScreen(screen));
-        HudOptions.FILE = FMLPaths.CONFIGDIR.get().resolve("hudmanager.json").toFile();
-        HudOptions.load(); HudOptions.save(); event.addListener(Client::modifyElement);
+        HudOptions.CONFIG = FMLPaths.CONFIGDIR.get().resolve("hudmanager.json").toFile();
+        HudOptions.load(); event.addListener(Client::modifyElement);
     }
 }

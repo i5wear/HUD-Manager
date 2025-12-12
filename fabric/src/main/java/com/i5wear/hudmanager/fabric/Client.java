@@ -47,7 +47,7 @@ public class Client implements ClientModInitializer {
     }
 
     @Override public void onInitializeClient() {
-        HudOptions.FILE = FabricLoader.getInstance().getConfigDir().resolve("hudmanager.json").toFile();
-        HudOptions.load(); HudOptions.save(); modifyElement();
+        HudOptions.CONFIG = FabricLoader.getInstance().getConfigDir().resolve("hudmanager.json").toFile();
+        HudOptions.load(); modifyElement();
     }
 }

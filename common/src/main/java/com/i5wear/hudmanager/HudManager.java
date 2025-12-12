@@ -11,10 +11,6 @@ public class HudManager {
     public float Resizer = 1, Opacity = 1;
     public float OffsetX = 0, OffsetY = 0;
 
-    public static int rescale(int input, float resizer) { return resizer == 0 ? Integer.MAX_VALUE : (int) (input / resizer); }
-
-    public static int recolor(int input, float opacity) { return Math.min((int) (opacity * (input >>> 24)), 255) << 24 | input & 0xFFFFFF; }
-
     public boolean apply(GuiGraphics target) {
         CURRENT_RESIZER = Resizer;
         CURRENT_OPACITY = Opacity;
