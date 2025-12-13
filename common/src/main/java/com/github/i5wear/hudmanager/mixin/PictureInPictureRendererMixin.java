@@ -26,10 +26,10 @@ public abstract class PictureInPictureRendererMixin {
                 original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
                 ARGB.white(HudOptions.INSTANCE.DebugScreen.Opacity), original.scissorArea()
             );
-            case OversizedItemRenderState item -> new BlitRenderState(
+            case OversizedItemRenderState ignore -> new BlitRenderState(
                 original.pipeline(), original.textureSetup(), original.pose(),
                 original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
-                ((IntSupplier)(Object) item.guiItemRenderState()).getAsInt(), original.scissorArea()
+                ((IntSupplier)(Object) ignore.guiItemRenderState()).getAsInt(), original.scissorArea()
             );
             default -> original;
         };
