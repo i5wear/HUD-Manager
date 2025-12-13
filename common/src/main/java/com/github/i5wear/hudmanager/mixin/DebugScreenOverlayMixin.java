@@ -13,8 +13,8 @@ public abstract class DebugScreenOverlayMixin {
 
     @WrapMethod(method = "render")
     private void modifyDebugScreen(GuiGraphics graphics, Operation<Void> original) {
-        if (HudOptions.INSTANCE.DebugScreen.apply(graphics))
+        if (HudOptions.INSTANCE.DebugScreen.apply(graphics.pose()))
             original.call(graphics);
-        HudManager.reset(graphics);
+        HudManager.reset(graphics.pose());
     }
 }

@@ -33,11 +33,11 @@ public class Client implements ClientModInitializer {
         ).forEach(
             (key, value) -> HudElementRegistry.replaceElement(
                 key, original -> (graphics, tracker) -> {
-                    if (value.apply(graphics))
+                    if (value.apply(graphics.pose()))
                         original.render(graphics, tracker);
                     if (key == VanillaHudElements.HOTBAR) // Patch #13
                         graphics.pose().popMatrix();
-                    else HudManager.reset(graphics);
+                    else HudManager.reset(graphics.pose());
                 }
             )
         );

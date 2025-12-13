@@ -1,6 +1,6 @@
 package com.github.i5wear.hudmanager;
 
-import net.minecraft.client.gui.GuiGraphics;
+import org.joml.Matrix3x2fStack;
 
 public class HudManager {
 
@@ -11,18 +11,18 @@ public class HudManager {
     public float Resizer = 1, Opacity = 1;
     public float OffsetX = 0, OffsetY = 0;
 
-    public boolean apply(GuiGraphics target) {
+    public boolean apply(Matrix3x2fStack target) {
         CURRENT_RESIZER = Resizer;
         CURRENT_OPACITY = Opacity;
-        target.pose().pushMatrix();
-        target.pose().translate(OffsetX, OffsetY);
-        target.pose().scale(Resizer);
+        target.pushMatrix();
+        target.translate(OffsetX, OffsetY);
+        target.scale(Resizer);
         return Display;
     }
 
-    public static void reset(GuiGraphics target) {
+    public static void reset(Matrix3x2fStack target) {
         CURRENT_RESIZER = 1;
         CURRENT_OPACITY = 1;
-        target.pose().popMatrix();
+        target.popMatrix();
     }
 }

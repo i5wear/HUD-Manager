@@ -39,9 +39,9 @@ public class Client {
         ).forEach(
             (key, value) -> event.wrapLayer(
                 key, original -> (graphics, tracker) -> {
-                    if (value.apply(graphics))
+                    if (value.apply(graphics.pose()))
                         original.render(graphics, tracker);
-                    HudManager.reset(graphics);
+                    HudManager.reset(graphics.pose());
                 }
             )
         );

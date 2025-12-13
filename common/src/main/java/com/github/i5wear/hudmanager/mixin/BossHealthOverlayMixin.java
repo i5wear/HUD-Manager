@@ -13,8 +13,8 @@ public abstract class BossHealthOverlayMixin {
 
     @WrapMethod(method = "render")
     private void modifyBossBar(GuiGraphics graphics, Operation<Void> original) {
-        if (HudOptions.INSTANCE.BossBar.apply(graphics))
+        if (HudOptions.INSTANCE.BossBar.apply(graphics.pose()))
             original.call(graphics);
-        HudManager.reset(graphics);
+        HudManager.reset(graphics.pose());
     }
 }

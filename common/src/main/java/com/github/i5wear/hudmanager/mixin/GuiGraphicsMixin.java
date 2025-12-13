@@ -36,9 +36,9 @@ public abstract class GuiGraphicsMixin {
     private void modifyTooltip(GuiGraphics graphics, Runnable instance, Operation<Void> original) {
         original.call(
             graphics, (Runnable)() -> {
-                if (HudOptions.INSTANCE.Tooltip.apply(graphics))
+                if (HudOptions.INSTANCE.Tooltip.apply(graphics.pose()))
                     instance.run();
-                HudManager.reset(graphics);
+                HudManager.reset(graphics.pose());
             }
         );
     }
