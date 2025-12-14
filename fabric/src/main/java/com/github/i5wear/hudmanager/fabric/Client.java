@@ -1,6 +1,6 @@
 package com.github.i5wear.hudmanager.fabric;
 
-import com.github.i5wear.hudmanager.HudOptions;
+import com.github.i5wear.hudmanager.ModOptions;
 import com.github.i5wear.hudmanager.HudManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
@@ -13,23 +13,23 @@ public class Client implements ClientModInitializer {
 
     private static void modifyElement() {
         Map.ofEntries(
-            Map.entry(VanillaHudElements.CROSSHAIR, HudOptions.INSTANCE.Crosshair),
-            Map.entry(VanillaHudElements.SPECTATOR_MENU, HudOptions.INSTANCE.HotbarGroup),
-            Map.entry(VanillaHudElements.HOTBAR, HudOptions.INSTANCE.HotbarGroup),
-            Map.entry(VanillaHudElements.ARMOR_BAR, HudOptions.INSTANCE.HotbarGroup),
-            Map.entry(VanillaHudElements.HEALTH_BAR, HudOptions.INSTANCE.HotbarGroup),
-            Map.entry(VanillaHudElements.FOOD_BAR, HudOptions.INSTANCE.HotbarGroup),
-            Map.entry(VanillaHudElements.AIR_BAR, HudOptions.INSTANCE.HotbarGroup),
-            Map.entry(VanillaHudElements.MOUNT_HEALTH, HudOptions.INSTANCE.HotbarGroup),
-            Map.entry(VanillaHudElements.INFO_BAR, HudOptions.INSTANCE.HotbarGroup),
-            Map.entry(VanillaHudElements.EXPERIENCE_LEVEL, HudOptions.INSTANCE.HotbarGroup),
-            Map.entry(VanillaHudElements.HELD_ITEM_TOOLTIP, HudOptions.INSTANCE.HotbarGroup),
-            Map.entry(VanillaHudElements.SPECTATOR_TOOLTIP, HudOptions.INSTANCE.HotbarGroup),
-            Map.entry(VanillaHudElements.STATUS_EFFECTS, HudOptions.INSTANCE.StatusEffect),
-            Map.entry(VanillaHudElements.SCOREBOARD, HudOptions.INSTANCE.Scoreboard),
-            Map.entry(VanillaHudElements.OVERLAY_MESSAGE, HudOptions.INSTANCE.ActionBar),
-            Map.entry(VanillaHudElements.TITLE_AND_SUBTITLE, HudOptions.INSTANCE.ScreenTitle),
-            Map.entry(VanillaHudElements.PLAYER_LIST, HudOptions.INSTANCE.PlayerList)
+            Map.entry(VanillaHudElements.CROSSHAIR, ModOptions.INSTANCE.Crosshair),
+            Map.entry(VanillaHudElements.SPECTATOR_MENU, ModOptions.INSTANCE.HotbarGroup),
+            Map.entry(VanillaHudElements.HOTBAR, ModOptions.INSTANCE.HotbarGroup),
+            Map.entry(VanillaHudElements.ARMOR_BAR, ModOptions.INSTANCE.HotbarGroup),
+            Map.entry(VanillaHudElements.HEALTH_BAR, ModOptions.INSTANCE.HotbarGroup),
+            Map.entry(VanillaHudElements.FOOD_BAR, ModOptions.INSTANCE.HotbarGroup),
+            Map.entry(VanillaHudElements.AIR_BAR, ModOptions.INSTANCE.HotbarGroup),
+            Map.entry(VanillaHudElements.MOUNT_HEALTH, ModOptions.INSTANCE.HotbarGroup),
+            Map.entry(VanillaHudElements.INFO_BAR, ModOptions.INSTANCE.HotbarGroup),
+            Map.entry(VanillaHudElements.EXPERIENCE_LEVEL, ModOptions.INSTANCE.HotbarGroup),
+            Map.entry(VanillaHudElements.HELD_ITEM_TOOLTIP, ModOptions.INSTANCE.HotbarGroup),
+            Map.entry(VanillaHudElements.SPECTATOR_TOOLTIP, ModOptions.INSTANCE.HotbarGroup),
+            Map.entry(VanillaHudElements.STATUS_EFFECTS, ModOptions.INSTANCE.StatusEffect),
+            Map.entry(VanillaHudElements.SCOREBOARD, ModOptions.INSTANCE.Scoreboard),
+            Map.entry(VanillaHudElements.OVERLAY_MESSAGE, ModOptions.INSTANCE.ActionBar),
+            Map.entry(VanillaHudElements.TITLE_AND_SUBTITLE, ModOptions.INSTANCE.ScreenTitle),
+            Map.entry(VanillaHudElements.PLAYER_LIST, ModOptions.INSTANCE.PlayerList)
         ).forEach(
             (key, value) -> HudElementRegistry.replaceElement(
                 key, original -> (graphics, tracker) -> {
@@ -44,7 +44,7 @@ public class Client implements ClientModInitializer {
     }
 
     @Override public void onInitializeClient() {
-        HudOptions.CONFIG = FabricLoader.getInstance().getConfigDir().resolve("hudmanager.json").toFile();
-        HudOptions.load(); modifyElement();
+        ModOptions.CURRENT_CONFIG = FabricLoader.getInstance().getConfigDir().resolve("hudmanager.json");
+        ModOptions.load(); ModOptions.save(); modifyElement();
     }
 }

@@ -3,14 +3,13 @@ package com.github.i5wear.hudmanager;
 import com.google.gson.GsonBuilder;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-public class HudOptions {
+public class ModOptions {
 
-    public static File CONFIG = null; // From Loader
-    public static HudOptions INSTANCE = new HudOptions();
+    public static Path CURRENT_CONFIG = null; // From Loader
+    public static ModOptions INSTANCE = new ModOptions();
 
     public final HudManager ActionBar = new HudManager();
     public final HudManager BossBar = new HudManager();
@@ -26,14 +25,14 @@ public class HudOptions {
     public final HudManager Tooltip = new HudManager();
 
     public static void load() {
-        var GSON = new GsonBuilder().setPrettyPrinting().create();
-        try (var READER = new FileReader(CONFIG)) { INSTANCE = GSON.fromJson(READER, HudOptions.class); }
-        catch (Exception e) { LoggerFactory.getLogger(HudOptions.class).warn(e.getMessage()); }
+        var Gson = new GsonBuilder().setPrettyPrinting().create();
+        try { INSTANCE = Gson.fromJson(Files.readString(CURRENT_CONFIG), ModOptions.class); }
+        catch (Exception e) { LoggerFactory.getLogger(ModOptions.class).warn(e.getMessage()); }
     }
 
     public static void save() {
-        var GSON = new GsonBuilder().setPrettyPrinting().create();
-        try (var WRITER = new FileWriter(CONFIG)){ GSON.toJson(INSTANCE, WRITER); }
-        catch (Exception e) { LoggerFactory.getLogger(HudOptions.class).warn(e.getMessage()); }
+        var Gson = new GsonBuilder().setPrettyPrinting().create();
+        try { Files.writeString(CURRENT_CONFIG, Gson.toJson(INSTANCE, ModOptions.class)); }
+        catch (Exception e) { LoggerFactory.getLogger(ModOptions.class).warn(e.getMessage()); }
     }
 }

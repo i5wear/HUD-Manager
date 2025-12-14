@@ -1,6 +1,6 @@
 package com.github.i5wear.hudmanager.mixin;
 
-import com.github.i5wear.hudmanager.HudOptions;
+import com.github.i5wear.hudmanager.ModOptions;
 import com.github.i5wear.hudmanager.HudManager;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -13,7 +13,7 @@ public abstract class BossHealthOverlayMixin {
 
     @WrapMethod(method = "render")
     private void modifyBossBar(GuiGraphics graphics, Operation<Void> original) {
-        if (HudOptions.INSTANCE.BossBar.apply(graphics.pose()))
+        if (ModOptions.INSTANCE.BossBar.apply(graphics.pose()))
             original.call(graphics);
         HudManager.reset(graphics.pose());
     }

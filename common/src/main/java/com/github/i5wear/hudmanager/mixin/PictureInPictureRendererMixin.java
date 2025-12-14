@@ -1,6 +1,6 @@
 package com.github.i5wear.hudmanager.mixin;
 
-import com.github.i5wear.hudmanager.HudOptions;
+import com.github.i5wear.hudmanager.ModOptions;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
 import net.minecraft.client.gui.render.state.BlitRenderState;
@@ -22,14 +22,14 @@ public abstract class PictureInPictureRendererMixin {
     private BlitRenderState modifySpecialElement(BlitRenderState original, @Local(ordinal = 0, argsOnly = true) PictureInPictureRenderState instance) {
         return switch (instance) {
             case GuiProfilerChartRenderState ignore -> new BlitRenderState(
-                original.pipeline(), original.textureSetup(), new Matrix3x2f().scale(HudOptions.INSTANCE.DebugScreen.Resizer),
+                original.pipeline(), original.textureSetup(), new Matrix3x2f().scale(ModOptions.INSTANCE.DebugScreen.Resizer),
                 original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
-                ARGB.white(HudOptions.INSTANCE.DebugScreen.Opacity), original.scissorArea()
+                ARGB.white(ModOptions.INSTANCE.DebugScreen.Opacity), original.scissorArea()
             );
             case OversizedItemRenderState ignore -> new BlitRenderState(
                 original.pipeline(), original.textureSetup(), original.pose(),
                 original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
-                ((IntSupplier)(Object) ignore.guiItemRenderState()).getAsInt(), original.scissorArea()
+                IntSupplier.class.cast(ignore.guiItemRenderState()).getAsInt(), original.scissorArea()
             );
             default -> original;
         };
