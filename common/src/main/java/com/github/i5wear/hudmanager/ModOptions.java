@@ -1,5 +1,6 @@
 package com.github.i5wear.hudmanager;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.slf4j.LoggerFactory;
 
@@ -7,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class ModOptions {
+
+    public static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public static Path CURRENT_CONFIG = null; // From Loader
     public static ModOptions INSTANCE = new ModOptions();
@@ -25,14 +28,12 @@ public class ModOptions {
     public final HudManager Tooltip = new HudManager();
 
     public static void load() {
-        var Gson = new GsonBuilder().setPrettyPrinting().create();
-        try { INSTANCE = Gson.fromJson(Files.readString(CURRENT_CONFIG), ModOptions.class); }
+        try { INSTANCE = GSON.fromJson(Files.readString(CURRENT_CONFIG), ModOptions.class); }
         catch (Exception e) { LoggerFactory.getLogger(ModOptions.class).warn(e.getMessage()); }
     }
 
     public static void save() {
-        var Gson = new GsonBuilder().setPrettyPrinting().create();
-        try { Files.writeString(CURRENT_CONFIG, Gson.toJson(INSTANCE, ModOptions.class)); }
+        try { Files.writeString(CURRENT_CONFIG, GSON.toJson(INSTANCE, ModOptions.class)); }
         catch (Exception e) { LoggerFactory.getLogger(ModOptions.class).warn(e.getMessage()); }
     }
 }

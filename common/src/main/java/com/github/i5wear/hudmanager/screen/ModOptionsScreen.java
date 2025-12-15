@@ -1,21 +1,25 @@
 package com.github.i5wear.hudmanager.screen;
 
 import com.github.i5wear.hudmanager.ModOptions;
-import com.google.gson.Gson;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.Component;
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.function.Failable;
+import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ModOptionsScreen extends OptionsSubScreen {
+
+    public static final String NAMESPACE = "hudmanager.options";
 
     protected final List<AbstractWidget> Content = new ArrayList<>();
 
@@ -25,36 +29,43 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     protected static Component translate(String... path) { return Component.translatable(String.join(".", path)); }
 
-    public ModOptionsScreen(Screen parent) { this(parent, ModOptions.INSTANCE, Component.translatable("hudmanager")); } // Fabric
+    public ModOptionsScreen(Screen parent) { this(parent, ModOptions.INSTANCE, "title"); } // Fabric
 
-    public ModOptionsScreen(Object ignore, Screen parent) { this(parent, ModOptions.INSTANCE, Component.translatable("hudmanager")); } // NeoForge
+    public ModOptionsScreen(Object ignore, Screen parent) { this(parent, ModOptions.INSTANCE, "title"); } // NeoForge
 
-    public ModOptionsScreen(Screen parent, Object target, Component title) {
-        super(parent, Minecraft.getInstance().options, title);
-        for (var entry : target.getClass().getFields()) {
-            entry.setAccessible(true);
-            var subtitle = translate("hudmanager", entry.getName());
-            if (!Modifier.isStatic(entry.getModifiers())) {
-                Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, subtitle, super.getFont()));
-                Content.getLast().setTooltip(Tooltip.create(translate("hudmanager", entry.getName(), "tooltip")));
-                Content.add(Failable.call(() -> makeWidget(entry, target, subtitle)));
+    public ModOptionsScreen(Screen parent, Object target, String title) {
+        super(parent, Minecraft.getInstance().options, translate(NAMESPACE, title));
+        for (var field : FieldUtils.getAllFieldsList(target.getClass())) {
+            field.setAccessible(true);
+            if (!Modifier.isStatic(field.getModifiers())) {
+                Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.getFont()));
+                Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
+                Content.add(Failable.call(() -> makeWidget(field, target)));
             }
         }
     }
 
-    protected AbstractWidget makeWidget(Field entry, Object target, Component title) throws IllegalAccessException {
-        var GETTER = Failable.asSupplier(MethodHandles.lookup().unreflectGetter(entry).bindTo(target)::invoke);
-        var SETTER = Failable.asConsumer(MethodHandles.lookup().unreflectSetter(entry).bindTo(target)::invoke);
-        if (entry.getType().equals(boolean.class))
-            return CycleButton.onOffBuilder((boolean) GETTER.get()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
-        else if (entry.getType().isEnum())
-            return CycleButton.onOffBuilder((boolean) GETTER.get()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
-        else if (entry.getType().isPrimitive() || List.class.isAssignableFrom(entry.getType())) {
-            var widget = new EditBox(super.getFont(), Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title);
-            widget.setValue(new Gson().toJson(GETTER.get(), entry.getType()));
-            widget.setResponder(input -> SETTER.accept(new Gson().fromJson(input, entry.getType())));
+    protected AbstractWidget makeWidget(Field field, Object target) throws Exception {
+        var GETTER = Failable.asSupplier(MethodHandles.lookup().unreflectGetter(field).bindTo(target)::invoke);
+        var SETTER = Failable.asConsumer(MethodHandles.lookup().unreflectSetter(field).bindTo(target)::invoke);
+        if (field.getType().isEnum())
+            return CycleButton.builder(input -> translate(NAMESPACE, Enum.class.cast(input).name()), GETTER.get())
+                .withValues(field.getType().getEnumConstants()).displayOnlyValue()
+                .create(translate(NAMESPACE, field.getName()), (ignore, input) -> SETTER.accept(input));
+        if (ClassUtils.isAssignable(field.getType(), Boolean.class))
+            return CycleButton.onOffBuilder((boolean) GETTER.get()).displayOnlyValue()
+                .create(translate(NAMESPACE, field.getName()), (ignore, input) -> SETTER.accept(input));
+        if (Stream.of(Number.class, CharSequence.class, Iterable.class).anyMatch(clazz -> ClassUtils.isAssignable(field.getType(), clazz))) {
+            var widget = new EditBox(super.getFont(), Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()));
+            widget.setValue(ModOptions.GSON.toJson(GETTER.get(), field.getType()));
+            widget.setResponder(input -> SETTER.accept(deserialize(input, GETTER.get())));
             return widget;
         }
-        return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title))).build();
+        return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), field.getName()))).build();
+    }
+
+    protected static Object deserialize(String input, Object fallback) {
+        try { return input.isBlank() ? fallback : ModOptions.GSON.fromJson(input, fallback.getClass()); }
+        catch (Exception ignore) { return fallback; }
     }
 }
