@@ -29,6 +29,8 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     private static Component translate(String... path) { return Component.translatable(String.join(".", path)); }
 
+    public ModOptionsScreen(Screen parent) { this(parent, ModOptions.INSTANCE, "title"); }
+
     public ModOptionsScreen(Screen parent, Object target, String title) {
         super(parent, Minecraft.getInstance().options, translate(NAMESPACE, title));
         for (var field : FieldUtils.getAllFields(target.getClass())) {
@@ -36,12 +38,12 @@ public class ModOptionsScreen extends OptionsSubScreen {
             if (!Modifier.isStatic(field.getModifiers())) {
                 Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.getFont()));
                 Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
-                Content.add(Failable.call(() -> makeWidget(field, target)));
+                Content.add(Failable.call(() -> construct(field, target)));
             }
         }
     }
 
-    private AbstractWidget makeWidget(Field field, Object target) throws Exception {
+    private AbstractWidget construct(Field field, Object target) throws Exception {
         var GETTER = Failable.asSupplier(MethodHandles.lookup().unreflectGetter(field).bindTo(target)::invoke);
         var SETTER = Failable.asConsumer(MethodHandles.lookup().unreflectSetter(field).bindTo(target)::invoke);
         if (field.getType().isEnum())
@@ -53,7 +55,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
                 .create(translate(NAMESPACE, field.getName()), (ignore, input) -> SETTER.accept(input));
         if (Stream.of(Number.class, CharSequence.class, Iterable.class).anyMatch(clazz -> ClassUtils.isAssignable(field.getType(), clazz))) {
             var widget = new EditBox(super.getFont(), Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()));
-            widget.setValue(ModOptions.GSON.toJson(GETTER.get(), field.getType()));
+            widget.setValue(ModOptions.READER.toJson(GETTER.get(), field.getType())); // Don't Format
             widget.setResponder(ignore -> SETTER.accept(deserialize(widget, GETTER.get())));
             return widget;
         }
@@ -63,8 +65,8 @@ public class ModOptionsScreen extends OptionsSubScreen {
     private static Object deserialize(EditBox target, Object fallback) {
         target.setTextColor(0xFFFFFFFF);
         if (!target.getValue().isBlank())
-            try { return ModOptions.GSON.fromJson(target.getValue(), fallback.getClass()); }
-            catch (Exception e) { target.setTextColor(0xFFFF0000); }
+            try { return ModOptions.READER.fromJson(target.getValue(), fallback.getClass()); }
+            catch (Exception ignore) { target.setTextColor(0xFFFF0000); }
         return fallback;
     }
 }
