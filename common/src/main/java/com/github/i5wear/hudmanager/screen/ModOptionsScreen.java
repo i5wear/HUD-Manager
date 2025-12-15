@@ -19,23 +19,19 @@ import java.util.stream.Stream;
 
 public class ModOptionsScreen extends OptionsSubScreen {
 
-    public static final String NAMESPACE = "hudmanager.options";
+    private static final String NAMESPACE = "hudmanager.options";
 
-    protected final List<AbstractWidget> Content = new ArrayList<>();
+    private final List<AbstractWidget> Content = new ArrayList<>();
 
     @Override public void removed() { ModOptions.save(); }
 
     @Override protected void addOptions() { super.list.addSmall(Content); }
 
-    protected static Component translate(String... path) { return Component.translatable(String.join(".", path)); }
-
-    public ModOptionsScreen(Screen parent) { this(parent, ModOptions.INSTANCE, "title"); } // Fabric
-
-    public ModOptionsScreen(Object ignore, Screen parent) { this(parent, ModOptions.INSTANCE, "title"); } // NeoForge
+    private static Component translate(String... path) { return Component.translatable(String.join(".", path)); }
 
     public ModOptionsScreen(Screen parent, Object target, String title) {
         super(parent, Minecraft.getInstance().options, translate(NAMESPACE, title));
-        for (var field : FieldUtils.getAllFieldsList(target.getClass())) {
+        for (var field : FieldUtils.getAllFields(target.getClass())) {
             field.setAccessible(true);
             if (!Modifier.isStatic(field.getModifiers())) {
                 Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.getFont()));
@@ -45,7 +41,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
         }
     }
 
-    protected AbstractWidget makeWidget(Field field, Object target) throws Exception {
+    private AbstractWidget makeWidget(Field field, Object target) throws Exception {
         var GETTER = Failable.asSupplier(MethodHandles.lookup().unreflectGetter(field).bindTo(target)::invoke);
         var SETTER = Failable.asConsumer(MethodHandles.lookup().unreflectSetter(field).bindTo(target)::invoke);
         if (field.getType().isEnum())
@@ -58,14 +54,17 @@ public class ModOptionsScreen extends OptionsSubScreen {
         if (Stream.of(Number.class, CharSequence.class, Iterable.class).anyMatch(clazz -> ClassUtils.isAssignable(field.getType(), clazz))) {
             var widget = new EditBox(super.getFont(), Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()));
             widget.setValue(ModOptions.GSON.toJson(GETTER.get(), field.getType()));
-            widget.setResponder(input -> SETTER.accept(deserialize(input, GETTER.get())));
+            widget.setResponder(ignore -> SETTER.accept(deserialize(widget, GETTER.get())));
             return widget;
         }
         return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), field.getName()))).build();
     }
 
-    protected static Object deserialize(String input, Object fallback) {
-        try { return input.isBlank() ? fallback : ModOptions.GSON.fromJson(input, fallback.getClass()); }
-        catch (Exception ignore) { return fallback; }
+    private static Object deserialize(EditBox target, Object fallback) {
+        target.setTextColor(0xFFFFFFFF);
+        if (!target.getValue().isBlank())
+            try { return ModOptions.GSON.fromJson(target.getValue(), fallback.getClass()); }
+            catch (Exception e) { target.setTextColor(0xFFFF0000); }
+        return fallback;
     }
 }

@@ -2,7 +2,7 @@ package com.github.i5wear.hudmanager.neoforge;
 
 import com.github.i5wear.hudmanager.ModOptions;
 import com.github.i5wear.hudmanager.HudManager;
-import com.github.i5wear.hudmanager.screen.ModOptionsScreen;
+import com.github.i5wear.hudmanager.screen.HudManagerScreen;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -48,7 +48,7 @@ public class Client {
     }
 
     public Client(ModContainer container, IEventBus event) {
-        container.registerExtensionPoint(IConfigScreenFactory.class, ModOptionsScreen::new);
+        container.registerExtensionPoint(IConfigScreenFactory.class, HudManagerScreen::new);
         ModOptions.CURRENT_CONFIG = FMLPaths.CONFIGDIR.get().resolve("hudmanager.json");
         ModOptions.load(); ModOptions.save(); event.addListener(Client::modifyElement);
     }
