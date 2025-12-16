@@ -3,8 +3,6 @@ package com.github.i5wear.hudmanager.neoforge;
 import com.github.i5wear.hudmanager.ModOptions;
 import com.github.i5wear.hudmanager.HudManager;
 import com.github.i5wear.hudmanager.screen.HudManagerScreen;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLPaths;
@@ -14,8 +12,7 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 import java.util.Map;
 
-@Mod(value = "hudmanager", dist = Dist.CLIENT)
-public class Client {
+@Mod("hudmanager") public class Client {
 
     private static void modifyElement(RegisterGuiLayersEvent event) {
         Map.ofEntries(
@@ -47,9 +44,10 @@ public class Client {
         );
     }
 
-    public Client(ModContainer loader, IEventBus event) {
+    public Client(ModContainer loader) {
+        loader.getEventBus().addListener(Client::modifyElement);
         loader.registerExtensionPoint(IConfigScreenFactory.class, HudManagerScreen::new);
         ModOptions.CURRENT_CONFIG = FMLPaths.CONFIGDIR.get().resolve("hudmanager.json");
-        ModOptions.load(); ModOptions.save(); event.addListener(Client::modifyElement);
+        ModOptions.load(); ModOptions.save();
     }
 }

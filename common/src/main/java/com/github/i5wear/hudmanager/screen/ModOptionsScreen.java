@@ -23,20 +23,22 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     private final List<AbstractWidget> Content = new ArrayList<>();
 
-    @Override public void removed() { ModOptions.save(); }
-
     @Override protected void addOptions() { super.list.addSmall(Content); }
+
+    @Override public void onClose() { ModOptions.save(); super.onClose(); }
 
     private static Component translate(String... input) { return Component.translatable(String.join(".", input)); }
 
     public ModOptionsScreen(Screen parent) { this(parent, ModOptions.INSTANCE, "title"); }
 
-    public ModOptionsScreen(Screen parent, Object target, String title) {
-        super(parent, Minecraft.getInstance().options, translate(NAMESPACE, title));
+    public ModOptionsScreen(Screen parent, Object target, String title) { this(parent, target, translate(NAMESPACE, title)); }
+
+    public ModOptionsScreen(Screen parent, Object target, Component title) {
+        super(parent, Minecraft.getInstance().options, title);
         for (var field : FieldUtils.getAllFields(target.getClass())) {
             field.setAccessible(true);
-            if (!Modifier.isStatic(field.getModifiers())) {
-                Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.getFont()));
+            if ((field.getModifiers() & Modifier.STATIC + Modifier.TRANSIENT) == 0) {
+                Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
                 Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
                 Content.add(Failable.call(() -> construct(field, target)));
             }
@@ -54,7 +56,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
             return CycleButton.onOffBuilder((boolean) GETTER.get()).displayOnlyValue()
                 .create(translate(NAMESPACE, field.getName()), (ignore, input) -> SETTER.accept(input));
         if (Stream.of(Number.class, CharSequence.class, Iterable.class).anyMatch(clazz -> ClassUtils.isAssignable(field.getType(), clazz))) {
-            var input = new EditBox(super.getFont(), Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()));
+            var input = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()));
             input.setValue(ModOptions.READER.toJson(GETTER.get(), field.getType())); // Don't Format
             input.setResponder(ignore -> SETTER.accept(deserialize(input, GETTER.get())));
             return input;
