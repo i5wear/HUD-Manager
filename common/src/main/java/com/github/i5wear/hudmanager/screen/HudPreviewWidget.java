@@ -13,12 +13,12 @@ public class HudPreviewWidget extends AbstractWidget {
 
     private final Screen Parent;
     private final HudManager Identity;
-    private final int[] Property;
+    private final float[] Property;
 
     private MouseButtonEvent MouseOrigin = null;
     private MouseButtonEvent MouseCurrent = null;
 
-    public HudPreviewWidget(Screen Parent, HudManager Identity, int... Property) {
+    public HudPreviewWidget(Screen Parent, HudManager Identity, float... Property) {
         super(0, 0, 0, 0, Component.literal("abc"));
         this.Parent = Parent;
         this.Identity = Identity;
@@ -42,13 +42,14 @@ public class HudPreviewWidget extends AbstractWidget {
 
     @Override protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
         update();
+        graphics.fill(super.getX(), super.getY(), super.getRight(), super.getBottom(), 0xFFFFFFFF);
     }
 
     private void update() {
-        //setSize((int)(2 * Identity.Resizer * Property[0]), (int)(2 * Identity.Resizer * Property[1]));
-        //setX((int)(Identity.Resizer * (Property[2] - Property[0]) + (Identity.OffsetX + Property[4]) * Parent.width));
-        //setY((int)(Identity.Resizer * (Property[3] - Property[1]) + (Identity.OffsetY + Property[5]) * Parent.height));
-        //if (MouseOrigin != null && MouseCurrent != null)
-            //setPosition(getX() + (int)(MouseCurrent.x() - MouseOrigin.x()), getY() + (int)(MouseCurrent.y() - MouseOrigin.y()));
+        setSize((int)(2 * Identity.Resizer * Property[0]), (int)(2 * Identity.Resizer * Property[1]));
+        setX((int)(Identity.OffsetX + Identity.Resizer * (Property[2] - Property[0]) + Property[4] * Parent.width));
+        setY((int)(Identity.OffsetY + Identity.Resizer * (Property[3] - Property[1]) + Property[5] * Parent.height));
+        if (MouseOrigin != null && MouseCurrent != null)
+            setPosition(getX() + (int)(MouseCurrent.x() - MouseOrigin.x()), getY() + (int)(MouseCurrent.y() - MouseOrigin.y()));
     }
 }

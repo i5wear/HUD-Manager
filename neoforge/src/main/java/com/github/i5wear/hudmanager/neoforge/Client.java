@@ -38,17 +38,17 @@ public class Client {
             Map.entry(VanillaGuiLayers.TAB_LIST, ModOptions.INSTANCE.PlayerList)
         ).forEach(
             (key, value) -> event.wrapLayer(
-                key, original -> (graphics, tracker) -> {
+                key, original -> (graphics, ignore) -> {
                     if (value.apply(graphics.pose()))
-                        original.render(graphics, tracker);
+                        original.render(graphics, ignore);
                     HudManager.reset(graphics.pose());
                 }
             )
         );
     }
 
-    public Client(ModContainer container, IEventBus event) {
-        container.registerExtensionPoint(IConfigScreenFactory.class, HudManagerScreen::new);
+    public Client(ModContainer loader, IEventBus event) {
+        loader.registerExtensionPoint(IConfigScreenFactory.class, HudManagerScreen::new);
         ModOptions.CURRENT_CONFIG = FMLPaths.CONFIGDIR.get().resolve("hudmanager.json");
         ModOptions.load(); ModOptions.save(); event.addListener(Client::modifyElement);
     }

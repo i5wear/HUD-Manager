@@ -32,11 +32,11 @@ public class Client implements ClientModInitializer {
             Map.entry(VanillaHudElements.PLAYER_LIST, ModOptions.INSTANCE.PlayerList)
         ).forEach(
             (key, value) -> HudElementRegistry.replaceElement(
-                key, original -> (graphics, tracker) -> {
+                key, original -> (graphics, ignore) -> {
                     if (value.apply(graphics.pose()))
-                        original.render(graphics, tracker);
-                    if (key == VanillaHudElements.HOTBAR) // Patch #13
-                        graphics.pose().popMatrix();
+                        original.render(graphics, ignore);
+                    if (key == VanillaHudElements.HOTBAR)
+                        graphics.pose().popMatrix(); // Patch #13
                     else HudManager.reset(graphics.pose());
                 }
             )

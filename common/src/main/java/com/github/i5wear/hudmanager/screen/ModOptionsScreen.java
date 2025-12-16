@@ -27,7 +27,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     @Override protected void addOptions() { super.list.addSmall(Content); }
 
-    private static Component translate(String... path) { return Component.translatable(String.join(".", path)); }
+    private static Component translate(String... input) { return Component.translatable(String.join(".", input)); }
 
     public ModOptionsScreen(Screen parent) { this(parent, ModOptions.INSTANCE, "title"); }
 
@@ -54,19 +54,19 @@ public class ModOptionsScreen extends OptionsSubScreen {
             return CycleButton.onOffBuilder((boolean) GETTER.get()).displayOnlyValue()
                 .create(translate(NAMESPACE, field.getName()), (ignore, input) -> SETTER.accept(input));
         if (Stream.of(Number.class, CharSequence.class, Iterable.class).anyMatch(clazz -> ClassUtils.isAssignable(field.getType(), clazz))) {
-            var widget = new EditBox(super.getFont(), Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()));
-            widget.setValue(ModOptions.READER.toJson(GETTER.get(), field.getType())); // Don't Format
-            widget.setResponder(ignore -> SETTER.accept(deserialize(widget, GETTER.get())));
-            return widget;
+            var input = new EditBox(super.getFont(), Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()));
+            input.setValue(ModOptions.READER.toJson(GETTER.get(), field.getType())); // Don't Format
+            input.setResponder(ignore -> SETTER.accept(deserialize(input, GETTER.get())));
+            return input;
         }
         return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), field.getName()))).build();
     }
 
-    private static Object deserialize(EditBox target, Object fallback) {
-        target.setTextColor(0xFFFFFFFF);
-        if (!target.getValue().isBlank())
-            try { return ModOptions.READER.fromJson(target.getValue(), fallback.getClass()); }
-            catch (Exception ignore) { target.setTextColor(0xFFFF0000); }
+    private static Object deserialize(EditBox input, Object fallback) {
+        input.setTextColor(0xFFFFFFFF);
+        if (!input.getValue().isBlank())
+            try { return ModOptions.READER.fromJson(input.getValue(), fallback.getClass()); }
+            catch (Exception ignore) { input.setTextColor(0xFFFF0000); }
         return fallback;
     }
 }
