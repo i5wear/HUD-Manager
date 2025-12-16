@@ -31,6 +31,8 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     public ModOptionsScreen(Screen parent) { this(parent, ModOptions.INSTANCE, "title"); }
 
+    public ModOptionsScreen(Object ignore, Screen parent) { this(parent, ModOptions.INSTANCE, "title"); } // For NeoForge
+
     public ModOptionsScreen(Screen parent, Object target, String title) { this(parent, target, translate(NAMESPACE, title)); }
 
     public ModOptionsScreen(Screen parent, Object target, Component title) {
