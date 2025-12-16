@@ -11,18 +11,20 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.input.MouseButtonInfo;
 import net.minecraft.network.chat.Component;
 
-public class HudPreviewWidget extends AbstractWidget {
+public class HudManagerWidget extends AbstractWidget {
 
-    private final Screen Target;
+    private final Screen Parent;
     private final HudManager Identity;
     private final int[] Property;
+
+    private boolean scaling = false;
 
     private MouseButtonEvent MouseOrigin = null;
     private MouseButtonEvent MouseCurrent = null;
 
-    public HudPreviewWidget(Screen parent, HudManager Identity, int... Property) {
-        super(0, 0, 0, 0, Component.literal("abc"));
-        Target = new ModOptionsScreen(parent, Identity, super.getMessage());
+    public HudManagerWidget(Screen parent, HudManager Identity, Component message, int... Property) {
+        super(0, 0, 0, 0, message);
+        Parent = parent;
         this.Identity = Identity;
         this.Property = Property;
     }
@@ -36,7 +38,7 @@ public class HudPreviewWidget extends AbstractWidget {
                 MouseCurrent = event;
                 break;
             case 1:
-                Minecraft.getInstance().setScreen(Target);
+                Minecraft.getInstance().setScreen(new ModOptionsScreen(Parent, Identity, message));
                 break;
             case 2:
                 Identity.Resizer = 1;
@@ -64,6 +66,7 @@ public class HudPreviewWidget extends AbstractWidget {
         setY((int)(Identity.OffsetY + Identity.Resizer * (Property[3] - Property[1]) + Property[5]));
         if (MouseOrigin != null && MouseCurrent != null)
             setPosition(getX() + (int)(MouseCurrent.x() - MouseOrigin.x()), getY() + (int)(MouseCurrent.y() - MouseOrigin.y()));
-        graphics.fill(super.getX(), super.getY(), super.getRight(), super.getBottom(), 0xFFFFFFFF);
+        graphics.fill(super.getX(), super.getY(), super.getRight(), super.getBottom(), isHovered ? 0x80FFFFFF : 0x80808080);
+        graphics.drawCenteredString(Minecraft.getInstance().font, getMessage(), getX() + getWidth() / 2, getY() - 4 + getHeight() / 2, 0xFFFFFFFF);
     }
 }
