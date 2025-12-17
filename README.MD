@@ -24,7 +24,7 @@ Player List, Scoreboard Sidebar, Screen Title, Status Effect, Toast, Tooltip.
 
 **All configurable render states include:**
 
-Display - Whether to render on the screen. (ON)
+Display - Whether to show on the screen. (ON)
 
 Resizer - Multiplies to vanilla GUI scale. (1.0)
 
