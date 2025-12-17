@@ -4,12 +4,12 @@
   "version": "${version}",
   "name": "HUD Manager",
   "description": "Manages HUD elements gracefully.",
+  "license": "MIT",
   "authors": [ "i5wear" ],
   "contact": {
     "homepage": "https://modrinth.com/mod/HUD-Manager",
     "issues": "https://github.com/i5wear/HUD-Manager/issues"
   },
-  "license": "MIT",
   "icon": "assets/hudmanager/icon.png",
   "environment": "client",
   "entrypoints": {

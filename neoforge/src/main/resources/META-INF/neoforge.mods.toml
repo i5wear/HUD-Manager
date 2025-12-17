@@ -1,4 +1,4 @@
-modLoader="javafml"
+modLoader = "javafml"
 issueTrackerURL = "https://github.com/i5wear/HUD-Manager/issues"
 license = "MIT"
 
