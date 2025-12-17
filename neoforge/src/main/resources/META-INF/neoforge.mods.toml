@@ -1,29 +1,23 @@
 modLoader = "javafml"
-issueTrackerURL = "https://github.com/i5wear/HUD-Manager/issues"
 license = "MIT"
+issueTrackerURL = "https://github.com/i5wear/HUD-Manager/issues"
 
 [[mods]]
 modId = "hudmanager"
 version = "${version}"
 displayName = "HUD Manager"
-displayURL = "https://modrinth.com/mod/HUD-Manager"
-authors = "i5wear"
 description = '''Manages HUD elements gracefully.'''
+authors = "i5wear"
+displayURL = "https://modrinth.com/mod/HUD-Manager"
 logoFile = "assets/hudmanager/icon.png"
-
-[[dependencies.hudmanager]]
-modId = "neoforge"
-type = "required"
-versionRange = "[21.11,)"
-ordering = "NONE"
-side = "BOTH"
-
-[[dependencies.hudmanager]]
-modId = "minecraft"
-type = "required"
-versionRange = "[1.21.11,)"
-ordering = "NONE"
-side = "BOTH"
 
 [[mixins]]
 config = "hudmanager.mixins.json"
+
+[[dependencies.hudmanager]]
+modId = "minecraft"
+versionRange = "[1.21.11,)"
+
+[[dependencies.hudmanager]]
+modId = "neoforge"
+versionRange = "[21.11,)"
