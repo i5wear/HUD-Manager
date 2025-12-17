@@ -8,7 +8,7 @@ HUD Manager makes your screen look better, by providing options of almost every 
 
 Especially useful when playing in servers with tons of things on the screen, like MCC Island.
 
-Compatible with Apple Skin, Better F3, Shulker Box Tooltip, Tooltip Scroll, and many more!
+Compatible with Apple Skin, Better F3, Shulker Box Tooltip, Tooltip Scroll, hopefully more!
 
 ## Feature: All in One
 
@@ -24,10 +24,10 @@ Player List, Scoreboard Sidebar, Screen Title, Status Effect, Toast, Tooltip.
 
 **All configurable render states include:**
 
-Visible - Whether to render on screen. (OFF/ON, ON in default)
+Display - Whether to render on the screen. (ON)
 
-Resizer - Multiplies to vanilla GUI scale. (0% - 200%, 100% in default)
+Resizer - Multiplies to vanilla GUI scale. (1.0)
 
-Opacity - Multiplies to vanilla GUI alpha. (0% - 200%, 100% in default)
+Opacity - Multiplies to vanilla GUI alpha. (1.0)
 
-X/Y Offset - Adds to vanilla GUI position. (-100% - +100%, 0% in default)
+X/Y Offset - Adds to vanilla GUI position. (0.0)
