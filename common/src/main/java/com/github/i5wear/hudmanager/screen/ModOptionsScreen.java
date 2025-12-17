@@ -11,8 +11,7 @@ import org.apache.commons.lang3.function.Failable;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -59,17 +58,17 @@ public class ModOptionsScreen extends OptionsSubScreen {
                 .create(translate(NAMESPACE, field.getName()), (ignore, input) -> SETTER.accept(input));
         if (Stream.of(Number.class, CharSequence.class, Iterable.class).anyMatch(clazz -> ClassUtils.isAssignable(field.getType(), clazz))) {
             var input = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()));
-            input.setValue(ModOptions.READER.toJson(GETTER.get(), field.getType())); // Don't Format
-            input.setResponder(ignore -> SETTER.accept(deserialize(input, GETTER.get())));
+            input.setValue(ModOptions.READER.toJson(GETTER.get(), field.getGenericType())); // Don't Format
+            input.setResponder(ignore -> SETTER.accept(deserialize(input, field.getGenericType(), GETTER.get())));
             return input;
         }
         return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), field.getName()))).build();
     }
 
-    private static Object deserialize(EditBox input, Object fallback) {
+    private static Object deserialize(EditBox input, Type type, Object fallback) {
         input.setTextColor(0xFFFFFFFF);
         if (!input.getValue().isBlank())
-            try { return ModOptions.READER.fromJson(input.getValue(), fallback.getClass()); }
+            try { return ModOptions.READER.fromJson(input.getValue(), type); }
             catch (Exception ignore) { input.setTextColor(0xFFFF0000); }
         return fallback;
     }
