@@ -41,12 +41,12 @@ public class ModOptionsScreen extends OptionsSubScreen {
             if ((field.getModifiers() & Modifier.STATIC + Modifier.TRANSIENT) == 0) {
                 Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
                 Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
-                Content.add(Failable.call(() -> construct(field, target)));
+                Content.add(Failable.call(() -> serialize(field, target)));
             }
         }
     }
 
-    private AbstractWidget construct(Field field, Object target) throws Exception {
+    private AbstractWidget serialize(Field field, Object target) throws Exception {
         var GETTER = Failable.asSupplier(MethodHandles.lookup().unreflectGetter(field).bindTo(target)::invoke);
         var SETTER = Failable.asConsumer(MethodHandles.lookup().unreflectSetter(field).bindTo(target)::invoke);
         if (field.getType().isEnum())
