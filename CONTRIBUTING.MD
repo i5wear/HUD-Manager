@@ -6,13 +6,13 @@ HUD Manager的整个实现都仅对界面渲染的“准备过程”作修改，
 
 ## 1. GuiGraphics
 
-各界面元素通过`render`方法启动渲染，通过参数`GuiGraphics`控制大小、位置等，并绘制形状、文字和物品等纹理。
+各界面元素通过`render`方法启动渲染，通过参数`GuiGraphics`控制大小、位置等，并绘制形状、文字、物品等纹理。
 
 `GuiGraphics.pose`字段存储矩阵栈`Matrix3x2fStack`，通过其`scale`和`translate`方法可以简单缩放与移动。
 
-缩放以屏幕左上角为中心，通过放缩`Window.guiScaledWidth`和`Window.guiScaledHeight`，可以保持相对位置不变。
+缩放以屏幕左上角为中心，通过放缩`Window.guiScaledWidth`和`Window.guiScaledHeight`，可以保持位置不变。
 
-`GuiGraphics`的大部分方法都可以传入一个整数`color`，其默认值为`0xFFFFFFFF`，通过改变这一参数，可以改变颜色。
+`GuiGraphics`的大部分方法都可以传入参数`color`，其默认值为`0xFFFFFFFF`，通过改变这一参数，可以改变颜色。
 
 ## 2. GuiRenderState
 
