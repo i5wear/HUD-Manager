@@ -2,14 +2,14 @@ package com.github.i5wear.hudmanager.fabric;
 
 import com.github.i5wear.hudmanager.ModOptions;
 import com.github.i5wear.hudmanager.HudManager;
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.util.Map;
 
-public class Main implements ModInitializer {
+public class Client implements ClientModInitializer {
 
     private static void modifyElement() {
         Map.ofEntries(
@@ -43,7 +43,7 @@ public class Main implements ModInitializer {
         );
     }
 
-    @Override public void onInitialize() {
+    @Override public void onInitializeClient() {
         ModOptions.CURRENT_CONFIG = FabricLoader.getInstance().getConfigDir().resolve("hudmanager.json");
         ModOptions.load(); ModOptions.save(); modifyElement();
     }

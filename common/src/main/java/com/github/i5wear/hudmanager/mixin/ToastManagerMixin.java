@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class ToastManagerMixin {
 
     @WrapMethod(method = "render")
-    private void modifyToast(GuiGraphics graphics, Operation<Void> original) {
+    private void modifyToastMessage(GuiGraphics graphics, Operation<Void> original) {
         if (ModOptions.INSTANCE.ToastMessage.apply(graphics.pose()))
             original.call(graphics);
         HudManager.reset(graphics.pose());
