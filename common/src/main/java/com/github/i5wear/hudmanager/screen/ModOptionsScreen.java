@@ -26,13 +26,13 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     @Override public void onClose() { ModOptions.save(); super.onClose(); }
 
-    private static Component translate(String... input) { return Component.translatable(String.join(".", input)); }
+    private static Component translate(CharSequence... input) { return Component.translatable(String.join(".", input)); }
 
     public ModOptionsScreen(Screen parent) { this(parent, ModOptions.INSTANCE, "title"); }
 
     public ModOptionsScreen(Object ignore, Screen parent) { this(parent, ModOptions.INSTANCE, "title"); } // For NeoForge
 
-    public ModOptionsScreen(Screen parent, Object target, String title) { this(parent, target, translate(NAMESPACE, title)); }
+    public ModOptionsScreen(Screen parent, Object target, CharSequence title) { this(parent, target, translate(NAMESPACE, title)); }
 
     public ModOptionsScreen(Screen parent, Object target, Component title) {
         super(parent, Minecraft.getInstance().options, title);
