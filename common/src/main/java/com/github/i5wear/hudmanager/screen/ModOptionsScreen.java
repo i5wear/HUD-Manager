@@ -26,46 +26,41 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     @Override public void onClose() { ModOptions.save(); super.onClose(); }
 
-    private static Component translate(CharSequence... input) { return Component.translatable(String.join(".", input)); }
+    public static Component translate(CharSequence... input) { return Component.translatable(String.join(".", input)); }
 
-    public ModOptionsScreen(Screen parent) { this(parent, ModOptions.INSTANCE, "title"); }
+    public ModOptionsScreen(Screen parent) { this(parent, ModOptions.INSTANCE, translate(NAMESPACE, "title")); }
 
-    public ModOptionsScreen(Object ignore, Screen parent) { this(parent, ModOptions.INSTANCE, "title"); } // For NeoForge
-
-    public ModOptionsScreen(Screen parent, Object target, CharSequence title) { this(parent, target, translate(NAMESPACE, title)); }
+    public ModOptionsScreen(Object ignore, Screen parent) { this(parent, ModOptions.INSTANCE, translate(NAMESPACE, "title")); }
 
     public ModOptionsScreen(Screen parent, Object target, Component title) {
         super(parent, Minecraft.getInstance().options, title);
         for (var field : FieldUtils.getAllFields(target.getClass())) {
-            field.setAccessible(true);
-            if ((field.getModifiers() & Modifier.STATIC + Modifier.TRANSIENT) == 0) {
-                Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
-                Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
-                Content.add(Failable.call(() -> serialize(field, target)));
-            }
+            if ((field.getModifiers() & Modifier.STATIC + Modifier.TRANSIENT) != 0) continue;
+            Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
+            Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
+            Content.add(serialize(field, target, translate(NAMESPACE, field.getName())));
         }
     }
 
-    private AbstractWidget serialize(Field field, Object target) throws Exception {
-        var GETTER = Failable.asSupplier(MethodHandles.lookup().unreflectGetter(field).bindTo(target)::invoke);
-        var SETTER = Failable.asConsumer(MethodHandles.lookup().unreflectSetter(field).bindTo(target)::invoke);
+    private AbstractWidget serialize(Field field, Object target, Component title) {
+        field.setAccessible(true);
+        var GETTER = Failable.asSupplier(Failable.apply(MethodHandles.lookup()::unreflectGetter, field).bindTo(target)::invoke);
+        var SETTER = Failable.asConsumer(Failable.apply(MethodHandles.lookup()::unreflectSetter, field).bindTo(target)::invoke);
         if (field.getType().isEnum())
             return CycleButton.builder(input -> translate(NAMESPACE, Enum.class.cast(input).name()), GETTER.get())
-                .withValues(field.getType().getEnumConstants()).displayOnlyValue()
-                .create(translate(NAMESPACE, field.getName()), (ignore, input) -> SETTER.accept(input));
+                .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         if (ClassUtils.isAssignable(field.getType(), Boolean.class))
-            return CycleButton.onOffBuilder((boolean) GETTER.get()).displayOnlyValue()
-                .create(translate(NAMESPACE, field.getName()), (ignore, input) -> SETTER.accept(input));
+            return CycleButton.onOffBuilder((boolean) GETTER.get()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         if (Stream.of(Number.class, CharSequence.class, Iterable.class).anyMatch(clazz -> ClassUtils.isAssignable(field.getType(), clazz))) {
-            var input = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()));
+            var input = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title);
             input.setValue(ModOptions.READER.toJson(GETTER.get(), field.getGenericType())); // Don't Format
-            input.setResponder(ignore -> SETTER.accept(deserialize(input, field.getGenericType(), GETTER.get())));
+            input.setResponder(ignore -> SETTER.accept(deserialize(input, GETTER.get(), field.getGenericType())));
             return input;
         }
-        return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), field.getName()))).build();
+        return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title))).build();
     }
 
-    private static Object deserialize(EditBox input, Type type, Object fallback) {
+    private static Object deserialize(EditBox input, Object fallback, Type type) {
         input.setTextColor(0xFFFFFFFF);
         if (!input.getValue().isBlank())
             try { return ModOptions.READER.fromJson(input.getValue(), type); }
