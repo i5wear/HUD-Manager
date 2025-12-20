@@ -47,11 +47,11 @@ public class ModOptionsScreen extends OptionsSubScreen {
         field.setAccessible(true);
         var GETTER = Failable.asSupplier(Failable.apply(MethodHandles.lookup()::unreflectGetter, field).bindTo(target)::invoke);
         var SETTER = Failable.asConsumer(Failable.apply(MethodHandles.lookup()::unreflectSetter, field).bindTo(target)::invoke);
-        if (field.getType().isEnum())
-            return CycleButton.builder(input -> translate(NAMESPACE, "enums", Enum.class.cast(input).name()), GETTER.get())
-                .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         if (ClassUtils.isAssignable(field.getType(), Boolean.class))
             return CycleButton.onOffBuilder(GETTER.get().equals(true)).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
+        if (ClassUtils.isAssignable(field.getType(), Enum.class))
+            return CycleButton.builder(input -> translate(NAMESPACE, "enums", Enum.class.cast(input).name()), GETTER.get())
+                .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         if (Stream.of(Number.class, CharSequence.class, Iterable.class).anyMatch(clazz -> ClassUtils.isAssignable(field.getType(), clazz))) {
             var widget = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title);
             widget.setValue(ModOptions.READER.toJson(GETTER.get(), field.getGenericType())); // Don't Format
