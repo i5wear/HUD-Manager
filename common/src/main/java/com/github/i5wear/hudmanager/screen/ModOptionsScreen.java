@@ -6,7 +6,6 @@ import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.ARGB;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.function.Failable;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -59,7 +58,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
                 input -> {
                     widget.setTextColor(EditBox.DEFAULT_TEXT_COLOR);
                     try { SETTER.accept(ModOptions.READER.fromJson(input, field.getGenericType())); }
-                    catch (Exception ignore) { widget.setTextColor(ARGB.scaleRGB(EditBox.DEFAULT_TEXT_COLOR, 0.5f)); }
+                    catch (Exception ignore) { widget.setTextColor(0xFFFF5555); }
                 }
             );
             return widget;
