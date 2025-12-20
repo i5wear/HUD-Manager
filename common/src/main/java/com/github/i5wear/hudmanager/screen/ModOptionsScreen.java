@@ -6,6 +6,7 @@ import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.ARGB;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.function.Failable;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -35,36 +36,34 @@ public class ModOptionsScreen extends OptionsSubScreen {
     public ModOptionsScreen(Screen parent, Object target, Component title) {
         super(parent, Minecraft.getInstance().options, title);
         for (var field : FieldUtils.getAllFields(target.getClass())) {
-            if ((field.getModifiers() & Modifier.STATIC + Modifier.TRANSIENT) != 0) continue;
+            if ((field.getModifiers() & (Modifier.STATIC | Modifier.TRANSIENT)) != 0) continue;
             Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
             Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
-            Content.add(serialize(field, target, translate(NAMESPACE, field.getName())));
+            Content.add(construct(field, target, translate(NAMESPACE, field.getName())));
         }
     }
 
-    private AbstractWidget serialize(Field field, Object target, Component title) {
+    private AbstractWidget construct(Field field, Object target, Component title) {
         field.setAccessible(true);
         var GETTER = Failable.asSupplier(Failable.apply(MethodHandles.lookup()::unreflectGetter, field).bindTo(target)::invoke);
         var SETTER = Failable.asConsumer(Failable.apply(MethodHandles.lookup()::unreflectSetter, field).bindTo(target)::invoke);
         if (field.getType().isEnum())
-            return CycleButton.builder(input -> translate(NAMESPACE, Enum.class.cast(input).name()), GETTER.get())
+            return CycleButton.builder(input -> translate(NAMESPACE, "enums", Enum.class.cast(input).name()), GETTER.get())
                 .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         if (ClassUtils.isAssignable(field.getType(), Boolean.class))
-            return CycleButton.onOffBuilder((boolean) GETTER.get()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
+            return CycleButton.onOffBuilder(GETTER.get().equals(true)).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         if (Stream.of(Number.class, CharSequence.class, Iterable.class).anyMatch(clazz -> ClassUtils.isAssignable(field.getType(), clazz))) {
-            var input = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title);
-            input.setValue(ModOptions.READER.toJson(GETTER.get(), field.getGenericType())); // Don't Format
-            input.setResponder(ignore -> SETTER.accept(deserialize(input, GETTER.get(), field.getGenericType())));
-            return input;
+            var widget = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title);
+            widget.setValue(ModOptions.READER.toJson(GETTER.get(), field.getGenericType())); // Don't Format
+            widget.setResponder(
+                input -> {
+                    widget.setTextColor(EditBox.DEFAULT_TEXT_COLOR);
+                    try { SETTER.accept(ModOptions.READER.fromJson(input, field.getGenericType())); }
+                    catch (Exception ignore) { widget.setTextColor(ARGB.scaleRGB(EditBox.DEFAULT_TEXT_COLOR, 0.5f)); }
+                }
+            );
+            return widget;
         }
         return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title))).build();
-    }
-
-    private static Object deserialize(EditBox input, Object fallback, Type type) {
-        input.setTextColor(0xFFFFFFFF);
-        if (!input.getValue().isBlank())
-            try { return ModOptions.READER.fromJson(input.getValue(), type); }
-            catch (Exception ignore) { input.setTextColor(0xFFFF0000); }
-        return fallback;
     }
 }
