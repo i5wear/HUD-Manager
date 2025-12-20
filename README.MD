@@ -4,30 +4,30 @@
 [![Modrinth](https://img.shields.io/modrinth/dt/hbUrCPGQ?logo=modrinth&color=22b14c)](https://modrinth.com/mod/hud-manager)
 [![GitHub](https://img.shields.io/github/v/release/i5wear/hud-manager?logo=github&color=00a2e8)](https://github.com/i5wear/hud-manager)
 
-HUD Manager makes your screen look better, by providing options of almost every HUD element.
+Enables you to configure the entire HUD layout to makes it looks best for you.
 
-Especially useful when playing in servers with tons of things on the screen, like MCC Island.
+Especially useful for servers with lots of things on the screen such as MCC Island.
 
-Compatible with Apple Skin, Better F3, Shulker Box Tooltip, Tooltip Scroll, hopefully more!
+Tested compatible with Apple Skin, Better F3, Shulker Box Tooltip, Tooltip Scroll.
 
 ## Feature: All in One
 
-With this single mod, You can simply manage everything via the config screen.
+You can simply manage everything via the Mod Menu, either Fabric or NeoForge.
 
-You will no longer need to get other stuff like Scoreboard Tweaks or Title Fixer.
+You will no longer need any other stuff like Scoreboard Tweaks or Title Fixer.
 
 **All configurable HUD elements include:**
 
 Action Bar, Boss Bar, Closed Caption, Crosshair, Debug Screen, Hotbar Group,
 
-Player List, Scoreboard Sidebar, Screen Title, Status Effect, Toast, Tooltip.
+Player List, Scoreboard, Screen Title, Status Effect, Toast Message, Tooltip.
 
 **All configurable render states include:**
 
-Display - Whether to show on the screen. (ON)
+Display - Whether to show on the screen.
 
-Resizer - Multiplies to vanilla GUI scale. (1.0)
+Resizer - Multiplies to vanilla GUI scale.
 
-Opacity - Multiplies to vanilla GUI alpha. (1.0)
+Opacity - Multiplies to vanilla GUI alpha.
 
-X/Y Offset - Adds to vanilla GUI position. (0.0)
+X/Y Offset - Adds to vanilla GUI position.
