@@ -8,11 +8,12 @@ import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class Client implements ClientModInitializer {
 
     private static void modifyElement() {
-        Map.ofEntries(
+        Stream.of(
             Map.entry(VanillaHudElements.CROSSHAIR, ModOptions.INSTANCE.Crosshair),
             Map.entry(VanillaHudElements.SPECTATOR_MENU, ModOptions.INSTANCE.HotbarGroup),
             Map.entry(VanillaHudElements.HOTBAR, ModOptions.INSTANCE.HotbarGroup),
@@ -31,11 +32,11 @@ public class Client implements ClientModInitializer {
             Map.entry(VanillaHudElements.TITLE_AND_SUBTITLE, ModOptions.INSTANCE.ScreenTitle),
             Map.entry(VanillaHudElements.PLAYER_LIST, ModOptions.INSTANCE.PlayerList)
         ).forEach(
-            (key, value) -> HudElementRegistry.replaceElement(
-                key, original -> (graphics, ignore) -> {
-                    if (value.apply(graphics.pose()))
+            entry -> HudElementRegistry.replaceElement(
+                entry.getKey(), original -> (graphics, ignore) -> {
+                    if (entry.getValue().apply(graphics.pose()))
                         original.render(graphics, ignore);
-                    if (key == VanillaHudElements.HOTBAR)
+                    if (entry.getKey() == VanillaHudElements.HOTBAR)
                         graphics.pose().popMatrix(); // Patch #13
                     else HudManager.reset(graphics.pose());
                 }

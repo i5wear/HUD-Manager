@@ -12,12 +12,13 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 import java.util.Map;
+import java.util.stream.Stream;
 
 @Mod(value = "hudmanager", dist = Dist.CLIENT)
 public class Client {
 
     private static void modifyElement(RegisterGuiLayersEvent event) {
-        Map.ofEntries(
+        Stream.of(
             Map.entry(VanillaGuiLayers.CROSSHAIR, ModOptions.INSTANCE.Crosshair),
             Map.entry(VanillaGuiLayers.HOTBAR, ModOptions.INSTANCE.HotbarGroup),
             Map.entry(VanillaGuiLayers.PLAYER_HEALTH, ModOptions.INSTANCE.HotbarGroup),
@@ -36,9 +37,9 @@ public class Client {
             Map.entry(VanillaGuiLayers.TITLE, ModOptions.INSTANCE.ScreenTitle),
             Map.entry(VanillaGuiLayers.TAB_LIST, ModOptions.INSTANCE.PlayerList)
         ).forEach(
-            (key, value) -> event.wrapLayer(
-                key, original -> (graphics, ignore) -> {
-                    if (value.apply(graphics.pose()))
+            entry -> event.wrapLayer(
+                entry.getKey(), original -> (graphics, ignore) -> {
+                    if (entry.getValue().apply(graphics.pose()))
                         original.render(graphics, ignore);
                     HudManager.reset(graphics.pose());
                 }
