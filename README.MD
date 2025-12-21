@@ -4,7 +4,7 @@
 [![Modrinth](https://img.shields.io/modrinth/dt/hbUrCPGQ?logo=modrinth&color=22b14c)](https://modrinth.com/mod/hud-manager)
 [![GitHub](https://img.shields.io/github/v/release/i5wear/hud-manager?logo=github&color=00a2e8)](https://github.com/i5wear/hud-manager)
 
-Enables you to configure the entire HUD layout to makes it looks best for you.
+Enables you to configure the entire HUD layout to make it looks just best for you.
 
 Especially useful for servers with lots of things on the screen such as MCC Island.
 
