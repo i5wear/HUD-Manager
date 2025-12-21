@@ -50,13 +50,11 @@ public class ModOptionsScreen extends OptionsSubScreen {
         if (Stream.of(Number.class, CharSequence.class, Iterable.class).anyMatch(clazz -> ClassUtils.isAssignable(field.getType(), clazz))) {
             var widget = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title);
             widget.setValue(ModOptions.READER.toJson(GETTER.get(), field.getGenericType())); // Don't Format
-            widget.setResponder(
-                input -> {
-                    widget.setTextColor(EditBox.DEFAULT_TEXT_COLOR);
-                    try { SETTER.accept(ModOptions.READER.fromJson(input, field.getGenericType())); }
-                    catch (Exception ignore) { widget.setTextColor(0xFFFF5555); }
-                }
-            );
+            widget.setResponder(input -> {
+                widget.setTextColor(EditBox.DEFAULT_TEXT_COLOR);
+                try { SETTER.accept(ModOptions.READER.fromJson(input, field.getGenericType())); }
+                catch (Exception ignore) { widget.setTextColor(0xFFFF5555); }
+            });
             return widget;
         }
         if (ClassUtils.isAssignable(field.getType(), Boolean.class))
