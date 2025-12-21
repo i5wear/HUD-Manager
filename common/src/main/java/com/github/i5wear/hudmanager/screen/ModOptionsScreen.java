@@ -53,7 +53,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
             widget.setResponder(input -> {
                 widget.setTextColor(EditBox.DEFAULT_TEXT_COLOR);
                 try { SETTER.accept(ModOptions.READER.fromJson(input, field.getGenericType())); }
-                catch (Exception ignore) { widget.setTextColor(0xFFFF5555); }
+                catch (Exception ignore) { widget.setTextColor(0xFFFF5555); } // ChatFormatting.RED
             });
             return widget;
         }

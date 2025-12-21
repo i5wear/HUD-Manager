@@ -21,10 +21,12 @@ dependencies {
 
 shadowJar {
     configurations = [project.configurations.bundle]
-    archiveClassifier = project.name + '-dev-shadow'
+    archiveBaseName = archives_name
+    archiveClassifier = project.name + '-shadow'
 }
 
 remapJar {
     inputFile = shadowJar.archiveFile
+    archiveBaseName = archives_name
     archiveClassifier = project.name
 }

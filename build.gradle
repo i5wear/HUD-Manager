@@ -4,14 +4,15 @@ plugins {
     id 'com.gradleup.shadow' version '9.3.0' apply false
 }
 
+allprojects {
+    group = maven_group
+    version = mod_version
+}
+
 subprojects {
     apply plugin: 'dev.architectury.loom'
     apply plugin: 'architectury-plugin'
     apply plugin: 'com.gradleup.shadow'
-
-    project.group = maven_group
-    project.version = mod_version
-    base.archivesName = archives_name
 
     repositories {
         maven { url = 'https://maven.fabricmc.net/' }
