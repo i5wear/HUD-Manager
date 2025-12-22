@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.render.GuiRenderer;
 import net.minecraft.client.gui.render.state.BlitRenderState;
 import net.minecraft.client.gui.render.state.GuiItemRenderState;
+import net.minecraft.util.ARGB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -18,7 +19,7 @@ public abstract class GuiRendererMixin {
         return new BlitRenderState(
             original.pipeline(), original.textureSetup(), original.pose(),
             original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
-            IntSupplier.class.cast(instance).getAsInt(), original.scissorArea()
+            ARGB.multiply(original.color(), IntSupplier.class.cast(instance).getAsInt()), original.scissorArea()
         );
     }
 }
