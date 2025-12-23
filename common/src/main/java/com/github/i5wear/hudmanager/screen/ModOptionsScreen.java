@@ -19,9 +19,9 @@ import java.util.stream.Stream;
 
 public class ModOptionsScreen extends OptionsSubScreen {
 
-    private static final String NAMESPACE = "hudmanager.options";
+    public static final String NAMESPACE = "hudmanager.options";
 
-    private final List<AbstractWidget> Content = new ArrayList<>();
+    protected final List<AbstractWidget> Content = new ArrayList<>();
 
     @Override protected void addOptions() { super.list.addSmall(Content); }
 
@@ -43,7 +43,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
         }
     }
 
-    private AbstractWidget construct(Field field, Object target, Component title) {
+    protected AbstractWidget construct(Field field, Object target, Component title) {
         field.setAccessible(true);
         var GETTER = Failable.asSupplier(Failable.apply(MethodHandles.lookup()::unreflectGetter, field).bindTo(target)::invoke);
         var SETTER = Failable.asConsumer(Failable.apply(MethodHandles.lookup()::unreflectSetter, field).bindTo(target)::invoke);

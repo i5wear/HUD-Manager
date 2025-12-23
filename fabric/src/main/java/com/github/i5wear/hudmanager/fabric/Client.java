@@ -10,7 +10,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class Client implements ClientModInitializer {
+public final class Client implements ClientModInitializer {
 
     private static void modifyElement() {
         Stream.of(

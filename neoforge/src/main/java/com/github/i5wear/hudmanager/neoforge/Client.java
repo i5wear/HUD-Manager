@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 @Mod(value = "hudmanager", dist = Dist.CLIENT)
-public class Client {
+public final class Client {
 
     private static void modifyElement(RegisterGuiLayersEvent event) {
         Stream.of(

@@ -7,5 +7,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = mod_id
+rootProject.name = mod_name
 include('common', 'fabric', 'neoforge')
