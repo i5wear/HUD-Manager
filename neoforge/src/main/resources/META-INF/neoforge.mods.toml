@@ -8,6 +8,7 @@ version = "${version}"
 displayName = "HUD Manager"
 description = '''Manages HUD elements gracefully.'''
 authors = "i5wear"
+credits = "Ferinjoque"
 displayURL = "https://modrinth.com/mod/HUD-Manager"
 logoFile = "assets/hudmanager/icon.png"
 

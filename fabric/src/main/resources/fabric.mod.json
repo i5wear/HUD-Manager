@@ -6,6 +6,7 @@
   "description": "Manages HUD elements gracefully.",
   "license": "MIT",
   "authors": [ "i5wear" ],
+  "contributors": [ "Ferinjoque" ],
   "contact": {
     "homepage": "https://modrinth.com/mod/HUD-Manager",
     "issues": "https://github.com/i5wear/HUD-Manager/issues"
