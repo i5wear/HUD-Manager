@@ -6,6 +6,15 @@ import com.google.gson.GsonBuilder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * <p> A simple config implementation. </p>
+ * <p> Contains arbitrary objects that convert to, and get values from a JSON file or config screen. </p>
+ * <p> Supports numeric, string, boolean and enum types, or their collections and combinations. </p>
+ * <p> Requires runtime initialization of the config path, before serialization and deserialization. </p>
+ *
+ * @see ModOptionsScreen
+ * @author i5wear
+ */
 public class ModOptions {
 
     public static final Gson READER = new GsonBuilder().setLenient().create();

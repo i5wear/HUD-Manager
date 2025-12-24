@@ -1,6 +1,5 @@
-package com.github.i5wear.hudmanager.screen;
+package com.github.i5wear.hudmanager;
 
-import com.github.i5wear.hudmanager.ModOptions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.Screen;
@@ -17,6 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ * <p> A simple config screen implementation. </p>
+ * <p> Converts arbitrary object to a config screen by recursive reflection, like how Gson does. </p>
+ * <p> Supports numeric, string, boolean and enum types, or their collections and combinations. </p>
+ * <p> Requires JSON format for ease of serialization and deserialization, with lenient user input. </p>
+ *
+ * @see ModOptions
+ * @author i5wear
+ */
 public class ModOptionsScreen extends OptionsSubScreen {
 
     public static final String NAMESPACE = "hudmanager.options";
