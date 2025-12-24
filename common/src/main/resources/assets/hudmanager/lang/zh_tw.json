@@ -10,8 +10,8 @@
   "hudmanager.options.OffsetX.tooltip": "與原版界面座標相加。",
   "hudmanager.options.OffsetY": "縱軸偏移",
   "hudmanager.options.OffsetY.tooltip": "與原版界面座標相加。",
-  "hudmanager.options.ActionBar": "動作列",
-  "hudmanager.options.ActionBar.tooltip": "位於快捷列上方，顯示各類文字。",
+  "hudmanager.options.ActionBar": "動作欄",
+  "hudmanager.options.ActionBar.tooltip": "位於快捷欄上方，顯示各類文字。",
   "hudmanager.options.BossBar": "Boss欄",
   "hudmanager.options.BossBar.tooltip": "位於螢幕上方，顯示Boss生命值。",
   "hudmanager.options.ClosedCaption": "隱藏式字幕",
@@ -20,7 +20,7 @@
   "hudmanager.options.Crosshair.tooltip": "位於螢幕中央，顯示瞄準位置。",
   "hudmanager.options.DebugScreen": "除錯螢幕",
   "hudmanager.options.DebugScreen.tooltip": "按下F3鍵顯示，顯示各類資訊。",
-  "hudmanager.options.HotbarGroup": "快捷列群組",
+  "hudmanager.options.HotbarGroup": "快捷欄群組",
   "hudmanager.options.HotbarGroup.tooltip": "位於螢幕底部，顯示各類資訊。",
   "hudmanager.options.PlayerList": "玩家清單",
   "hudmanager.options.PlayerList.tooltip": "按住Tab鍵顯示，提供玩家資訊。",
@@ -32,6 +32,6 @@
   "hudmanager.options.StatusEffect.tooltip": "位於螢幕右上角，顯示狀態效果。",
   "hudmanager.options.ToastMessage": "彈出通知",
   "hudmanager.options.ToastMessage.tooltip": "位於螢幕右上角，顯示通知事項。",
-  "hudmanager.options.Tooltip": "工具提示",
+  "hudmanager.options.Tooltip": "提示框",
   "hudmanager.options.Tooltip.tooltip": "位於滑鼠游標旁邊，顯示各類資訊。"
 }
