@@ -1,5 +1,6 @@
 package com.github.i5wear.hudmanager;
 
+import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.Screen;
@@ -11,10 +12,8 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * <p> A simple config screen implementation. </p>
@@ -44,10 +43,11 @@ public class ModOptionsScreen extends OptionsSubScreen {
     public ModOptionsScreen(Screen parent, Object target, Component title) {
         super(parent, Minecraft.getInstance().options, title);
         for (var field : FieldUtils.getAllFields(target.getClass())) {
-            if ((field.getModifiers() & (Modifier.STATIC | Modifier.TRANSIENT)) != 0) continue;
-            Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
-            Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
-            Content.add(construct(field, target, translate(NAMESPACE, field.getName())));
+            if (ModOptions.WRITER.excluder().excludeField(field, true)) continue;
+            var name = ModOptions.WRITER.fieldNamingStrategy().translateName(field);
+            Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, name), super.font));
+            Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, name, "tooltip")));
+            Content.add(construct(field, target, translate(NAMESPACE, name)));
         }
     }
 
@@ -55,8 +55,16 @@ public class ModOptionsScreen extends OptionsSubScreen {
         field.setAccessible(true);
         var GETTER = Failable.asSupplier(Failable.apply(MethodHandles.lookup()::unreflectGetter, field).bindTo(target)::invoke);
         var SETTER = Failable.asConsumer(Failable.apply(MethodHandles.lookup()::unreflectSetter, field).bindTo(target)::invoke);
-        if (Stream.of(Number.class, CharSequence.class, Iterable.class).anyMatch(clazz -> ClassUtils.isAssignable(field.getType(), clazz))) {
+        if (ModOptions.WRITER.getAdapter(field.getType()) instanceof ReflectiveTypeAdapterFactory.Adapter)
+            return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title))).build();
+        else if (ClassUtils.isAssignable(field.getType(), Enum.class))
+            return CycleButton.builder(input -> translate(NAMESPACE, "enums", Enum.class.cast(input).name()), GETTER.get())
+                .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
+        else if (ClassUtils.isAssignable(field.getType(), Boolean.class))
+            return CycleButton.onOffBuilder(GETTER.get().equals(true)).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
+        else {
             var widget = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title);
+            widget.setMaxLength(Integer.MAX_VALUE);
             widget.setValue(ModOptions.READER.toJson(GETTER.get(), field.getGenericType())); // Don't Format
             widget.setResponder(input -> {
                 widget.setTextColor(EditBox.DEFAULT_TEXT_COLOR);
@@ -65,11 +73,5 @@ public class ModOptionsScreen extends OptionsSubScreen {
             });
             return widget;
         }
-        if (ClassUtils.isAssignable(field.getType(), Boolean.class))
-            return CycleButton.onOffBuilder(GETTER.get().equals(true)).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
-        if (ClassUtils.isAssignable(field.getType(), Enum.class))
-            return CycleButton.builder(input -> translate(NAMESPACE, "enums", Enum.class.cast(input).name()), GETTER.get())
-                .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
-        return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title))).build();
     }
 }
