@@ -47,10 +47,10 @@ public class ModOptionsScreen extends OptionsSubScreen {
         super(parent, Minecraft.getInstance().options, title);
         for (var field : FieldUtils.getAllFields(target.getClass())) {
             if (GSON.excluder().excludeField(field, true)) continue;
-            var name = GSON.fieldNamingStrategy().translateName(field);
-            Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, name), super.font));
-            Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, name, "tooltip")));
-            Content.add(construct(field, target, translate(NAMESPACE, name)));
+            Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
+            Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
+            Content.add(construct(field, target, translate(NAMESPACE, field.getName())));
+            Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
         }
     }
 
@@ -61,7 +61,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
         if (field.getType().equals(boolean.class) || field.getType().equals(Boolean.class))
             return CycleButton.onOffBuilder(GETTER.get().equals(true)).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         else if (field.getType().isEnum() && field.getType().getEnumConstants().length < 7)
-            return CycleButton.builder(input -> translate(NAMESPACE, "enums", GSON.toJsonTree(input).getAsString()), GETTER.get())
+            return CycleButton.builder(input -> translate(NAMESPACE, "const", Enum.class.cast(input).name()), GETTER.get())
                 .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         else if (GSON.getAdapter(field.getType()) instanceof ReflectiveTypeAdapterFactory.Adapter)
             return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title))).build();
