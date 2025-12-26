@@ -61,7 +61,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
         if (field.getType().equals(boolean.class) || field.getType().equals(Boolean.class))
             return CycleButton.onOffBuilder(GETTER.get().equals(true)).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         else if (field.getType().isEnum() && field.getType().getEnumConstants().length < 7)
-            return CycleButton.builder(input -> translate(NAMESPACE, "const", Enum.class.cast(input).name()), GETTER.get())
+            return CycleButton.builder(input -> translate(NAMESPACE, "const", ((Enum<?>) input).name()), GETTER.get())
                 .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         else if (GSON.getAdapter(field.getType()) instanceof ReflectiveTypeAdapterFactory.Adapter)
             return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title))).build();
