@@ -17,7 +17,8 @@ import java.nio.file.Path;
  */
 public class ModOptions {
 
-    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    public static final Gson ADAPTER = new GsonBuilder().setLenient().create();
+    public static final Gson PRINTER = new GsonBuilder().setPrettyPrinting().create();
 
     public static Path CURRENT_CONFIG = null; // From Loader
     public static ModOptions INSTANCE = new ModOptions();
@@ -36,12 +37,12 @@ public class ModOptions {
     public final HudManager Tooltip = new HudManager();
 
     public static void load() {
-        try { INSTANCE = GSON.fromJson(Files.readString(CURRENT_CONFIG), ModOptions.class); }
+        try { INSTANCE = ADAPTER.fromJson(Files.readString(CURRENT_CONFIG), ModOptions.class); }
         catch (Exception ignore) { INSTANCE = new ModOptions(); }
     }
 
     public static void save() {
-        try { Files.writeString(CURRENT_CONFIG, GSON.toJson(INSTANCE, ModOptions.class)); }
+        try { Files.writeString(CURRENT_CONFIG, PRINTER.toJson(ADAPTER.toJsonTree(INSTANCE))); }
         catch (Exception ignore) { INSTANCE = new ModOptions(); }
     }
 }

@@ -1,7 +1,5 @@
 package com.github.i5wear.hudmanager;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.*;
@@ -28,8 +26,6 @@ import java.util.List;
 public class ModOptionsScreen extends OptionsSubScreen {
 
     public static final String NAMESPACE = "hudmanager.options";
-
-    public static final Gson GSON = new GsonBuilder().setLenient().create();
 
     protected final List<AbstractWidget> Content = new ArrayList<>();
 
@@ -63,15 +59,15 @@ public class ModOptionsScreen extends OptionsSubScreen {
         else if (field.getType().isEnum() && field.getType().getEnumConstants().length < 8)
             return CycleButton.builder(input -> translate(NAMESPACE, "const", ((Enum<?>) input).name()), GETTER.get())
                 .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
-        else if (GSON.getAdapter(field.getType()) instanceof ReflectiveTypeAdapterFactory.Adapter)
+        else if (ModOptions.ADAPTER.getAdapter(field.getType()) instanceof ReflectiveTypeAdapterFactory.Adapter)
             return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title))).build();
         else {
             var widget = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title);
             widget.setMaxLength(Integer.MAX_VALUE);
-            widget.setValue(GSON.toJson(GETTER.get(), field.getGenericType()));
+            widget.setValue(ModOptions.ADAPTER.toJson(GETTER.get(), field.getGenericType()));
             widget.setResponder(input -> {
                 widget.setTextColor(EditBox.DEFAULT_TEXT_COLOR);
-                try { SETTER.accept(GSON.fromJson(input, field.getGenericType())); }
+                try { SETTER.accept(ModOptions.ADAPTER.fromJson(input, field.getGenericType())); }
                 catch (Exception ignore) { widget.setTextColor(0xFFFF3333); }
             });
             return widget;
