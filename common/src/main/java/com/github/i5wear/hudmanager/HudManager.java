@@ -8,8 +8,10 @@ public class HudManager {
     public static float CURRENT_OPACITY = 1;
 
     public boolean Display = true;
-    public float Resizer = 1, Opacity = 1;
-    public float OffsetX = 0, OffsetY = 0;
+    public float Resizer = 1;
+    public float Opacity = 1;
+    public float OffsetX = 0;
+    public float OffsetY = 0;
 
     public boolean apply(Matrix3x2fStack target) {
         CURRENT_RESIZER = Resizer;

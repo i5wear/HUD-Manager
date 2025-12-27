@@ -46,10 +46,10 @@ public class ModOptionsScreen extends OptionsSubScreen {
     public ModOptionsScreen(Screen parent, Object target, Component title) {
         super(parent, Minecraft.getInstance().options, title);
         for (var field : FieldUtils.getAllFields(target.getClass())) {
-            if (GSON.excluder().excludeField(field, true)) continue;
-            Content.add(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
+            Content.addLast(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
             Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
-            Content.add(construct(field, target, translate(NAMESPACE, field.getName())));
+            try { Content.addLast(construct(field, target, translate(NAMESPACE, field.getName()))); }
+            catch (Exception ignore) { Content.removeLast(); continue; } // Field Filter
             Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
         }
     }
@@ -60,7 +60,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
         var SETTER = Failable.asConsumer(Failable.apply(MethodHandles.lookup()::unreflectSetter, field).bindTo(target)::invoke);
         if (field.getType().equals(boolean.class) || field.getType().equals(Boolean.class))
             return CycleButton.onOffBuilder(GETTER.get().equals(true)).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
-        else if (field.getType().isEnum() && field.getType().getEnumConstants().length < 7)
+        else if (field.getType().isEnum() && field.getType().getEnumConstants().length < 8)
             return CycleButton.builder(input -> translate(NAMESPACE, "const", ((Enum<?>) input).name()), GETTER.get())
                 .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         else if (GSON.getAdapter(field.getType()) instanceof ReflectiveTypeAdapterFactory.Adapter)
@@ -72,7 +72,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
             widget.setResponder(input -> {
                 widget.setTextColor(EditBox.DEFAULT_TEXT_COLOR);
                 try { SETTER.accept(GSON.fromJson(input, field.getGenericType())); }
-                catch (Exception ignore) { widget.setTextColor(0xFFFF5555); } // ChatFormatting.RED
+                catch (Exception ignore) { widget.setTextColor(0xFFFF3333); }
             });
             return widget;
         }
