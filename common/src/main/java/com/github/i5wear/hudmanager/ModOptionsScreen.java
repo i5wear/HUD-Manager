@@ -16,9 +16,10 @@ import java.util.List;
 
 /**
  * <p> A simple config screen implementation. </p>
- * <p> Converts arbitrary object to a config screen by recursive reflection, like how Gson does. </p>
- * <p> Supports numeric, string, boolean and enum types, or their collections and combinations. </p>
- * <p> Requires JSON format for ease of serialization and deserialization, with lenient user input. </p>
+ * <p> Converts arbitrary object to a config screen by recursive reflection, enter with {@link ModOptions#INSTANCE}. </p>
+ * <p> Supports {@link Number}, {@link String}, {@link Boolean} and {@link Enum} types, or their collections and combinations. </p>
+ * <p> For special cases, register your own type adapter at {@link ModOptions#ADAPTER} and it works for this. </p>
+ * <p> Requires JSON format for ease of serialization and deserialization, but with lenient user input. </p>
  *
  * @see ModOptions
  * @author i5wear

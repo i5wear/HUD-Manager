@@ -8,9 +8,10 @@ import java.nio.file.Path;
 
 /**
  * <p> A simple config implementation. </p>
- * <p> Contains arbitrary objects that convert to, and get values from a JSON file or config screen. </p>
- * <p> Supports numeric, string, boolean and enum types, or their collections and combinations. </p>
- * <p> Requires runtime initialization of the config path, before serialization and deserialization. </p>
+ * <p> Contains arbitrary objects that convert to, and get values from {@link Gson} or {@link ModOptionsScreen}. </p>
+ * <p> Supports {@link Number}, {@link String}, {@link Boolean} and {@link Enum} types, or their collections and combinations. </p>
+ * <p> For special cases, register your own type adapter at {@link #ADAPTER} and it works for {@link ModOptionsScreen}. </p>
+ * <p> Requires runtime initialization of the config path, before calling method {@link #load()} and {@link #save()}. </p>
  *
  * @see ModOptionsScreen
  * @author i5wear
