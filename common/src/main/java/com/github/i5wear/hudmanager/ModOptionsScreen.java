@@ -43,10 +43,10 @@ public class ModOptionsScreen extends OptionsSubScreen {
     public ModOptionsScreen(Screen parent, Object target, Component title) {
         super(parent, Minecraft.getInstance().options, title);
         for (var field : FieldUtils.getAllFields(target.getClass())) {
+            if (ModOptions.ADAPTER.excluder().excludeField(field, true)) continue;
             Content.addLast(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
             Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
-            try { Content.addLast(construct(field, target, translate(NAMESPACE, field.getName()))); }
-            catch (Exception ignore) { Content.removeLast(); continue; } // Field Filter
+            Content.addLast(construct(field, target, translate(NAMESPACE, field.getName())));
             Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
         }
     }
