@@ -21,7 +21,7 @@ public class ModOptions {
     public static final Gson ADAPTER = new GsonBuilder().setLenient().create();
     public static final Gson PRINTER = new GsonBuilder().setPrettyPrinting().create();
 
-    public static Path CURRENT_CONFIG = null; // From Loader
+    public static Path CURRENT_CONFIG = null;
     public static ModOptions INSTANCE = new ModOptions();
 
     public final HudManager ActionBar = new HudManager();
