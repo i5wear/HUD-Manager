@@ -7,7 +7,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.Component;
 import org.apache.commons.lang3.function.Failable;
-import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
@@ -42,12 +41,15 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     public ModOptionsScreen(Screen parent, Object target, Component title) {
         super(parent, Minecraft.getInstance().options, title);
-        for (var field : FieldUtils.getAllFields(target.getClass())) {
-            if (ModOptions.ADAPTER.excluder().excludeField(field, true)) continue;
-            Content.addLast(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
-            Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
-            Content.addLast(construct(field, target, translate(NAMESPACE, field.getName())));
-            Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
+        for (var clazz = target.getClass(); !clazz.equals(Object.class); clazz = clazz.getSuperclass()) {
+            if (ModOptions.ADAPTER.excluder().excludeClass(clazz, true)) continue;
+            for (var field : clazz.getDeclaredFields()) {
+                if (ModOptions.ADAPTER.excluder().excludeField(field, true)) continue;
+                Content.addLast(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
+                Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
+                Content.addLast(construct(field, target, translate(NAMESPACE, field.getName())));
+                Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
+            }
         }
     }
 
