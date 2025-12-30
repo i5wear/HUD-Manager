@@ -11,6 +11,7 @@
     "PictureInPictureRendererMixin",
     "SubtitleOverlayMixin",
     "ToastManagerMixin",
+    "WidgetTooltipHolderMixin",
     "WindowMixin"
   ]
 }

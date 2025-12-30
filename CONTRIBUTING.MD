@@ -12,6 +12,8 @@ HUD Manager的整个实现都仅对界面渲染的“准备过程”作修改，
 
 缩放以屏幕左上角为中心，通过放缩`Window.guiScaledWidth`和`Window.guiScaledHeight`，可以保持位置不变。
 
+对于`Tooltip`，还需要放缩`GuiGraphics#setTooltipForNextFrameInternal`方法的`mouseX`和`mouseY`参数。
+
 `GuiGraphics`的大部分方法都可以传入参数`color`，其默认值为`0xFFFFFFFF`，通过改变这一参数，可以改变颜色。
 
 ## 2. GuiRenderState

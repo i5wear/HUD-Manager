@@ -42,7 +42,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
     public ModOptionsScreen(Screen parent, Object target, Component title) {
         super(parent, Minecraft.getInstance().options, title);
         for (var clazz = target.getClass(); !clazz.equals(Object.class); clazz = clazz.getSuperclass()) {
-            if (ModOptions.ADAPTER.excluder().excludeClass(clazz, true)) continue;
+            if (ModOptions.ADAPTER.excluder().excludeClass(clazz, true)) return;
             for (var field : clazz.getDeclaredFields()) {
                 if (ModOptions.ADAPTER.excluder().excludeField(field, true)) continue;
                 Content.addLast(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
