@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 @Mod(value = "hudmanager", dist = Dist.CLIENT)
-public final class Client {
+public final class ClientEntry {
 
     private static void modifyElement(RegisterGuiLayersEvent event) {
         Stream.of(
@@ -47,8 +47,8 @@ public final class Client {
         );
     }
 
-    public Client(ModContainer loader) {
-        loader.getEventBus().addListener(Client::modifyElement);
+    public ClientEntry(ModContainer loader) {
+        loader.getEventBus().addListener(ClientEntry::modifyElement);
         loader.registerExtensionPoint(IConfigScreenFactory.class, ModOptionsScreen::new);
         ModOptions.CURRENT_CONFIG = FMLPaths.CONFIGDIR.get().resolve("hudmanager.json");
         ModOptions.load(); ModOptions.save();
