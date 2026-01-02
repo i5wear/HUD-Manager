@@ -3,6 +3,7 @@ package com.github.i5wear.hudmanager;
 import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.*;
+import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.Component;
@@ -27,11 +28,17 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     public static final String NAMESPACE = "hudmanager.options";
 
+    protected final List<Runnable> onCancel = new ArrayList<>();
+
     protected final List<AbstractWidget> Content = new ArrayList<>();
 
     @Override protected void addOptions() { super.list.addSmall(Content); }
 
-    @Override public void onClose() { ModOptions.save(); super.onClose(); }
+    @Override protected void addFooter() {
+        var layout = super.layout.addToFooter(LinearLayout.horizontal().spacing(Button.DEFAULT_SPACING));
+        layout.addChild(Button.builder(Component.translatable("gui.cancel"), ignore -> { onCancel.forEach(Runnable::run); super.onClose(); }).build());
+        layout.addChild(Button.builder(Component.translatable("gui.done"), ignore -> { ModOptions.save(); super.onClose(); }).build());
+    }
 
     public static Component translate(String... input) { return Component.translatable(String.join(".", input)); }
 
@@ -57,23 +64,25 @@ public class ModOptionsScreen extends OptionsSubScreen {
         field.setAccessible(true);
         var GETTER = Failable.asSupplier(Failable.apply(MethodHandles.lookup()::unreflectGetter, field).bindTo(target)::invoke);
         var SETTER = Failable.asConsumer(Failable.apply(MethodHandles.lookup()::unreflectSetter, field).bindTo(target)::invoke);
+        var output = ModOptions.ADAPTER.toJson(GETTER.get(), field.getGenericType());
+        if (Component.class.isAssignableFrom(field.getType()))
+            return new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, (Component) GETTER.get(), super.font);
+        if (ModOptions.ADAPTER.getAdapter(field.getType()) instanceof ReflectiveTypeAdapterFactory.Adapter)
+            return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title))).build();
+        onCancel.addLast(() -> SETTER.accept(ModOptions.ADAPTER.fromJson(output, field.getGenericType())));
         if (field.getType().equals(boolean.class) || field.getType().equals(Boolean.class))
             return CycleButton.onOffBuilder(GETTER.get().equals(true)).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
-        else if (field.getType().isEnum() && field.getType().getEnumConstants().length < 8)
+        if (field.getType().isEnum() && field.getType().getEnumConstants().length <= 8)
             return CycleButton.builder(input -> translate(NAMESPACE, "const", ((Enum<?>) input).name()), GETTER.get())
                 .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
-        else if (ModOptions.ADAPTER.getAdapter(field.getType()) instanceof ReflectiveTypeAdapterFactory.Adapter)
-            return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title))).build();
-        else {
-            var widget = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title);
-            widget.setMaxLength(Integer.MAX_VALUE);
-            widget.setValue(ModOptions.ADAPTER.toJson(GETTER.get(), field.getGenericType()));
-            widget.setResponder(input -> {
-                widget.setTextColor(EditBox.DEFAULT_TEXT_COLOR);
-                try { SETTER.accept(ModOptions.ADAPTER.fromJson(input, field.getGenericType())); }
-                catch (Exception ignore) { widget.setTextColor(0xFFFF3333); }
-            });
-            return widget;
-        }
+        var widget = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title);
+        widget.setMaxLength(Integer.MAX_VALUE);
+        widget.setResponder(input -> {
+            widget.setTextColor(EditBox.DEFAULT_TEXT_COLOR);
+            try { SETTER.accept(ModOptions.ADAPTER.fromJson(input, field.getGenericType())); }
+            catch (Exception ignore) { widget.setTextColor(0xFFFF3333); }
+        });
+        widget.setValue(output);
+        return widget;
     }
 }
