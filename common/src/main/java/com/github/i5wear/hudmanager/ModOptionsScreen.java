@@ -18,7 +18,7 @@ import java.util.List;
  * <p> A simple config screen implementation. </p>
  * <p> Converts arbitrary object to a config screen by recursive reflection, enter with {@link ModOptions#INSTANCE}. </p>
  * <p> Supports {@link Number}, {@link String}, {@link Boolean} and {@link Enum} types, or their collections and combinations. </p>
- * <p> For special cases, register your own type adapter at {@link ModOptions#ADAPTER} and it works for this. </p>
+ * <p> To make comments, define a {@link Component} field in {@link ModOptions} and its content and ordinal matters. </p>
  * <p> Requires JSON format for ease of serialization and deserialization, but with lenient user input. </p>
  *
  * @see ModOptions
@@ -28,7 +28,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     public static final String NAMESPACE = "hudmanager.options";
 
-    protected final List<Runnable> onCancel = new ArrayList<>();
+    protected final List<Runnable> onBack = new ArrayList<>();
 
     protected final List<AbstractWidget> Content = new ArrayList<>();
 
@@ -36,11 +36,11 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     @Override protected void addFooter() {
         var layout = super.layout.addToFooter(LinearLayout.horizontal().spacing(Button.DEFAULT_SPACING));
-        layout.addChild(Button.builder(Component.translatable("gui.cancel"), ignore -> { onCancel.forEach(Runnable::run); super.onClose(); }).build());
+        layout.addChild(Button.builder(Component.translatable("gui.back"), ignore -> { onBack.forEach(Runnable::run); super.onClose(); }).build());
         layout.addChild(Button.builder(Component.translatable("gui.done"), ignore -> { ModOptions.save(); super.onClose(); }).build());
     }
 
-    public static Component translate(String... input) { return Component.translatable(String.join(".", input)); }
+    public static Component translate(String... input) { return Component.translatableWithFallback(String.join(".", input), ""); }
 
     public ModOptionsScreen(Screen parent) { this(parent, ModOptions.INSTANCE, translate(NAMESPACE, "title")); }
 
@@ -69,7 +69,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
             return new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, (Component) GETTER.get(), super.font);
         if (ModOptions.ADAPTER.getAdapter(field.getType()) instanceof ReflectiveTypeAdapterFactory.Adapter)
             return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title))).build();
-        onCancel.addLast(() -> SETTER.accept(ModOptions.ADAPTER.fromJson(output, field.getGenericType())));
+        onBack.addLast(() -> SETTER.accept(ModOptions.ADAPTER.fromJson(output, field.getGenericType())));
         if (field.getType().equals(boolean.class) || field.getType().equals(Boolean.class))
             return CycleButton.onOffBuilder(GETTER.get().equals(true)).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         if (field.getType().isEnum() && field.getType().getEnumConstants().length <= 8)
