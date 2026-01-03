@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p> A simple config screen implementation. </p>
- * <p> Converts arbitrary object to a config screen by recursive reflection, enter with {@link ModOptions#INSTANCE}. </p>
+ * <p> The simplest config screen implementation. </p>
+ * <p> Converts arbitrary {@link Object} to a config screen by reflection, enter with {@link ModOptions#INSTANCE}. </p>
  * <p> Supports {@link Number}, {@link String}, {@link Boolean} and {@link Enum} types, or their collections and combinations. </p>
- * <p> Auto-Generates translatable with {@link #NAMESPACE}, {@link Field#getName()} or {@link Enum#name()} and suffixes. </p>
+ * <p> Auto-Generates translatable with {@link #NAMESPACE}, {@link Field#getName()} or {@link Enum#name()}, and suffixes. </p>
  * <p> Requires JSON format for ease of serialization and deserialization, but with lenient user input. </p>
  *
  * @see ModOptions
@@ -32,12 +32,14 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     protected final List<AbstractWidget> Content = new ArrayList<>();
 
+    @Override public void removed() { ModOptions.save(); }
+
     @Override protected void addOptions() { super.list.addSmall(Content); }
 
     @Override protected void addFooter() {
         var layout = super.layout.addToFooter(LinearLayout.horizontal().spacing(Button.DEFAULT_SPACING));
-        layout.addChild(Button.builder(Component.translatable("gui.back"), ignore -> { onBack.forEach(Runnable::run); super.onClose(); }).build());
-        layout.addChild(Button.builder(Component.translatable("gui.done"), ignore -> { ModOptions.save(); super.onClose(); }).build());
+        layout.addChild(Button.builder(Component.translatable("gui.back"), ignore -> onBack.forEach(Runnable::run)).build());
+        layout.addChild(Button.builder(Component.translatable("gui.done"), ignore -> onClose()).build());
     }
 
     // public static Component translate(String... input) { return Component.translatable(String.join(".", input)); }
@@ -60,6 +62,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
                 Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
             }
         }
+        onBack.addLast(this::onClose);
     }
 
     protected AbstractWidget construct(Field field, Object target, Component title) {
