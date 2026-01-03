@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * <p> The simplest config screen implementation. </p>
- * <p> Converts arbitrary {@link Object} to a config screen by reflection, enter with {@link ModOptions#INSTANCE}. </p>
+ * <p> Converts arbitrary {@link Object} to a config screen by reflection, enters with {@link ModOptions#INSTANCE}. </p>
  * <p> Supports {@link Number}, {@link String}, {@link Boolean} and {@link Enum} types, or their collections and combinations. </p>
  * <p> Auto-Generates translatable with {@link #NAMESPACE}, {@link Field#getName()} or {@link Enum#name()}, and suffixes. </p>
  * <p> Requires JSON format for ease of serialization and deserialization, but with lenient user input. </p>
