@@ -37,6 +37,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
     @Override protected void addOptions() { super.list.addSmall(Content); }
 
     @Override protected void addFooter() {
+        onBack.addLast(this::onClose);
         var layout = super.layout.addToFooter(LinearLayout.horizontal().spacing(Button.DEFAULT_SPACING));
         layout.addChild(Button.builder(Component.translatable("gui.back"), ignore -> onBack.forEach(Runnable::run)).build());
         layout.addChild(Button.builder(Component.translatable("gui.done"), ignore -> onClose()).build());
@@ -62,16 +63,15 @@ public class ModOptionsScreen extends OptionsSubScreen {
                 Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
             }
         }
-        onBack.addLast(this::onClose);
     }
 
     protected AbstractWidget construct(Field field, Object target, Component title) {
         field.setAccessible(true);
         var GETTER = Failable.asSupplier(Failable.apply(MethodHandles.lookup()::unreflectGetter, field).bindTo(target)::invoke);
         var SETTER = Failable.asConsumer(Failable.apply(MethodHandles.lookup()::unreflectSetter, field).bindTo(target)::invoke);
-        var output = ModOptions.ADAPTER.toJson(GETTER.get(), field.getGenericType());
         if (ModOptions.ADAPTER.getAdapter(field.getType()) instanceof ReflectiveTypeAdapterFactory.Adapter)
             return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title))).build();
+        var output = ModOptions.ADAPTER.toJson(GETTER.get(), field.getGenericType());
         onBack.addLast(() -> SETTER.accept(ModOptions.ADAPTER.fromJson(output, field.getGenericType())));
         if (field.getType().equals(boolean.class) || field.getType().equals(Boolean.class))
             return CycleButton.onOffBuilder(GETTER.get().equals(true)).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));

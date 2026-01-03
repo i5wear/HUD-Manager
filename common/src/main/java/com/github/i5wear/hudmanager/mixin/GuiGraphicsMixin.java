@@ -35,7 +35,7 @@ public abstract class GuiGraphicsMixin {
     @WrapOperation(method = "setTooltipForNextFrameInternal", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/GuiGraphics;deferredTooltip:Ljava/lang/Runnable;", opcode = Opcodes.PUTFIELD))
     private void modifyTooltip(GuiGraphics graphics, Runnable instance, Operation<Void> original) {
         original.call(
-            graphics, (Runnable)() -> {
+            graphics, (Runnable) () -> {
                 if (ModOptions.INSTANCE.Tooltip.apply(graphics.pose()))
                     instance.run();
                 HudManager.reset(graphics.pose());
