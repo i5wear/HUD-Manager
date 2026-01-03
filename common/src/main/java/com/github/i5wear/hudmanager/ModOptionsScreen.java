@@ -77,7 +77,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
             return CycleButton.builder(input -> input.equals(true) ? Component.translatable("gui.yes") : Component.translatable("gui.no"), GETTER.get())
                 .withValues(true, false).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         if (field.getType().isEnum() && field.getType().getEnumConstants().length < 8)
-            return CycleButton.builder(input -> translate(NAMESPACE, "const", ((Enum<?>) input).name()), GETTER.get())
+            return CycleButton.builder(input -> translate(NAMESPACE, "const", Enum.class.cast(input).name()), GETTER.get())
                 .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         var widget = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title);
         widget.setMaxLength(Integer.MAX_VALUE);
