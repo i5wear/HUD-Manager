@@ -74,7 +74,8 @@ public class ModOptionsScreen extends OptionsSubScreen {
         var output = ModOptions.ADAPTER.toJson(GETTER.get(), field.getGenericType());
         onBack.addLast(() -> SETTER.accept(ModOptions.ADAPTER.fromJson(output, field.getGenericType())));
         if (field.getType().equals(boolean.class) || field.getType().equals(Boolean.class))
-            return CycleButton.onOffBuilder(GETTER.get().equals(true)).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
+            return CycleButton.builder(input -> input.equals(true) ? Component.translatable("gui.yes") : Component.translatable("gui.no"), GETTER.get())
+                .withValues(true, false).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         if (field.getType().isEnum() && field.getType().getEnumConstants().length < 8)
             return CycleButton.builder(input -> translate(NAMESPACE, "const", ((Enum<?>) input).name()), GETTER.get())
                 .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
