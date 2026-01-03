@@ -1,5 +1,5 @@
 {
-  "hudmanager.options.title": "Administrador del HUD",
+  "hudmanager.options": "Administrador del HUD",
   "hudmanager.options.Display": "Mostrar",
   "hudmanager.options.Display.tooltip": "Si se debe mostrar en la pantalla.",
   "hudmanager.options.Resizer": "Escala",

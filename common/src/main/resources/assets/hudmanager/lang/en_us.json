@@ -1,5 +1,5 @@
 {
-  "hudmanager.options.title": "HUD Manager",
+  "hudmanager.options": "HUD Manager",
   "hudmanager.options.Display": "Display",
   "hudmanager.options.Display.tooltip": "Whether to show on the screen.",
   "hudmanager.options.Resizer": "Resizer",

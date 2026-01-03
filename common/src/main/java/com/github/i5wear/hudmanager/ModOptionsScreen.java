@@ -40,16 +40,14 @@ public class ModOptionsScreen extends OptionsSubScreen {
         onBack.addLast(this::onClose);
         var layout = super.layout.addToFooter(LinearLayout.horizontal().spacing(Button.DEFAULT_SPACING));
         layout.addChild(Button.builder(Component.translatable("gui.back"), ignore -> onBack.forEach(Runnable::run)).build());
-        layout.addChild(Button.builder(Component.translatable("gui.done"), ignore -> onClose()).build());
+        layout.addChild(Button.builder(Component.translatable("gui.done"), ignore -> onBack.getLast().run()).build());
     }
-
-    // public static Component translate(String... input) { return Component.translatable(String.join(".", input)); }
 
     public static Component translate(String... input) { return Component.translatableWithFallback(String.join(".", input), ""); }
 
-    public ModOptionsScreen(Screen parent) { this(parent, ModOptions.INSTANCE, translate(NAMESPACE, "title")); }
+    public ModOptionsScreen(Screen parent) { this(parent, ModOptions.INSTANCE, translate(NAMESPACE)); }
 
-    public ModOptionsScreen(Object ignore, Screen parent) { this(parent, ModOptions.INSTANCE, translate(NAMESPACE, "title")); }
+    public ModOptionsScreen(Object ignore, Screen parent) { this(parent, ModOptions.INSTANCE, translate(NAMESPACE)); }
 
     public ModOptionsScreen(Screen parent, Object target, Component title) {
         super(parent, Minecraft.getInstance().options, title);
@@ -77,7 +75,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
             return CycleButton.builder(input -> input.equals(true) ? Component.translatable("gui.yes") : Component.translatable("gui.no"), GETTER.get())
                 .withValues(true, false).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         if (field.getType().isEnum() && field.getType().getEnumConstants().length < 8)
-            return CycleButton.builder(input -> translate(NAMESPACE, "const", Enum.class.cast(input).name()), GETTER.get())
+            return CycleButton.builder(input -> translate(NAMESPACE, Enum.class.cast(input).name()), GETTER.get())
                 .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         var widget = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title);
         widget.setMaxLength(Integer.MAX_VALUE);

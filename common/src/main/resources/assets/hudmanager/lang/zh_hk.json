@@ -1,5 +1,5 @@
 {
-  "hudmanager.options.title": "界面管理器",
+  "hudmanager.options": "界面管理器",
   "hudmanager.options.Display": "啟用顯示",
   "hudmanager.options.Display.tooltip": "是否將顯示於螢幕上。",
   "hudmanager.options.Resizer": "縮放倍率",
