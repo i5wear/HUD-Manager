@@ -28,20 +28,13 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     public static final String NAMESPACE = "hudmanager.options";
 
-    protected final List<Runnable> onBack = new ArrayList<>();
-
     protected final List<AbstractWidget> Content = new ArrayList<>();
+
+    protected final List<Runnable> onClose = new ArrayList<>();
 
     @Override public void removed() { ModOptions.save(); }
 
     @Override protected void addOptions() { super.list.addSmall(Content); }
-
-    @Override protected void addFooter() {
-        onBack.addLast(this::onClose);
-        var layout = super.layout.addToFooter(LinearLayout.horizontal().spacing(Button.DEFAULT_SPACING));
-        layout.addChild(Button.builder(Component.translatable("gui.back"), ignore -> onBack.forEach(Runnable::run)).build());
-        layout.addChild(Button.builder(Component.translatable("gui.done"), ignore -> onBack.getLast().run()).build());
-    }
 
     public static Component translate(String... input) { return Component.translatableWithFallback(String.join(".", input), ""); }
 
@@ -70,7 +63,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
         if (ModOptions.ADAPTER.getAdapter(field.getType()) instanceof ReflectiveTypeAdapterFactory.Adapter)
             return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title))).build();
         var output = ModOptions.ADAPTER.toJson(GETTER.get(), field.getGenericType());
-        onBack.addLast(() -> SETTER.accept(ModOptions.ADAPTER.fromJson(output, field.getGenericType())));
+        onClose.addLast(() -> SETTER.accept(ModOptions.ADAPTER.fromJson(output, field.getGenericType())));
         if (field.getType().equals(boolean.class) || field.getType().equals(Boolean.class))
             return CycleButton.builder(input -> input.equals(true) ? Component.translatable("gui.yes") : Component.translatable("gui.no"), GETTER.get())
                 .withValues(true, false).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
@@ -86,5 +79,12 @@ public class ModOptionsScreen extends OptionsSubScreen {
         });
         widget.setValue(output);
         return widget;
+    }
+
+    @Override protected void addFooter() {
+        onClose.addLast(this::onClose);
+        var layout = super.layout.addToFooter(LinearLayout.horizontal().spacing(Button.DEFAULT_SPACING));
+        layout.addChild(Button.builder(Component.translatable("gui.back"), ignore -> onClose.forEach(Runnable::run)).build());
+        layout.addChild(Button.builder(Component.translatable("gui.done"), ignore -> onClose.getLast().run()).build());
     }
 }
