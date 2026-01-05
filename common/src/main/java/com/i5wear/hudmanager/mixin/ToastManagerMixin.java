@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class ToastManagerMixin {
 
     @WrapMethod(method = "render")
-    private void modifyToast(GuiGraphics graphics, Operation<Void> original) {
-        if (Manager.TOAST.apply(graphics))
+    private void modifyToastMessage(GuiGraphics graphics, Operation<Void> original) {
+        if (Manager.TOAST_MESSAGE.apply(graphics))
             original.call(graphics);
         Manager.reset(graphics);
     }

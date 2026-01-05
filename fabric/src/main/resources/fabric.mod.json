@@ -13,11 +13,11 @@
   "icon": "assets/hudmanager/icon.png",
   "environment": "client",
   "entrypoints": {
-    "client": [ "com.i5wear.hudmanager.fabric.Main" ]
+    "client": [ "com.i5wear.hudmanager.fabric.ClientEntry" ]
   },
   "mixins": [ "hudmanager.mixins.json" ],
   "depends": {
-    "minecraft": ">=1.21.6",
+    "minecraft": ">=1.21.6 <1.21.11",
     "fabric-api": "*",
     "forgeconfigapiport": "*"
   }

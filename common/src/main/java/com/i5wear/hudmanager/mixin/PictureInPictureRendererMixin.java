@@ -21,7 +21,7 @@ public abstract class PictureInPictureRendererMixin {
     private BlitRenderState modifySpecialElement(BlitRenderState original, @Local(ordinal = 0, argsOnly = true) PictureInPictureRenderState instance) {
         return switch (instance) {
             case GuiProfilerChartRenderState ignored -> new BlitRenderState(
-                original.pipeline(), original.textureSetup(), original.pose().scale(0.01f * Manager.DEBUG_SCREEN.Scale.get(), new Matrix3x2f()),
+                original.pipeline(), original.textureSetup(), original.pose().scale(0.01f * Manager.DEBUG_SCREEN.Resizer.get(), new Matrix3x2f()),
                 original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
                 Manager.modifyColor(0xFFFFFFFF, Manager.DEBUG_SCREEN.Opacity.get()), original.scissorArea()
             );

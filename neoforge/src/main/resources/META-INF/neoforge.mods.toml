@@ -13,17 +13,11 @@ logoFile = "assets/hudmanager/icon.png"
 
 [[dependencies.hudmanager]]
 modId = "neoforge"
-type = "required"
-versionRange = "[21.7,)"
-ordering = "NONE"
-side = "BOTH"
+versionRange = "[21.7, 21.11)"
 
 [[dependencies.hudmanager]]
 modId = "minecraft"
-type = "required"
-versionRange = "[1.21.7,)"
-ordering = "NONE"
-side = "BOTH"
+versionRange = "[1.21.7, 1.21.11)"
 
 [[mixins]]
 config = "hudmanager.mixins.json"
