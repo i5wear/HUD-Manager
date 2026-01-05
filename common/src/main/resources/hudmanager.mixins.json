@@ -4,6 +4,7 @@
   "client": [
     "GuiGraphicsMixin",
     "ToastManagerMixin",
+    "WidgetTooltipHolderMixin",
     "WindowMixin"
   ]
 }
