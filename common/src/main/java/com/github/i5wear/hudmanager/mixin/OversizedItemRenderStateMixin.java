@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class OversizedItemRenderStateMixin {
 
     @ModifyVariable(method = "<init>", at = @At("CTOR_HEAD"), ordinal = 0, argsOnly = true)
-    private GuiItemRenderState storeItemStates(GuiItemRenderState original) {
+    private GuiItemRenderState storeItemElementStates(GuiItemRenderState original) {
         HudManager.STORED_RESIZER.put(this, HudManager.STORED_RESIZER.getOrDefault(original, 1f));
         HudManager.STORED_OPACITY.put(this, HudManager.STORED_OPACITY.getOrDefault(original, 1f));
         return original;

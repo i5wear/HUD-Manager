@@ -19,7 +19,7 @@ public abstract class PictureInPictureRendererMixin {
         return new BlitRenderState(
             original.pipeline(), original.textureSetup(), original.pose().scale(HudManager.STORED_RESIZER.getOrDefault(instance, 1f), new Matrix3x2f()),
             original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
-            ARGB.srgbLerp(HudManager.STORED_OPACITY.getOrDefault(instance, 1f), 0, original.color()), original.scissorArea()
+            ARGB.srgbLerp(HudManager.STORED_OPACITY.getOrDefault(instance, 1f), 0, original.color()), original.scissorArea() // Patch #27
         );
     }
 }
