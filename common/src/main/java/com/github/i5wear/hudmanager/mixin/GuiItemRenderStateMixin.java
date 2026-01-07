@@ -11,8 +11,8 @@ import java.util.function.IntUnaryOperator;
 @Mixin(GuiItemRenderState.class)
 public abstract class GuiItemRenderStateMixin implements IntUnaryOperator {
 
-    @Unique private final float STORED_OPACITY = HudManager.CURRENT_MANAGER.Opacity;
+    @Unique private final float STORED_OPACITY = HudManager.CURRENT.Opacity;
 
-    @Override public int applyAsInt(int original) { return ARGB.srgbLerp(STORED_OPACITY, 0, original); }
+    @Override public int applyAsInt(int original) { return ARGB.srgbLerp(STORED_OPACITY, 0, original); } // Patch #27
 
 }

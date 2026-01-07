@@ -45,7 +45,7 @@ public final class ClientEntry implements ClientModInitializer {
     }
 
     @Override public void onInitializeClient() {
-        ModOptions.CURRENT_CONFIG = FabricLoader.getInstance().getConfigDir().resolve("hudmanager.json");
+        ModOptions.DIRECTORY = FabricLoader.getInstance().getConfigDir();
         ModOptions.load(); ModOptions.save(); modifyElement();
     }
 }

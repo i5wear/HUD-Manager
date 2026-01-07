@@ -8,11 +8,9 @@ import java.util.WeakHashMap;
 
 public class HudManager {
 
-    public static HudManager DEFAULT_MANAGER = new HudManager();
-    public static HudManager CURRENT_MANAGER = DEFAULT_MANAGER;
-
-    public static Map<Object, Float> STORED_RESIZER = new WeakHashMap<>();
-    public static Map<Object, Float> STORED_OPACITY = new WeakHashMap<>();
+    public static HudManager DEFAULT = new HudManager();
+    public static HudManager CURRENT = DEFAULT;
+    public static Map<Object, HudManager> LOOKUP = new WeakHashMap<>();
 
     public boolean Display = true;
     public float Resizer = 1;
@@ -21,7 +19,7 @@ public class HudManager {
     public float OffsetY = 0;
 
     public Matrix3x2f apply(Matrix3x2f target) {
-        CURRENT_MANAGER = this;
+        CURRENT = this;
         var output = new Matrix3x2f(target);
         output.translate(OffsetX, OffsetY);
         output.scale(Resizer);
@@ -29,7 +27,7 @@ public class HudManager {
     }
 
     public boolean apply(Matrix3x2fStack target) {
-        CURRENT_MANAGER = this;
+        CURRENT = this;
         target.pushMatrix();
         target.translate(OffsetX, OffsetY);
         target.scale(Resizer);
@@ -37,7 +35,7 @@ public class HudManager {
     }
 
     public static void reset(Matrix3x2fStack target) {
-        CURRENT_MANAGER = DEFAULT_MANAGER;
+        CURRENT = DEFAULT;
         target.popMatrix();
     }
 }

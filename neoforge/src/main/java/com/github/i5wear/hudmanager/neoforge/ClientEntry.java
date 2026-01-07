@@ -50,7 +50,7 @@ public final class ClientEntry {
     public ClientEntry(ModContainer loader) {
         loader.getEventBus().addListener(ClientEntry::modifyElement);
         loader.registerExtensionPoint(IConfigScreenFactory.class, ModOptionsScreen::new);
-        ModOptions.CURRENT_CONFIG = FMLPaths.CONFIGDIR.get().resolve("hudmanager.json");
+        ModOptions.DIRECTORY = FMLPaths.CONFIGDIR.get();
         ModOptions.load(); ModOptions.save();
     }
 }

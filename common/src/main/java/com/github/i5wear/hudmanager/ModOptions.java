@@ -11,18 +11,20 @@ import java.nio.file.Path;
  * <p> Contains arbitrary fields that should convert to, and get values from JSON and {@link ModOptionsScreen}. </p>
  * <p> Supports {@link Number}, {@link String}, {@link Boolean} and {@link Enum} types, or their collections and combinations. </p>
  * <p> For special cases, register your own type adapter at {@link #ADAPTER} and it works for {@link ModOptionsScreen}. </p>
- * <p> Requires runtime initialization of the config path, before calling method {@link #load()} and {@link #save()}. </p>
+ * <p> Requires runtime initialization of {@link #DIRECTORY}, before calling method {@link #load()} and {@link #save()}. </p>
  *
  * @see ModOptionsScreen
  * @author i5wear
  */
 public class ModOptions {
 
+    public static ModOptions INSTANCE = new ModOptions();
+
     public static Gson ADAPTER = new GsonBuilder().setLenient().create();
     public static Gson PRINTER = new GsonBuilder().setPrettyPrinting().create();
 
-    public static Path CURRENT_CONFIG = null;
-    public static ModOptions INSTANCE = new ModOptions();
+    public static Path DIRECTORY = null; // From Loader
+    public static Path NAMESPACE = Path.of("hudmanager.json");
 
     public final HudManager ActionBar = new HudManager();
     public final HudManager BossBar = new HudManager();
@@ -38,12 +40,12 @@ public class ModOptions {
     public final HudManager Tooltip = new HudManager();
 
     public static void load() {
-        try { INSTANCE = ADAPTER.fromJson(Files.readString(CURRENT_CONFIG), ModOptions.class); }
+        try { INSTANCE = ADAPTER.fromJson(Files.readString(DIRECTORY.resolve(NAMESPACE)), ModOptions.class); }
         catch (Exception ignore) { INSTANCE = new ModOptions(); }
     }
 
     public static void save() {
-        try { Files.writeString(CURRENT_CONFIG, PRINTER.toJson(ADAPTER.toJsonTree(INSTANCE))); }
+        try { Files.writeString(DIRECTORY.resolve(NAMESPACE), PRINTER.toJson(ADAPTER.toJsonTree(INSTANCE))); }
         catch (Exception ignore) { INSTANCE = new ModOptions(); }
     }
 }
