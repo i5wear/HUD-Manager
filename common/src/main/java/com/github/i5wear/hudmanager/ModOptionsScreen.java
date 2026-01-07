@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class ModOptionsScreen extends OptionsSubScreen {
 
-    public static final String NAMESPACE = "hudmanager.options";
+    public static String NAMESPACE = "hudmanager.options";
 
     protected final List<AbstractWidget> Content = new ArrayList<>();
 

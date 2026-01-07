@@ -18,8 +18,8 @@ import java.nio.file.Path;
  */
 public class ModOptions {
 
-    public static final Gson ADAPTER = new GsonBuilder().setLenient().create();
-    public static final Gson PRINTER = new GsonBuilder().setPrettyPrinting().create();
+    public static Gson ADAPTER = new GsonBuilder().setLenient().create();
+    public static Gson PRINTER = new GsonBuilder().setPrettyPrinting().create();
 
     public static Path CURRENT_CONFIG = null;
     public static ModOptions INSTANCE = new ModOptions();

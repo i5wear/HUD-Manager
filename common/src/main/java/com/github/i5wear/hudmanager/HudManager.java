@@ -7,11 +7,11 @@ import java.util.WeakHashMap;
 
 public class HudManager {
 
-    public static Map<Object, Float> STORED_RESIZER = new WeakHashMap<>();
-    public static Map<Object, Float> STORED_OPACITY = new WeakHashMap<>();
-
     public static float CURRENT_RESIZER = 1f;
     public static float CURRENT_OPACITY = 1f;
+
+    public static Map<Object, Float> STORED_RESIZER = new WeakHashMap<>();
+    public static Map<Object, Float> STORED_OPACITY = new WeakHashMap<>();
 
     public boolean Display = true;
     public float Resizer = 1f;
