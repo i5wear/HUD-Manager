@@ -8,7 +8,7 @@
     "GuiRendererMixin",
     "GuiRenderStateMixin",
     "GuiTextRenderStateMixin",
-    "OversizedItemRenderStateMixin",
+    "OversizedItemRendererMixin",
     "PictureInPictureRendererMixin",
     "SubtitleOverlayMixin",
     "ToastManagerMixin",
