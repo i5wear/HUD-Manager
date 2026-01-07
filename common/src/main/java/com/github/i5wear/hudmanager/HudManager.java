@@ -10,7 +10,8 @@ public class HudManager {
 
     public static HudManager DEFAULT = new HudManager();
     public static HudManager CURRENT = DEFAULT;
-    public static Map<Object, HudManager> LOOKUP = new WeakHashMap<>();
+
+    public static Map<Object, HudManager> CATEGORY = new WeakHashMap<>();
 
     public boolean Display = true;
     public float Resizer = 1;
@@ -19,7 +20,6 @@ public class HudManager {
     public float OffsetY = 0;
 
     public Matrix3x2f apply(Matrix3x2f target) {
-        CURRENT = this;
         var output = new Matrix3x2f(target);
         output.translate(OffsetX, OffsetY);
         output.scale(Resizer);

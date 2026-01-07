@@ -12,6 +12,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class GuiRenderStateMixin {
 
     @Inject(method = "submitPicturesInPictureState", at = @At("TAIL"))
-    private void storeMiscElement(PictureInPictureRenderState instance, CallbackInfo original) { HudManager.LOOKUP.put(instance, HudManager.CURRENT); }
+    private void storeExtraElement(PictureInPictureRenderState instance, CallbackInfo original) { HudManager.CATEGORY.put(instance, HudManager.CURRENT); }
 
 }
