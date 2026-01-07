@@ -5,7 +5,6 @@
     "BossHealthOverlayMixin",
     "DebugScreenOverlayMixin",
     "GuiGraphicsMixin",
-    "GuiItemRenderStateMixin",
     "GuiRendererMixin",
     "GuiRenderStateMixin",
     "GuiTextRenderStateMixin",
