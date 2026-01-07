@@ -15,16 +15,16 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class GuiGraphicsMixin {
 
     @ModifyVariable(method = "submitBlit", at = @At("HEAD"), ordinal = 4, argsOnly = true)
-    private int storeTextureColor1(int original) { return ARGB.multiplyAlpha(original, HudManager.CURRENT_OPACITY); }
+    private int storeTextureColor1(int original) { return ARGB.multiplyAlpha(original, HudManager.CURRENT_MANAGER.Opacity); }
 
     @ModifyVariable(method = "submitTiledBlit", at = @At("HEAD"), ordinal = 6, argsOnly = true)
-    private int storeTextureColor2(int original) { return ARGB.multiplyAlpha(original, HudManager.CURRENT_OPACITY); }
+    private int storeTextureColor2(int original) { return ARGB.multiplyAlpha(original, HudManager.CURRENT_MANAGER.Opacity); }
 
     @ModifyVariable(method = "submitColoredRectangle", at = @At("HEAD"), ordinal = 4, argsOnly = true)
-    private int storeBackgroundColor1(int original) { return ARGB.multiplyAlpha(original, HudManager.CURRENT_OPACITY); }
+    private int storeBackgroundColor1(int original) { return ARGB.multiplyAlpha(original, HudManager.CURRENT_MANAGER.Opacity); }
 
     @ModifyVariable(method = "fillGradient", at = @At("HEAD"), ordinal = 5, argsOnly = true)
-    private int storeBackgroundColor2(int original) { return ARGB.multiplyAlpha(original, HudManager.CURRENT_OPACITY); }
+    private int storeBackgroundColor2(int original) { return ARGB.multiplyAlpha(original, HudManager.CURRENT_MANAGER.Opacity); }
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private int storeTooltipAxisX(int original) { return Math.round(original / ModOptions.INSTANCE.Tooltip.Resizer); }

@@ -11,9 +11,9 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class GuiTextRenderStateMixin {
 
     @ModifyVariable(method = "<init>", at = @At("CTOR_HEAD"), ordinal = 2, argsOnly = true)
-    private int storeTextColor1(int original) { return ARGB.multiplyAlpha(original, HudManager.CURRENT_OPACITY); }
+    private int storeTextColor1(int original) { return ARGB.multiplyAlpha(original, HudManager.CURRENT_MANAGER.Opacity); }
 
     @ModifyVariable(method = "<init>", at = @At("CTOR_HEAD"), ordinal = 3, argsOnly = true)
-    private int storeTextColor2(int original) { return ARGB.multiplyAlpha(original, HudManager.CURRENT_OPACITY); }
+    private int storeTextColor2(int original) { return ARGB.multiplyAlpha(original, HudManager.CURRENT_MANAGER.Opacity); }
 
 }
