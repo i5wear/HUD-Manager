@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * <p> The simplest config implementation. </p>
+ * <p> The simplest config instance implementation. </p>
  * <p> Contains arbitrary fields that should convert to, and get values from JSON and {@link ModOptionsScreen}. </p>
  * <p> Supports {@link Number}, {@link String}, {@link Boolean} and {@link Enum} types, or their collections and combinations. </p>
  * <p> For special cases, register your own type adapter at {@link #ADAPTER} and it works for {@link ModOptionsScreen}. </p>

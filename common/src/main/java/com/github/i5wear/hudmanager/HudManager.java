@@ -10,14 +10,13 @@ public class HudManager {
 
     public static HudManager DEFAULT = new HudManager();
     public static HudManager CURRENT = DEFAULT;
+    public static Map<Object, HudManager> STORAGE = new WeakHashMap<>();
 
-    public static Map<Object, HudManager> CATEGORY = new WeakHashMap<>();
-
-    public boolean Display = true;
-    public float Resizer = 1;
-    public float Opacity = 1;
-    public float OffsetX = 0;
-    public float OffsetY = 0;
+    public volatile boolean Display = true;
+    public volatile float Resizer = 1;
+    public volatile float Opacity = 1;
+    public volatile float OffsetX = 0;
+    public volatile float OffsetY = 0;
 
     public Matrix3x2f apply(Matrix3x2f target) {
         var output = new Matrix3x2f(target);

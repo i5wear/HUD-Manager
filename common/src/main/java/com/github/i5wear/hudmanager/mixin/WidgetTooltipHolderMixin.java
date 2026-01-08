@@ -13,8 +13,8 @@ public abstract class WidgetTooltipHolderMixin {
     @ModifyVariable(method = "createTooltipPositioner", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private ScreenRectangle storeWidgetTooltipAxis(ScreenRectangle original) {
         return new ScreenRectangle(
-            Math.round(original.position().x() / ModOptions.INSTANCE.Tooltip.Resizer),
-            Math.round(original.position().y() / ModOptions.INSTANCE.Tooltip.Resizer),
+            Math.round(original.left() / ModOptions.INSTANCE.Tooltip.Resizer),
+            Math.round(original.top() / ModOptions.INSTANCE.Tooltip.Resizer),
             Math.round(original.width() / ModOptions.INSTANCE.Tooltip.Resizer),
             Math.round(original.height() / ModOptions.INSTANCE.Tooltip.Resizer)
         );
