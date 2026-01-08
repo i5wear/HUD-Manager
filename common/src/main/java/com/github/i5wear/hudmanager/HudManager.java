@@ -18,23 +18,23 @@ public class HudManager {
     public volatile float OffsetX = 0;
     public volatile float OffsetY = 0;
 
-    public Matrix3x2f apply(Matrix3x2f target) {
-        var output = new Matrix3x2f(target);
+    public Matrix3x2f apply(Matrix3x2f input) {
+        var output = new Matrix3x2f(input);
         output.translate(OffsetX, OffsetY);
         output.scale(Resizer);
         return output;
     }
 
-    public boolean apply(Matrix3x2fStack target) {
+    public boolean apply(Matrix3x2fStack input) {
         CURRENT = this;
-        target.pushMatrix();
-        target.translate(OffsetX, OffsetY);
-        target.scale(Resizer);
+        input.pushMatrix();
+        input.translate(OffsetX, OffsetY);
+        input.scale(Resizer);
         return Display;
     }
 
-    public static void reset(Matrix3x2fStack target) {
+    public static void reset(Matrix3x2fStack input) {
         CURRENT = DEFAULT;
-        target.popMatrix();
+        input.popMatrix();
     }
 }

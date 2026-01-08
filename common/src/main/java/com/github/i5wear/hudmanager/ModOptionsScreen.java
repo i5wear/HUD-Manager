@@ -42,31 +42,31 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     public ModOptionsScreen(Object ignore, Screen parent) { this(parent, ModOptions.INSTANCE, translate(NAMESPACE)); }
 
-    public ModOptionsScreen(Screen parent, Object target, Component title) {
+    public ModOptionsScreen(Screen parent, Object source, Component title) {
         super(parent, Minecraft.getInstance().options, title);
-        for (var clazz = target.getClass(); !clazz.equals(Object.class); clazz = clazz.getSuperclass()) {
+        for (var clazz = source.getClass(); !clazz.equals(Object.class); clazz = clazz.getSuperclass()) {
             if (ModOptions.ADAPTER.excluder().excludeClass(clazz, true)) return;
             for (var field : clazz.getDeclaredFields()) {
                 if (ModOptions.ADAPTER.excluder().excludeField(field, true)) continue;
                 Storage.addLast(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
                 Storage.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
-                Storage.addLast(construct(field, target, translate(NAMESPACE, field.getName())));
+                Storage.addLast(construct(field, source, translate(NAMESPACE, field.getName())));
                 Storage.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
             }
         }
     }
 
-    protected AbstractWidget construct(Field field, Object target, Component title) {
+    protected AbstractWidget construct(Field field, Object source, Component title) {
         field.setAccessible(true);
-        var GETTER = Failable.asSupplier(Failable.apply(MethodHandles.lookup()::unreflectGetter, field).bindTo(target)::invoke);
-        var SETTER = Failable.asConsumer(Failable.apply(MethodHandles.lookup()::unreflectSetter, field).bindTo(target)::invoke);
+        var GETTER = Failable.asSupplier(Failable.apply(MethodHandles.lookup()::unreflectGetter, field).bindTo(source)::invoke);
+        var SETTER = Failable.asConsumer(Failable.apply(MethodHandles.lookup()::unreflectSetter, field).bindTo(source)::invoke);
         if (ModOptions.ADAPTER.getAdapter(field.getType()) instanceof ReflectiveTypeAdapterFactory.Adapter)
             return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title))).build();
         var output = ModOptions.ADAPTER.toJson(GETTER.get(), field.getGenericType());
         onClose.addLast(() -> SETTER.accept(ModOptions.ADAPTER.fromJson(output, field.getGenericType())));
-        if (field.getType().equals(boolean.class) || field.getType().equals(Boolean.class))
-            return CycleButton.builder(input -> input.equals(true) ? Component.translatable("gui.yes") : Component.translatable("gui.no"), GETTER.get())
-                .withValues(true, false).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
+        if (field.getType() == boolean.class || field.getType() == Boolean.class)
+            return CycleButton.builder(input -> input.equals(Boolean.TRUE) ? Component.translatable("gui.yes") : Component.translatable("gui.no"), GETTER.get())
+                .withValues(Boolean.TRUE, Boolean.FALSE).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
         if (field.getType().isEnum() && field.getType().getEnumConstants().length < 8)
             return CycleButton.builder(input -> translate(NAMESPACE, Enum.class.cast(input).name()), GETTER.get())
                 .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
