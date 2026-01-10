@@ -1,8 +1,3 @@
-architectury {
-    platformSetupLoomIde(); neoForge()
-    minecraft = minecraft_version
-}
-
 configurations {
     common { canBeResolved = true; canBeConsumed = false }
     bundle { canBeResolved = true; canBeConsumed = false }
@@ -11,18 +6,18 @@ configurations {
     developmentNeoForge.extendsFrom(common)
 }
 
+architectury {
+    platformSetupLoomIde(); neoForge()
+    minecraft = minecraft_version
+    shadowJar.configurations = [configurations.bundle]
+}
+
 dependencies {
     mappings loom.officialMojangMappings()
     minecraft 'net.minecraft:minecraft:' + minecraft_version
     neoForge 'net.neoforged:neoforge:' + neoforge_version
     common project(path: ':common', configuration: 'namedElements')
     bundle project(path: ':common', configuration: 'transformProductionNeoForge')
-}
-
-shadowJar {
-    configurations = [project.configurations.bundle]
-    archiveBaseName = mod_name
-    archiveClassifier = '-shadow'
 }
 
 remapJar {
