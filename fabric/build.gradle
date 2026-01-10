@@ -24,7 +24,7 @@ dependencies {
 shadowJar {
     configurations = [project.configurations.bundle]
     archiveBaseName = mod_name
-    archiveClassifier = project.name + '-shadow'
+    archiveClassifier = '-shadow'
 }
 
 remapJar {
