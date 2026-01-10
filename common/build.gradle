@@ -1,7 +1,7 @@
 architectury {
     common('fabric', 'neoforge')
     minecraft = minecraft_version
-    shadowJar.enabled(false)
+    shadowJar.enabled = false
 }
 
 dependencies {
