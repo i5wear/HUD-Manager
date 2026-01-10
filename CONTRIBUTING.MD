@@ -4,7 +4,7 @@ HUD Manager的整个实现都仅对界面渲染的“准备过程”作修改，
 
 ## 1. GuiGraphics
 
-各界面元素通过`render`方法启动渲染，通过参数`GuiGraphics`控制大小、位置等，并绘制形状、文字和物品等纹理。
+界面元素通过`render`方法启动渲染，通过参数`GuiGraphics`控制大小、位置等，并绘制形状、文字和物品等纹理。
 
 `GuiGraphics.pose`字段存储矩阵栈`Matrix3x2fStack`，通过其`scale`和`translate`方法可对其缩放与移动。
 
@@ -28,7 +28,7 @@ HUD Manager的整个实现都仅对界面渲染的“准备过程”作修改，
 
 ## 3. GuiRenderer
 
-`GuiRenderState`将由`GuiRenderer`处理，其中上述数据将被渲染为实际的纹理，再次提交给`GuiRenderState`。
+`GuiRenderState`将由`GuiRenderer`处理，其中一些数据将被渲染为实际的纹理，再次提交给`GuiRenderState`。
 
 `GuiRenderer#submitBlitFromItemAtlas`方法最终将`GuiItemRenderState`转换为`BlitRenderState`。
 
