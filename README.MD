@@ -8,7 +8,7 @@ Enables you to configure the entire HUD layout to make it looks just best for yo
 
 Especially useful for servers with lots of things on the screen such as MCC Island.
 
-Tested compatible with Apple Skin, Better F3, Shulker Box Tooltip, Tooltip Scroll.
+Compatible with Apple Skin, Better F3, Shulker Box Tooltip, Tooltip Scroll, etc.
 
 ## Feature: All in One
 
