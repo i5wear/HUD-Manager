@@ -1,7 +1,7 @@
 package com.github.i5wear.hudmanager.mixin;
 
-import com.github.i5wear.hudmanager.ModOptions;
 import com.github.i5wear.hudmanager.HudManager;
+import com.github.i5wear.hudmanager.ModOptions;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.client.gui.GuiGraphics;
