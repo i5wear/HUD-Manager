@@ -1,18 +1,18 @@
 package com.github.i5wear.hudmanager.mixin;
 
 import com.github.i5wear.hudmanager.HudManager;
-import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.mojang.blaze3d.platform.Window;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(Window.class)
+@Mixin(value = Window.class, priority = 1001) // Temporary Noxesium Compat
 public abstract class WindowMixin {
 
-    @ModifyReturnValue(method = "getGuiScaledWidth", at = @At("TAIL"))
-    private int storeElementAxisX(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
+    @WrapMethod(method = "getGuiScaledWidth")
+    private int storeElementAxisX(Operation<Integer> original) { return Math.round(original.call() / HudManager.CURRENT.Resizer); }
 
-    @ModifyReturnValue(method = "getGuiScaledHeight", at = @At("TAIL"))
-    private int storeElementAxisY(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
+    @WrapMethod(method = "getGuiScaledHeight")
+    private int storeElementAxisY(Operation<Integer> original) { return Math.round(original.call() / HudManager.CURRENT.Resizer); }
 
 }
