@@ -8,7 +8,7 @@ HUD Manager的整个实现都仅对界面渲染的“准备过程”作修改，
 
 `GuiGraphics.pose`字段存储矩阵栈`Matrix3x2fStack`，通过其`scale`和`translate`方法可对其缩放与移动。
 
-缩放以屏幕左上角为中心，通过放缩`Window.guiScaledWidth`和`Window.guiScaledHeight`，可以保持位置不变。
+缩放以屏幕左上角为中心，通过放缩`GuiGraphics#guiWidth`和`GuiGraphics#guiHeight`，可以保持位置不变。
 
 对于`Tooltip`，还需要调整相关方法的`mouseX`、`mouseY`，以及显式构造的`ClientTooltipPositioner`参数。
 
