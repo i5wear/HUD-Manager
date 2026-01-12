@@ -2,6 +2,7 @@ package com.github.i5wear.hudmanager.mixin;
 
 import com.github.i5wear.hudmanager.HudManager;
 import com.github.i5wear.hudmanager.ModOptions;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.gui.GuiGraphics;
@@ -31,6 +32,12 @@ public abstract class GuiGraphicsMixin {
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", at = @At("HEAD"), ordinal = 1, argsOnly = true)
     private int storeTooltipAxisY(int original) { return Math.round(original / ModOptions.INSTANCE.Tooltip.Resizer); }
+
+    @ModifyReturnValue(method = "guiWidth", at = @At("TAIL"))
+    private int storeElementAxisX(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
+
+    @ModifyReturnValue(method = "guiHeight", at = @At("TAIL"))
+    private int storeElementAxisY(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
 
     @WrapOperation(method = "setTooltipForNextFrameInternal", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/GuiGraphics;deferredTooltip:Ljava/lang/Runnable;", opcode = Opcodes.PUTFIELD))
     private void modifyTooltip(GuiGraphics graphics, Runnable input, Operation<Void> original) {

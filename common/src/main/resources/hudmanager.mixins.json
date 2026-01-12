@@ -3,6 +3,7 @@
   "package": "com.github.i5wear.hudmanager.mixin",
   "client": [
     "BossHealthOverlayMixin",
+    "ContextualBarRendererMixin",
     "DebugScreenOverlayMixin",
     "GuiGraphicsMixin",
     "GuiItemRenderStateMixin",
@@ -12,7 +13,6 @@
     "PictureInPictureRendererMixin",
     "SubtitleOverlayMixin",
     "ToastManagerMixin",
-    "WidgetTooltipHolderMixin",
-    "WindowMixin"
+    "WidgetTooltipHolderMixin"
   ]
 }
