@@ -60,18 +60,18 @@ public class ModOptionsScreen extends OptionsSubScreen {
         var GETTER = Failable.asSupplier(Failable.apply(MethodHandles.lookup()::unreflectGetter, field).bindTo(source)::invoke);
         var SETTER = Failable.asConsumer(Failable.apply(MethodHandles.lookup()::unreflectSetter, field).bindTo(source)::invoke);
         if (ModOptions.ADAPTER.getAdapter(field.getType()) instanceof ReflectiveTypeAdapterFactory.Adapter)
-            return Button.builder(Component.translatable("menu.options"), ignore -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title)))
+            return Button.builder(Component.translatable("menu.options"), button -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title)))
                 .tooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip"))).build();
         var output = ModOptions.ADAPTER.toJson(GETTER.get(), field.getGenericType());
         onClose.addLast(() -> SETTER.accept(ModOptions.ADAPTER.fromJson(output, field.getGenericType())));
         if (field.getType() == boolean.class || field.getType() == Boolean.class)
             return CycleButton.builder(input -> input == Boolean.TRUE ? Component.translatable("gui.yes") : Component.translatable("gui.no"), GETTER.get())
                 .withTooltip(input -> Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")))
-                .withValues(Boolean.TRUE, Boolean.FALSE).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
+                .withValues(Boolean.TRUE, Boolean.FALSE).displayOnlyValue().create(title, (button, input) -> SETTER.accept(input));
         if (field.getType().isEnum() && field.getType().getEnumConstants().length < 8)
             return CycleButton.builder(input -> translate(NAMESPACE, Enum.class.cast(input).name()), GETTER.get())
                 .withTooltip(input -> Tooltip.create(translate(NAMESPACE, Enum.class.cast(input).name(), "tooltip")))
-                .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (ignore, input) -> SETTER.accept(input));
+                .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (button, input) -> SETTER.accept(input));
         var widget = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title);
         widget.setMaxLength(Integer.MAX_VALUE);
         widget.setResponder(input -> {
@@ -87,7 +87,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
     @Override protected void addFooter() {
         onClose.addLast(this::onClose);
         var layout = super.layout.addToFooter(LinearLayout.horizontal().spacing(Button.DEFAULT_SPACING));
-        layout.addChild(Button.builder(Component.translatable("gui.back"), ignore -> onClose.forEach(Runnable::run)).build());
-        layout.addChild(Button.builder(Component.translatable("gui.done"), ignore -> onClose.getLast().run()).build());
+        layout.addChild(Button.builder(Component.translatable("gui.back"), button -> onClose.forEach(Runnable::run)).build());
+        layout.addChild(Button.builder(Component.translatable("gui.done"), button -> onClose.getLast().run()).build());
     }
 }
