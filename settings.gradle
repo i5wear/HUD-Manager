@@ -7,5 +7,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = mod_name
+rootProject.name = 'hudmanager'
 include('common', 'fabric', 'neoforge')

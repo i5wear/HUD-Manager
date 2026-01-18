@@ -5,8 +5,8 @@ plugins {
 }
 
 allprojects {
-    group = maven_group
-    version = mod_version
+    group = 'com.github.i5wear'
+    version = build_version
 }
 
 subprojects {
@@ -22,8 +22,8 @@ subprojects {
     }
 
     processResources {
-        filesMatching('fabric.mod.json') { expand version: mod_version }
-        filesMatching('META-INF/neoforge.mods.toml') { expand version: mod_version }
+        filesMatching('**/fabric.mod.json') { expand version: project.version }
+        filesMatching('**/neoforge.mods.toml') { expand version: project.version }
     }
 
     remapJar {
