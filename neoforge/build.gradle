@@ -19,9 +19,3 @@ dependencies {
     common project(path: ':common', configuration: 'namedElements')
     bundle project(path: ':common', configuration: 'transformProductionNeoForge')
 }
-
-remapJar {
-    inputFile = shadowJar.archiveFile
-    archiveBaseName = mod_name
-    archiveClassifier = project.name
-}

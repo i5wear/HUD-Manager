@@ -25,4 +25,11 @@ subprojects {
         filesMatching('fabric.mod.json') { expand version: mod_version }
         filesMatching('META-INF/neoforge.mods.toml') { expand version: mod_version }
     }
+
+    remapJar {
+        inputFile = shadowJar.archiveFile
+        destinationDirectory = rootProject.layout.buildDirectory
+        archiveBaseName = rootProject.name
+        archiveClassifier = project.name
+    }
 }
