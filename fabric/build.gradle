@@ -8,7 +8,6 @@ configurations {
 
 architectury {
     platformSetupLoomIde(); fabric()
-    minecraft = minecraft_version
     shadowJar.configurations = [configurations.bundle]
 }
 

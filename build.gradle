@@ -4,11 +4,6 @@ plugins {
     id 'com.gradleup.shadow' version '9.3.0' apply false
 }
 
-allprojects {
-    group = 'com.github.i5wear'
-    version = build_version
-}
-
 subprojects {
     apply plugin: 'dev.architectury.loom'
     apply plugin: 'architectury-plugin'
@@ -22,14 +17,15 @@ subprojects {
     }
 
     processResources {
-        filesMatching('**/fabric.mod.json') { expand version: project.version }
-        filesMatching('**/neoforge.mods.toml') { expand version: project.version }
+        filesMatching('**/fabric.mod.json') { expand version: build_version }
+        filesMatching('**/neoforge.mods.toml') { expand version: build_version }
     }
 
     remapJar {
         inputFile = shadowJar.archiveFile
         destinationDirectory = rootProject.layout.buildDirectory
         archiveBaseName = rootProject.name
+        archiveVersion = build_version
         archiveClassifier = project.name
     }
 }
