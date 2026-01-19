@@ -8,7 +8,7 @@ configurations {
 
 architectury {
     platformSetupLoomIde(); fabric()
-    shadowJar.configurations = [configurations.bundle]
+    shadowJar.configurations = [project.configurations.bundle]
 }
 
 dependencies {

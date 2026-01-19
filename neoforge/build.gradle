@@ -8,7 +8,7 @@ configurations {
 
 architectury {
     platformSetupLoomIde(); neoForge()
-    shadowJar.configurations = [configurations.bundle]
+    shadowJar.configurations = [project.configurations.bundle]
 }
 
 dependencies {
