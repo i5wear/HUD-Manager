@@ -10,7 +10,7 @@ public class HudManager {
 
     public static HudManager DEFAULT = new HudManager();
     public static HudManager CURRENT = DEFAULT;
-    public static Map<Object, HudManager> STORAGE = new WeakHashMap<>();
+    public static Map<Object, HudManager> CONTENT = new WeakHashMap<>();
 
     public volatile boolean Display = true;
     public volatile float Resizer = 1;

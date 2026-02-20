@@ -28,13 +28,13 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     public static String NAMESPACE = "hudmanager.options";
 
-    protected final List<AbstractWidget> Storage = new ArrayList<>();
+    protected final List<AbstractWidget> Content = new ArrayList<>();
 
     protected final List<Runnable> onClose = new ArrayList<>();
 
     @Override public void removed() { ModOptions.save(); }
 
-    @Override protected void addOptions() { super.list.addSmall(Storage); }
+    @Override protected void addOptions() { super.list.addSmall(Content); }
 
     public static Component translate(String... input) { return Component.translatableWithFallback(String.join(".", input), ""); }
 
@@ -44,13 +44,13 @@ public class ModOptionsScreen extends OptionsSubScreen {
 
     public ModOptionsScreen(Screen parent, Object source, Component title) {
         super(parent, Minecraft.getInstance().options, title);
-        for (var clazz = source.getClass(); !clazz.equals(Object.class); clazz = clazz.getSuperclass()) {
-            if (ModOptions.ADAPTER.excluder().excludeClass(clazz, true)) return;
+        for (var clazz = source.getClass(); clazz != Object.class; clazz = clazz.getSuperclass()) {
+            if (ModOptions.ADAPTER.excluder().excludeClass(clazz, true)) onClose();
             for (var field : clazz.getDeclaredFields()) {
                 if (ModOptions.ADAPTER.excluder().excludeField(field, true)) continue;
-                Storage.addLast(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
-                Storage.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
-                Storage.addLast(construct(field, source, translate(NAMESPACE, field.getName())));
+                Content.addLast(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, translate(NAMESPACE, field.getName()), super.font));
+                Content.getLast().setTooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")));
+                Content.addLast(construct(field, source, translate(NAMESPACE, field.getName())));
             }
         }
     }

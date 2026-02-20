@@ -13,7 +13,7 @@ public abstract class GuiRenderStateMixin {
     @WrapMethod(method = "submitPicturesInPictureState")
     private void storeExtraElement(PictureInPictureRenderState input, Operation<Void> original) {
         if (HudManager.CURRENT != HudManager.DEFAULT)
-            HudManager.STORAGE.put(input, HudManager.CURRENT);
+            HudManager.CONTENT.put(input, HudManager.CURRENT);
         original.call(input);
     }
 }
