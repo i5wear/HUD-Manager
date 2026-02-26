@@ -1,18 +1,10 @@
 plugins {
-    alias(libs.plugins.neoforged.moddev)
+    alias(libs.plugins.neoforged.dev)
 }
 
-neoForge {
-    version = libs.versions.neoforge.get()
-    runs {
-        client.client()
-        server.server()
-    }
-    mods {
-        'hudmanager' {
-            sourceSet sourceSets.main
-        }
-    }
+dependencies {
+    java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+    implementation libs.neoforge
 }
 
 sourceSets.main {
