@@ -6,4 +6,16 @@ subprojects {
         maven { url = 'https://maven.terraformersmc.com/releases' }
         mavenCentral()
     }
+
+    tasks.withType(ProcessResources).configureEach {
+        filesMatching('**/fabric.mod.json') { expand version: libs.versions.project.get() }
+        filesMatching('**/neoforge.mods.toml') { expand version: libs.versions.project.get() }
+    }
+
+    tasks.withType(Jar).configureEach {
+        destinationDirectory = rootProject.layout.buildDirectory
+        archiveBaseName = rootProject.name
+        archiveVersion = libs.versions.project.get()
+        archiveClassifier = project.name
+    }
 }
