@@ -8,6 +8,6 @@ dependencies {
 }
 
 sourceSets.main {
-    java.srcDirs += [project(':common').sourceSets.main.java.srcDirs]
-    resources.srcDirs += [project(':common').sourceSets.main.resources.srcDirs]
+    java.srcDirs += project(':common').sourceSets.main.java.srcDirs
+    resources.srcDirs += project(':common').sourceSets.main.resources.srcDirs
 }

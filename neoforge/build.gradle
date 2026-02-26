@@ -4,9 +4,18 @@ plugins {
 
 neoForge {
     version = libs.versions.neoforge.get()
+    runs {
+        client.client()
+        server.server()
+    }
+    mods {
+        'hudmanager' {
+            sourceSet sourceSets.main
+        }
+    }
 }
 
 sourceSets.main {
-    java.srcDirs += [project(':common').sourceSets.main.java.srcDirs]
-    resources.srcDirs += [project(':common').sourceSets.main.resources.srcDirs]
+    java.srcDirs += project(':common').sourceSets.main.java.srcDirs
+    resources.srcDirs += project(':common').sourceSets.main.resources.srcDirs
 }
