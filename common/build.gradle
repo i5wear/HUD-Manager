@@ -1,9 +1,8 @@
 plugins {
-    id 'fabric-loom' version '1.15-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
 }
 
 dependencies {
-    mappings loom.officialMojangMappings()
     minecraft 'net.minecraft:minecraft:' + minecraft_version
-    modImplementation 'net.fabricmc:fabric-loader:' + fabric_loader_version
+    implementation 'net.fabricmc:fabric-loader:' + fabric_loader_version
 }

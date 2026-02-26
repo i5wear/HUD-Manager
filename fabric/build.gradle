@@ -1,13 +1,12 @@
 plugins {
-    id 'fabric-loom' version '1.15-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
 }
 
 dependencies {
-    mappings loom.officialMojangMappings()
     minecraft 'net.minecraft:minecraft:' + minecraft_version
-    modImplementation 'net.fabricmc:fabric-loader:' + fabric_loader_version
-    modImplementation 'net.fabricmc.fabric-api:fabric-api:' + fabric_api_version
-    modImplementation 'com.terraformersmc:modmenu:' + modmenu_version
+    implementation 'net.fabricmc:fabric-loader:' + fabric_loader_version
+    implementation 'net.fabricmc.fabric-api:fabric-api:' + fabric_api_version
+    implementation 'com.terraformersmc:modmenu:' + modmenu_version
 }
 
 sourceSets {
@@ -22,7 +21,7 @@ processResources {
     filesMatching('**/neoforge.mods.toml') { expand version: build_version }
 }
 
-remapJar {
+jar {
     destinationDirectory = rootProject.layout.buildDirectory
     archiveBaseName = rootProject.name
     archiveVersion = build_version
