@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.fabricmc.loom)
+    alias(libs.plugins.fabric.loom)
 }
 
 dependencies {
