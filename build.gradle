@@ -1,31 +1,9 @@
-plugins {
-    id 'dev.architectury.loom' version '1.13-SNAPSHOT' apply false
-    id 'architectury-plugin' version '3.4-SNAPSHOT' apply false
-    id 'com.gradleup.shadow' version '9.3.0' apply false
-}
-
 subprojects {
-    apply plugin: 'dev.architectury.loom'
-    apply plugin: 'architectury-plugin'
-    apply plugin: 'com.gradleup.shadow'
 
     repositories {
         maven { url = 'https://maven.fabricmc.net/' }
         maven { url = 'https://maven.neoforged.net/releases' }
         maven { url = 'https://maven.terraformersmc.com/releases' }
         mavenCentral()
-    }
-
-    processResources {
-        filesMatching('**/fabric.mod.json') { expand version: build_version }
-        filesMatching('**/neoforge.mods.toml') { expand version: build_version }
-    }
-
-    remapJar {
-        inputFile = shadowJar.archiveFile
-        destinationDirectory = rootProject.layout.buildDirectory
-        archiveBaseName = rootProject.name
-        archiveVersion = build_version
-        archiveClassifier = project.name
     }
 }

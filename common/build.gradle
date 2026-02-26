@@ -1,6 +1,5 @@
-architectury {
-    common('fabric', 'neoforge')
-    shadowJar.enabled = false
+plugins {
+    id 'fabric-loom' version '1.15-SNAPSHOT'
 }
 
 dependencies {

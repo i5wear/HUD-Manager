@@ -1,14 +1,5 @@
-configurations {
-    common { canBeResolved = true; canBeConsumed = false }
-    bundle { canBeResolved = true; canBeConsumed = false }
-    compileClasspath.extendsFrom(common)
-    runtimeClasspath.extendsFrom(common)
-    developmentFabric.extendsFrom(common)
-}
-
-architectury {
-    platformSetupLoomIde(); fabric()
-    shadowJar.configurations = [project.configurations.bundle]
+plugins {
+    id 'fabric-loom' version '1.15-SNAPSHOT'
 }
 
 dependencies {
@@ -17,6 +8,23 @@ dependencies {
     modImplementation 'net.fabricmc:fabric-loader:' + fabric_loader_version
     modImplementation 'net.fabricmc.fabric-api:fabric-api:' + fabric_api_version
     modImplementation 'com.terraformersmc:modmenu:' + modmenu_version
-    common project(path: ':common', configuration: 'namedElements')
-    bundle project(path: ':common', configuration: 'transformProductionFabric')
+}
+
+sourceSets {
+    main {
+        java.srcDirs += [project(':common').sourceSets.main.java.srcDirs]
+        resources.srcDirs += [project(':common').sourceSets.main.resources.srcDirs]
+    }
+}
+
+processResources {
+    filesMatching('**/fabric.mod.json') { expand version: build_version }
+    filesMatching('**/neoforge.mods.toml') { expand version: build_version }
+}
+
+remapJar {
+    destinationDirectory = rootProject.layout.buildDirectory
+    archiveBaseName = rootProject.name
+    archiveVersion = build_version
+    archiveClassifier = project.name
 }
