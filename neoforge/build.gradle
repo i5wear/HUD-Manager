@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.neoforge.dev)
+    alias libs.plugins.neoforge.dev
 }
 
 dependencies {
