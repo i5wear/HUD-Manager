@@ -22,4 +22,4 @@ fabric-loom = { id = "net.fabricmc.fabric-loom", version.ref = "fabric-loom" }
 neoforge-dev = { id = "net.neoforged.gradle.userdev", version.ref = "neoforge-dev" }
 
 [bundles]
-fabric = ["fabric-loader", "fabric-api", "fabric-modmenu"]
+fabric = [ "fabric-loader", "fabric-api", "fabric-modmenu" ]
