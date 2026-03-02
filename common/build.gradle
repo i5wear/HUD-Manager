@@ -6,3 +6,8 @@ dependencies {
     minecraft libs.minecraft
     implementation libs.fabric.loader
 }
+
+tasks.withType(Jar).configureEach {
+    from rootProject.subprojects.sourceSets.main.output
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

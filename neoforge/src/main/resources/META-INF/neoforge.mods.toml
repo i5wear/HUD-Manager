@@ -17,8 +17,8 @@ config = "hudmanager.mixins.json"
 
 [[dependencies.hudmanager]]
 modId = "minecraft"
-versionRange = "[26.1,)"
+versionRange = "[26.0,)"
 
 [[dependencies.hudmanager]]
 modId = "neoforge"
-versionRange = "[26.1,)"
+versionRange = "[26.0,)"
