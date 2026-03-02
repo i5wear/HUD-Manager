@@ -13,7 +13,6 @@ subprojects {
     }
 
     tasks.withType(Jar).configureEach {
-        destinationDirectory = rootProject.layout.buildDirectory
         archiveBaseName = rootProject.name
         archiveVersion = libs.versions.project.get()
         archiveClassifier = project.name
