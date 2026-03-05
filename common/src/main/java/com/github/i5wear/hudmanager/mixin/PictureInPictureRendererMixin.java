@@ -3,9 +3,9 @@ package com.github.i5wear.hudmanager.mixin;
 import com.github.i5wear.hudmanager.HudManager;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
-import net.minecraft.client.gui.render.state.BlitRenderState;
-import net.minecraft.client.gui.render.state.pip.OversizedItemRenderState;
-import net.minecraft.client.gui.render.state.pip.PictureInPictureRenderState;
+import net.minecraft.client.renderer.state.gui.BlitRenderState;
+import net.minecraft.client.renderer.state.gui.pip.OversizedItemRenderState;
+import net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState;
 import net.minecraft.util.ARGB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,7 +16,7 @@ import java.util.function.IntUnaryOperator;
 @Mixin(PictureInPictureRenderer.class)
 public abstract class PictureInPictureRendererMixin {
 
-    @ModifyArg(method = "blitTexture", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/render/state/GuiRenderState;submitBlitToCurrentLayer(Lnet/minecraft/client/gui/render/state/BlitRenderState;)V"))
+    @ModifyArg(method = "blitTexture", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/state/gui/GuiRenderState;submitBlitToCurrentLayer(Lnet/minecraft/client/renderer/state/gui/BlitRenderState;)V"))
     private BlitRenderState modifyExtraElement(BlitRenderState original, @Local(ordinal = 0, argsOnly = true) PictureInPictureRenderState input) {
         return switch (input) {
             case Object output when HudManager.CONTENT.containsKey(output) -> new BlitRenderState(
