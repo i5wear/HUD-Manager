@@ -1,5 +1,5 @@
 [versions]
-project = "3.4.2+mc26.1"
+project = "3.4.2+26.1"
 
 minecraft = "26.1-snapshot-11"
 fabric-loader = "0.18.4"

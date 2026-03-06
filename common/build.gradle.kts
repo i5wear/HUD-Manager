@@ -4,5 +4,5 @@ plugins {
 
 dependencies {
     minecraft(libs.minecraft)
-    implementation(libs.fabric.loader)
+    compileOnly(libs.fabric.loader)
 }
