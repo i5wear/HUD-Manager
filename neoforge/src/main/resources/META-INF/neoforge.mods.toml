@@ -10,6 +10,7 @@ description = '''Manages HUD elements gracefully.'''
 authors = "i5wear"
 credits = "Ferinjoque"
 displayURL = "https://modrinth.com/mod/HUD-Manager"
+issueTrackerURL = "https://github.com/i5wear/HUD-Manager/issues"
 logoFile = "assets/hudmanager/icon.png"
 
 [[mixins]]

@@ -1,0 +1,8 @@
+plugins {
+    alias(libs.plugins.fabric.loom)
+}
+
+dependencies {
+    minecraft(libs.minecraft)
+    implementation(libs.fabric.loader)
+}
