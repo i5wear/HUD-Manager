@@ -1,6 +1,6 @@
 # HUD Manager
 
-[![CurseForge](http://img.shields.io/curseforge/dt/1351618?logo=curseforge&color=ff7f27)](https://www.curseforge.com/minecraft/mc-mods/hud-manager)
+[![CurseForge](https://img.shields.io/curseforge/dt/1351618?logo=curseforge&color=ff7f27)](https://www.curseforge.com/minecraft/mc-mods/hud-manager)
 [![Modrinth](https://img.shields.io/modrinth/dt/hbUrCPGQ?logo=modrinth&color=22b14c)](https://modrinth.com/mod/hud-manager)
 [![GitHub](https://img.shields.io/github/v/release/i5wear/hud-manager?logo=github&color=00a2e8)](https://github.com/i5wear/hud-manager)
 
