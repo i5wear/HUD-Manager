@@ -12,9 +12,7 @@ tasks.withType<Jar>().configureEach {
 }
 
 subprojects {
-    repositories {
-        maven { url = uri("https://maven.terraformersmc.com/releases/") }
-        maven { url = uri("https://api.modrinth.com/maven/") }
-        maven { url = uri("https://cursemaven.com/") }
-    }
+    repositories.maven { url = uri("https://maven.terraformersmc.com/releases/") }
+    repositories.maven { url = uri("https://api.modrinth.com/maven/") }
+    repositories.maven { url = uri("https://cursemaven.com/") }
 }
