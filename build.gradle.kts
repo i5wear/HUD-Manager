@@ -16,6 +16,5 @@ subprojects {
         maven { url = uri("https://maven.terraformersmc.com/releases/") }
         maven { url = uri("https://api.modrinth.com/maven/") }
         maven { url = uri("https://cursemaven.com/") }
-        maven { url = uri("https://jitpack.io/") }
     }
 }
