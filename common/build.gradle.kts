@@ -6,3 +6,8 @@ dependencies {
     minecraft(libs.minecraft)
     compileOnly(libs.fabric.loader)
 }
+
+loom {
+    mods.clear()
+    runs.clear()
+}
