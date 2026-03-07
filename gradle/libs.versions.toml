@@ -1,24 +1,24 @@
 [versions]
 project = "3.4.2"
 
+fabric-loom = "1.15.4"
+neoforge-dev = "2.0.140"
+
 minecraft = "26.1-snapshot-11"
 fabric-loader = "0.18.4"
 fabric-api = "0.143.10+26.1"
 fabric-modmenu = "18.0.0-alpha.5"
 neoforge-base = "26.1.0.0-alpha.12+snapshot-7"
 
-fabric-loom = "1.15.4"
-neoforge-dev = "2.0.140"
+[plugins]
+fabric-loom = { id = "net.fabricmc.fabric-loom", version.ref = "fabric-loom" }
+neoforge-dev = { id = "net.neoforged.moddev", version.ref = "neoforge-dev" }
 
 [libraries]
 minecraft = { group = "net.minecraft", name = "minecraft", version.ref = "minecraft" }
 fabric-loader = { group = "net.fabricmc", name = "fabric-loader", version.ref = "fabric-loader" }
 fabric-api = { group = "net.fabricmc.fabric-api", name = "fabric-api", version.ref = "fabric-api" }
 fabric-modmenu = { group = "com.terraformersmc", name = "modmenu", version.ref = "fabric-modmenu" }
-
-[plugins]
-fabric-loom = { id = "net.fabricmc.fabric-loom", version.ref = "fabric-loom" }
-neoforge-dev = { id = "net.neoforged.moddev", version.ref = "neoforge-dev" }
 
 [bundles]
 fabric-base = [ "fabric-loader", "fabric-api", "fabric-modmenu" ]
