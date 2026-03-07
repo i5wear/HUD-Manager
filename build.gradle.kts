@@ -2,17 +2,22 @@ plugins {
     `java-library`
 }
 
-project.version = libs.versions.project.get()
+java {
+    withSourcesJar()
+    project.version = libs.versions.project.get()
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
+}
 
-tasks.withType<Jar>().configureEach {
+tasks.named<Jar>("jar") {
     from(project.file("LICENSE"))
     from(project(":common").sourceSets.main.get().output)
     from(project(":fabric").sourceSets.main.get().output)
     from(project(":neoforge").sourceSets.main.get().output)
 }
 
-subprojects {
-    repositories.maven { url = uri("https://maven.terraformersmc.com/releases/") }
-    repositories.maven { url = uri("https://api.modrinth.com/maven/") }
-    repositories.maven { url = uri("https://cursemaven.com/") }
+tasks.named<Jar>("sourcesJar") {
+    from(project.file("LICENSE"))
+    from(project(":common").sourceSets.main.get().allSource)
+    from(project(":fabric").sourceSets.main.get().allSource)
+    from(project(":neoforge").sourceSets.main.get().allSource)
 }
