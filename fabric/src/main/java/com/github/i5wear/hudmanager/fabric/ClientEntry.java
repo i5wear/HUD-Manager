@@ -27,18 +27,17 @@ public final class ClientEntry implements ClientModInitializer {
             Map.entry(VanillaHudElements.HELD_ITEM_TOOLTIP, ModOptions.INSTANCE.HotbarGroup),
             Map.entry(VanillaHudElements.SPECTATOR_TOOLTIP, ModOptions.INSTANCE.HotbarGroup),
             Map.entry(VanillaHudElements.MOB_EFFECTS, ModOptions.INSTANCE.StatusEffect),
+            Map.entry(VanillaHudElements.BOSS_BAR, ModOptions.INSTANCE.BossBar),
             Map.entry(VanillaHudElements.SCOREBOARD, ModOptions.INSTANCE.Scoreboard),
             Map.entry(VanillaHudElements.OVERLAY_MESSAGE, ModOptions.INSTANCE.ActionBar),
             Map.entry(VanillaHudElements.TITLE_AND_SUBTITLE, ModOptions.INSTANCE.ScreenTitle),
             Map.entry(VanillaHudElements.PLAYER_LIST, ModOptions.INSTANCE.PlayerList)
         ).forEach(
             entry -> HudElementRegistry.replaceElement(
-                entry.getKey(), original -> (graphics, ignore) -> {
-                    if (entry.getValue().apply(graphics.pose()))
-                        original.render(graphics, ignore);
-                    if (entry.getKey() == VanillaHudElements.HOTBAR)
-                        graphics.pose().popMatrix(); // Patch #13
-                    else HudManager.reset(graphics.pose());
+                entry.getKey(), original -> (graphics, tracker) -> {
+                    HudManager.CURRENT = entry.getValue();
+                    if (HudManager.CURRENT.Display) original.extractRenderState(graphics, tracker);
+                    HudManager.CURRENT = HudManager.DEFAULT;
                 }
             )
         );
@@ -46,6 +45,7 @@ public final class ClientEntry implements ClientModInitializer {
 
     @Override public void onInitializeClient() {
         ModOptions.DIRECTORY = FabricLoader.getInstance().getConfigDir();
-        ModOptions.load(); ModOptions.save(); modifyElement();
+        ModOptions.load(); ModOptions.save();
+        modifyElement();
     }
 }

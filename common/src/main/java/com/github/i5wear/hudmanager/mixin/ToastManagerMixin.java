@@ -13,8 +13,8 @@ public abstract class ToastManagerMixin {
 
     @WrapMethod(method = "extractRenderState")
     private void modifyToastMessage(GuiGraphicsExtractor graphics, Operation<Void> original) {
-        if (ModOptions.INSTANCE.ToastMessage.apply(graphics.pose()))
-            original.call(graphics);
-        HudManager.reset(graphics.pose());
+        HudManager.CURRENT = ModOptions.INSTANCE.ToastMessage;
+        if (HudManager.CURRENT.Display) original.call(graphics);
+        HudManager.CURRENT = HudManager.DEFAULT;
     }
 }

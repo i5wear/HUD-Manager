@@ -13,8 +13,8 @@ public abstract class SubtitleOverlayMixin {
 
     @WrapMethod(method = "extractRenderState")
     private void modifyClosedCaption(GuiGraphicsExtractor graphics, Operation<Void> original) {
-        if (ModOptions.INSTANCE.ClosedCaption.apply(graphics.pose()))
-            original.call(graphics);
-        HudManager.reset(graphics.pose());
+        HudManager.CURRENT = ModOptions.INSTANCE.ClosedCaption;
+        if (HudManager.CURRENT.Display) original.call(graphics);
+        HudManager.CURRENT = HudManager.DEFAULT;
     }
 }

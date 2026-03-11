@@ -32,25 +32,26 @@ public final class ClientEntry {
             Map.entry(VanillaGuiLayers.SELECTED_ITEM_NAME, ModOptions.INSTANCE.HotbarGroup),
             Map.entry(VanillaGuiLayers.SPECTATOR_TOOLTIP, ModOptions.INSTANCE.HotbarGroup),
             Map.entry(VanillaGuiLayers.EFFECTS, ModOptions.INSTANCE.StatusEffect),
+            Map.entry(VanillaGuiLayers.BOSS_OVERLAY, ModOptions.INSTANCE.BossBar),
             Map.entry(VanillaGuiLayers.SCOREBOARD_SIDEBAR, ModOptions.INSTANCE.Scoreboard),
             Map.entry(VanillaGuiLayers.OVERLAY_MESSAGE, ModOptions.INSTANCE.ActionBar),
             Map.entry(VanillaGuiLayers.TITLE, ModOptions.INSTANCE.ScreenTitle),
             Map.entry(VanillaGuiLayers.TAB_LIST, ModOptions.INSTANCE.PlayerList)
         ).forEach(
             entry -> event.wrapLayer(
-                entry.getKey(), original -> (graphics, ignore) -> {
-                    if (entry.getValue().apply(graphics.pose()))
-                        original.render(graphics, ignore);
-                    HudManager.reset(graphics.pose());
+                entry.getKey(), original -> (graphics, tracker) -> {
+                    HudManager.CURRENT = entry.getValue();
+                    if (HudManager.CURRENT.Display) original.render(graphics, tracker);
+                    HudManager.CURRENT = HudManager.DEFAULT;
                 }
             )
         );
     }
 
-    public ClientEntry(ModContainer loader) {
-        loader.getEventBus().addListener(ClientEntry::modifyElement);
-        loader.registerExtensionPoint(IConfigScreenFactory.class, ModOptionsScreen::new);
+    public ClientEntry(ModContainer container) {
         ModOptions.DIRECTORY = FMLPaths.CONFIGDIR.get();
         ModOptions.load(); ModOptions.save();
+        container.getEventBus().addListener(ClientEntry::modifyElement);
+        container.registerExtensionPoint(IConfigScreenFactory.class, ModOptionsScreen::new);
     }
 }

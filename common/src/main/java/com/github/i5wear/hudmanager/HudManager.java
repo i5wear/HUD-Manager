@@ -1,7 +1,9 @@
 package com.github.i5wear.hudmanager;
 
+import org.joml.Matrix3x2d;
+import org.joml.Matrix3x2dc;
 import org.joml.Matrix3x2f;
-import org.joml.Matrix3x2fStack;
+import org.joml.Matrix3x2fc;
 
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -18,23 +20,8 @@ public class HudManager {
     public volatile float OffsetX = 0;
     public volatile float OffsetY = 0;
 
-    public Matrix3x2f apply(Matrix3x2f input) {
-        var output = new Matrix3x2f(input);
-        output.translate(OffsetX, OffsetY);
-        output.scale(Resizer);
-        return output;
-    }
+    public Matrix3x2f apply(Matrix3x2fc input) { return new Matrix3x2f(input).translate(OffsetX, OffsetY).scale(Resizer); }
 
-    public boolean apply(Matrix3x2fStack input) {
-        CURRENT = this;
-        input.pushMatrix();
-        input.translate(OffsetX, OffsetY);
-        input.scale(Resizer);
-        return Display;
-    }
+    public Matrix3x2d apply(Matrix3x2dc input) { return new Matrix3x2d(input).translate(OffsetX, OffsetY).scale(Resizer); }
 
-    public static void reset(Matrix3x2fStack input) {
-        CURRENT = DEFAULT;
-        input.popMatrix();
-    }
 }
