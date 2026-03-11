@@ -14,7 +14,8 @@ public abstract class ToastManagerMixin {
     @WrapMethod(method = "extractRenderState")
     private void modifyToastMessage(GuiGraphicsExtractor graphics, Operation<Void> original) {
         HudManager.CURRENT = ModOptions.INSTANCE.ToastMessage;
-        if (HudManager.CURRENT.Display) original.call(graphics);
+        if (HudManager.CURRENT.Display)
+            original.call(graphics);
         HudManager.CURRENT = HudManager.DEFAULT;
     }
 }

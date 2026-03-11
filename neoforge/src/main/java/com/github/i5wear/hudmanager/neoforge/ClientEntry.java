@@ -41,7 +41,8 @@ public final class ClientEntry {
             entry -> event.wrapLayer(
                 entry.getKey(), original -> (graphics, tracker) -> {
                     HudManager.CURRENT = entry.getValue();
-                    if (HudManager.CURRENT.Display) original.render(graphics, tracker);
+                    if (HudManager.CURRENT.Display)
+                        original.render(graphics, tracker);
                     HudManager.CURRENT = HudManager.DEFAULT;
                 }
             )

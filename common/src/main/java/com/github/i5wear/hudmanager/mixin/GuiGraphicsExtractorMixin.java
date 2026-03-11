@@ -21,7 +21,8 @@ public abstract class GuiGraphicsExtractorMixin {
     @WrapOperation(method = "extractDeferredElements", at = @At(value = "INVOKE", target = "Ljava/lang/Runnable;run()V"))
     private void modifyTooltip(Runnable instance, Operation<Void> original) {
         HudManager.CURRENT = ModOptions.INSTANCE.Tooltip;
-        if (HudManager.CURRENT.Display) original.call(instance);
+        if (HudManager.CURRENT.Display)
+            original.call(instance);
         HudManager.CURRENT = HudManager.DEFAULT;
     }
 }
