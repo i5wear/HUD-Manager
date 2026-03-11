@@ -13,7 +13,7 @@ import java.util.function.IntUnaryOperator;
 @Mixin(GuiRenderer.class)
 public abstract class GuiRendererMixin {
 
-    @ModifyArg(method = "submitBlitFromItemAtlas", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/state/gui/GuiRenderState;submitBlitToCurrentLayer(Lnet/minecraft/client/renderer/state/gui/BlitRenderState;)V"))
+    @ModifyArg(method = "submitBlitFromItemAtlas", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/state/gui/GuiRenderState;addBlitToCurrentLayer(Lnet/minecraft/client/renderer/state/gui/BlitRenderState;)V"))
     private BlitRenderState storeItemColor(BlitRenderState original, @Local(ordinal = 0, argsOnly = true) GuiItemRenderState input) {
         return new BlitRenderState(
             original.pipeline(), original.textureSetup(), original.pose(),

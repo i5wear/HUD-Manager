@@ -16,7 +16,7 @@ import java.util.function.IntUnaryOperator;
 @Mixin(PictureInPictureRenderer.class)
 public abstract class PictureInPictureRendererMixin {
 
-    @ModifyArg(method = "blitTexture", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/state/gui/GuiRenderState;submitBlitToCurrentLayer(Lnet/minecraft/client/renderer/state/gui/BlitRenderState;)V"))
+    @ModifyArg(method = "blitTexture", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/state/gui/GuiRenderState;addBlitToCurrentLayer(Lnet/minecraft/client/renderer/state/gui/BlitRenderState;)V"))
     private BlitRenderState modifyExtraElement(BlitRenderState original, @Local(ordinal = 0, argsOnly = true) PictureInPictureRenderState input) {
         return switch (input) {
             case Object output when HudManager.CONTENT.containsKey(output) -> new BlitRenderState(
