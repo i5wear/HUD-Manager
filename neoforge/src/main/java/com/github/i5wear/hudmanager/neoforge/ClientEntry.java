@@ -32,7 +32,6 @@ public final class ClientEntry {
             Map.entry(VanillaGuiLayers.SELECTED_ITEM_NAME, ModOptions.INSTANCE.HotbarGroup),
             Map.entry(VanillaGuiLayers.SPECTATOR_TOOLTIP, ModOptions.INSTANCE.HotbarGroup),
             Map.entry(VanillaGuiLayers.EFFECTS, ModOptions.INSTANCE.StatusEffect),
-            Map.entry(VanillaGuiLayers.BOSS_OVERLAY, ModOptions.INSTANCE.BossBar),
             Map.entry(VanillaGuiLayers.SCOREBOARD_SIDEBAR, ModOptions.INSTANCE.Scoreboard),
             Map.entry(VanillaGuiLayers.OVERLAY_MESSAGE, ModOptions.INSTANCE.ActionBar),
             Map.entry(VanillaGuiLayers.TITLE, ModOptions.INSTANCE.ScreenTitle),

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class GuiRenderStateMixin {
 
     @ModifyVariable(method = "addBlitToCurrentLayer", ordinal = 0, argsOnly = true, at = @At("HEAD"))
-    private BlitRenderState storeBlitState(BlitRenderState original) {
+    private BlitRenderState modifyBlitState(BlitRenderState original) {
         return new BlitRenderState(
             original.pipeline(), original.textureSetup(), HudManager.CURRENT.apply(original.pose()),
             original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),

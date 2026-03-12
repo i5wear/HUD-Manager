@@ -19,7 +19,7 @@
   },
   "mixins": [ "hudmanager.mixins.json" ],
   "depends": {
-    "minecraft": ">=26.0",
+    "minecraft": ">26.0",
     "fabric-api": "*"
   }
 }
