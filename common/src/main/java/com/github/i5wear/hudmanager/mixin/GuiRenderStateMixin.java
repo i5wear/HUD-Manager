@@ -11,6 +11,24 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(GuiRenderState.class)
 public abstract class GuiRenderStateMixin {
 
+    @ModifyVariable(method = "addBlitToCurrentLayer", ordinal = 0, argsOnly = true, at = @At("HEAD"))
+    private BlitRenderState storeBlitState(BlitRenderState original) {
+        return new BlitRenderState(
+            original.pipeline(), original.textureSetup(), HudManager.CURRENT.apply(original.pose()),
+            original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
+            ARGB.srgbLerp(HudManager.CURRENT.Opacity, 0, original.color()), original.scissorArea(), original.bounds()
+        );
+    }
+
+    @ModifyVariable(method = "addText", ordinal = 0, argsOnly = true, at = @At("HEAD"))
+    private GuiTextRenderState modifyTextState(GuiTextRenderState original) {
+        return new GuiTextRenderState(
+            original.font, original.text, HudManager.CURRENT.apply(original.pose),
+            original.x, original.y, ARGB.multiplyAlpha(original.color, HudManager.CURRENT.Opacity),
+            ARGB.multiplyAlpha(original.backgroundColor, HudManager.CURRENT.Opacity), original.dropShadow, false, original.scissor
+        );
+    }
+
     @ModifyVariable(method = "addGuiElement", ordinal = 0, argsOnly = true, at = @At("HEAD"))
     private GuiElementRenderState modifyElementState(GuiElementRenderState original) {
         return switch (original) {
@@ -31,24 +49,6 @@ public abstract class GuiRenderStateMixin {
             );
             default -> original;
         };
-    }
-
-    @ModifyVariable(method = "addBlitToCurrentLayer", ordinal = 0, argsOnly = true, at = @At("HEAD"))
-    private BlitRenderState storeBlitState(BlitRenderState original) {
-        return new BlitRenderState(
-            original.pipeline(), original.textureSetup(), HudManager.CURRENT.apply(original.pose()),
-            original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
-            ARGB.srgbLerp(HudManager.CURRENT.Opacity, 0, original.color()), original.scissorArea(), original.bounds()
-        );
-    }
-
-    @ModifyVariable(method = "addText", ordinal = 0, argsOnly = true, at = @At("HEAD"))
-    private GuiTextRenderState modifyTextState(GuiTextRenderState original) {
-        return new GuiTextRenderState(
-            original.font, original.text, HudManager.CURRENT.apply(original.pose),
-            original.x, original.y, ARGB.multiplyAlpha(original.color, HudManager.CURRENT.Opacity),
-            ARGB.multiplyAlpha(original.backgroundColor, HudManager.CURRENT.Opacity), original.dropShadow, false, original.scissor
-        );
     }
 
     @ModifyVariable(method = "addItem", ordinal = 0, argsOnly = true, at = @At("HEAD"))

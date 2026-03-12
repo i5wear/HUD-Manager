@@ -6,6 +6,7 @@
     "GuiGraphicsExtractorMixin",
     "GuiRendererMixin",
     "GuiRenderStateMixin",
+    "IMEPreeditOverlayMixin",
     "PictureInPictureRendererMixin",
     "SubtitleOverlayMixin",
     "ToastManagerMixin",

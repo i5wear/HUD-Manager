@@ -2,8 +2,8 @@ package com.github.i5wear.hudmanager.mixin;
 
 import com.github.i5wear.hudmanager.HudManager;
 import com.github.i5wear.hudmanager.ModOptions;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,11 +18,11 @@ public abstract class GuiGraphicsExtractorMixin {
     @ModifyVariable(method = "setTooltipForNextFrameInternal", ordinal = 1, argsOnly = true, at = @At("HEAD"))
     private int storeTooltipAxisY(int original) { return Math.round(original / ModOptions.INSTANCE.Tooltip.Resizer); }
 
-    @WrapOperation(method = "extractDeferredElements", at = @At(value = "INVOKE", target = "Ljava/lang/Runnable;run()V"))
-    private void modifyTooltip(Runnable instance, Operation<Void> original) {
+    @WrapMethod(method = "extractDeferredElements")
+    private void modifyTooltip(int mouseX, int mouseY, float delta, Operation<Void> original) {
         HudManager.CURRENT = ModOptions.INSTANCE.Tooltip;
         if (HudManager.CURRENT.Display)
-            original.call(instance);
+            original.call(mouseX, mouseY, delta);
         HudManager.CURRENT = HudManager.DEFAULT;
     }
 }

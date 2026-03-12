@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(Window.class)
-public class WindowMixin {
+public abstract class WindowMixin {
 
     @ModifyExpressionValue(method = "getGuiScaledWidth", at = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lcom/mojang/blaze3d/platform/Window;guiScaledWidth:I"))
     private int storeElementAxisX(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
