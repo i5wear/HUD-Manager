@@ -9,10 +9,10 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(IMEPreeditOverlay.class)
 public abstract class IMEPreeditOverlayMixin {
 
-    @ModifyVariable(method = "updateInputPosition", ordinal = 0, argsOnly = true, at = @At("HEAD"))
+    @ModifyVariable(method = "updateInputPosition", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private int storePreeditTooltipAxisX(int original) { return Math.round(original / ModOptions.INSTANCE.Tooltip.Resizer); }
 
-    @ModifyVariable(method = "updateInputPosition", ordinal = 1, argsOnly = true, at = @At("HEAD"))
+    @ModifyVariable(method = "updateInputPosition", at = @At("HEAD"), ordinal = 1, argsOnly = true)
     private int storePreeditTooltipAxisY(int original) { return Math.round(original / ModOptions.INSTANCE.Tooltip.Resizer); }
 
 }

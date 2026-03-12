@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(GuiRenderState.class)
 public abstract class GuiRenderStateMixin {
 
-    @ModifyVariable(method = "addBlitToCurrentLayer", ordinal = 0, argsOnly = true, at = @At("HEAD"))
+    @ModifyVariable(method = "addBlitToCurrentLayer", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private BlitRenderState modifyBlitState(BlitRenderState original) {
         return new BlitRenderState(
             original.pipeline(), original.textureSetup(), HudManager.CURRENT.apply(original.pose()),
@@ -20,7 +20,7 @@ public abstract class GuiRenderStateMixin {
         );
     }
 
-    @ModifyVariable(method = "addText", ordinal = 0, argsOnly = true, at = @At("HEAD"))
+    @ModifyVariable(method = "addText", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private GuiTextRenderState modifyTextState(GuiTextRenderState original) {
         return new GuiTextRenderState(
             original.font, original.text, HudManager.CURRENT.apply(original.pose),
@@ -29,7 +29,7 @@ public abstract class GuiRenderStateMixin {
         );
     }
 
-    @ModifyVariable(method = "addGuiElement", ordinal = 0, argsOnly = true, at = @At("HEAD"))
+    @ModifyVariable(method = "addGuiElement", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private GuiElementRenderState modifyElementState(GuiElementRenderState original) {
         return switch (original) {
             case ColoredRectangleRenderState output -> new ColoredRectangleRenderState(
@@ -51,14 +51,14 @@ public abstract class GuiRenderStateMixin {
         };
     }
 
-    @ModifyVariable(method = "addItem", ordinal = 0, argsOnly = true, at = @At("HEAD"))
+    @ModifyVariable(method = "addItem", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private GuiItemRenderState storeItemState(GuiItemRenderState original) {
         if (HudManager.CURRENT != HudManager.DEFAULT)
             HudManager.CONTENT.put(original, HudManager.CURRENT);
         return original;
     }
 
-    @ModifyVariable(method = "addPicturesInPictureState", ordinal = 0, argsOnly = true, at = @At("HEAD"))
+    @ModifyVariable(method = "addPicturesInPictureState", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private PictureInPictureRenderState storeExtraState(PictureInPictureRenderState original) {
         if (HudManager.CURRENT != HudManager.DEFAULT)
             HudManager.CONTENT.put(original, HudManager.CURRENT);
