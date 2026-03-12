@@ -11,9 +11,9 @@ import org.spongepowered.asm.mixin.injection.At;
 public class WindowMixin {
 
     @ModifyExpressionValue(method = "getGuiScaledWidth", at = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lcom/mojang/blaze3d/platform/Window;guiScaledWidth:I"))
-    private int relocateElement1(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
+    private int storeElementAxisX(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
 
     @ModifyExpressionValue(method = "getGuiScaledHeight", at = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lcom/mojang/blaze3d/platform/Window;guiScaledHeight:I"))
-    private int relocateElement2(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
+    private int storeElementAxisY(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
 
 }

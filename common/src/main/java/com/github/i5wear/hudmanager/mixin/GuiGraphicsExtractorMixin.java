@@ -13,10 +13,10 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class GuiGraphicsExtractorMixin {
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", ordinal = 0, argsOnly = true, at = @At("HEAD"))
-    private int relocateTooltip1(int original) { return Math.round(original / ModOptions.INSTANCE.Tooltip.Resizer); }
+    private int storeTooltipAxisX(int original) { return Math.round(original / ModOptions.INSTANCE.Tooltip.Resizer); }
 
     @ModifyVariable(method = "setTooltipForNextFrameInternal", ordinal = 1, argsOnly = true, at = @At("HEAD"))
-    private int relocateTooltip2(int original) { return Math.round(original / ModOptions.INSTANCE.Tooltip.Resizer); }
+    private int storeTooltipAxisY(int original) { return Math.round(original / ModOptions.INSTANCE.Tooltip.Resizer); }
 
     @WrapOperation(method = "extractDeferredElements", at = @At(value = "INVOKE", target = "Ljava/lang/Runnable;run()V"))
     private void modifyTooltip(Runnable instance, Operation<Void> original) {
