@@ -11,6 +11,20 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(GuiRenderState.class)
 public abstract class GuiRenderStateMixin {
 
+    @ModifyVariable(method = "addItem", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+    private GuiItemRenderState storeItemState(GuiItemRenderState original) {
+        if (HudManager.CURRENT != HudManager.DEFAULT)
+            HudManager.CONTENT.put(original, HudManager.CURRENT);
+        return original;
+    }
+
+    @ModifyVariable(method = "addPicturesInPictureState", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+    private PictureInPictureRenderState storeExtraState(PictureInPictureRenderState original) {
+        if (HudManager.CURRENT != HudManager.DEFAULT)
+            HudManager.CONTENT.put(original, HudManager.CURRENT);
+        return original;
+    }
+
     @ModifyVariable(method = "addBlitToCurrentLayer", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private BlitRenderState modifyBlitState(BlitRenderState original) {
         return new BlitRenderState(
@@ -49,19 +63,5 @@ public abstract class GuiRenderStateMixin {
             );
             default -> original;
         };
-    }
-
-    @ModifyVariable(method = "addItem", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private GuiItemRenderState storeItemState(GuiItemRenderState original) {
-        if (HudManager.CURRENT != HudManager.DEFAULT)
-            HudManager.CONTENT.put(original, HudManager.CURRENT);
-        return original;
-    }
-
-    @ModifyVariable(method = "addPicturesInPictureState", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private PictureInPictureRenderState storeExtraState(PictureInPictureRenderState original) {
-        if (HudManager.CURRENT != HudManager.DEFAULT)
-            HudManager.CONTENT.put(original, HudManager.CURRENT);
-        return original;
     }
 }
