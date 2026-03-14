@@ -5,8 +5,8 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
-import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.List;
@@ -15,11 +15,11 @@ import java.util.List;
 public abstract class GuiGraphicsMixin {
 
     @WrapMethod(method = "renderTooltipInternal")
-    private void modifyTooltip(Font arg0, List<?> arg1, int x, int y, ClientTooltipPositioner arg2, ResourceLocation arg3, Operation<Void> original) {
+    private void modifyTooltip(Font arg0, List<ClientTooltipComponent> arg1, int x, int y, ClientTooltipPositioner arg2, Operation<Void> original) {
         x = Manager.modify(x, Manager.TOOLTIP.Resizer.get());
         y = Manager.modify(y, Manager.TOOLTIP.Resizer.get());
         if (Manager.TOOLTIP.apply((GuiGraphics)(Object)(this)))
-            original.call(arg0, arg1, x, y, arg2, arg3);
+            original.call(arg0, arg1, x, y, arg2);
         Manager.reset((GuiGraphics)(Object)(this));
     }
 }

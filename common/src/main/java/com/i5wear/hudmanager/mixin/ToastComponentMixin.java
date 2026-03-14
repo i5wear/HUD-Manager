@@ -4,11 +4,11 @@ import com.i5wear.hudmanager.Manager;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.toasts.ToastManager;
+import net.minecraft.client.gui.components.toasts.ToastComponent;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(ToastManager.class)
-public abstract class ToastManagerMixin {
+@Mixin(ToastComponent.class)
+public abstract class ToastComponentMixin {
 
     @WrapMethod(method = "render")
     private void modifyToastMessage(GuiGraphics graphics, Operation<Void> original) {
