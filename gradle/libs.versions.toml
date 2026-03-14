@@ -4,9 +4,9 @@ project = "3.5.0"
 fabric-loom = "1.15.4"
 neoforge-dev = "2.0.140"
 
-minecraft = "26.1-pre-1"
+minecraft = "26.1-pre-2"
 fabric-loader = "0.18.4"
-fabric-api = "0.143.12+26.1"
+fabric-api = "0.143.13+26.1"
 fabric-modmenu = "18.0.0-alpha.5"
 neoforge-base = "26.1.0.0-alpha.14+snapshot-11"
 
