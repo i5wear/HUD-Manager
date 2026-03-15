@@ -3,9 +3,9 @@ plugins {
 }
 
 repositories {
-    maven { url = uri("https://maven.terraformersmc.com/releases/") }
-    maven { url = uri("https://api.modrinth.com/maven/") }
-    maven { url = uri("https://cursemaven.com/") }
+    maven("https://maven.terraformersmc.com/releases/")
+    maven("https://api.modrinth.com/maven/")
+    maven("https://cursemaven.com/")
 }
 
 dependencies {
