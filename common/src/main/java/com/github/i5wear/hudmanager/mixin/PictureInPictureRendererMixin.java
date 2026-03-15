@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class PictureInPictureRendererMixin {
 
     @WrapMethod(method = "blitTexture")
-    private void modifyExtraState(PictureInPictureRenderState instance, GuiRenderState graphics, Operation<Void> original) {
+    private void wrapExtraState(PictureInPictureRenderState instance, GuiRenderState graphics, Operation<Void> original) {
         if (HudManager.CONTENT.containsKey(instance))
             HudManager.CURRENT = HudManager.CONTENT.get(instance);
         original.call(instance, graphics);

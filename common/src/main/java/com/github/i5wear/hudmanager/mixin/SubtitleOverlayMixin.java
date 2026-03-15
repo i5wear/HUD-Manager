@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class SubtitleOverlayMixin {
 
     @WrapMethod(method = "extractRenderState")
-    private void modifyClosedCaption(GuiGraphicsExtractor graphics, Operation<Void> original) {
+    private void wrapClosedCaption(GuiGraphicsExtractor graphics, Operation<Void> original) {
         HudManager.CURRENT = ModOptions.INSTANCE.ClosedCaption;
         if (HudManager.CURRENT.Display)
             original.call(graphics);

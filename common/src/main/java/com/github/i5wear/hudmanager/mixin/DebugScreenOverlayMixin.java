@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class DebugScreenOverlayMixin {
 
     @WrapMethod(method = "extractRenderState")
-    private void modifyDebugScreen(GuiGraphicsExtractor graphics, Operation<Void> original) {
+    private void wrapDebugScreen(GuiGraphicsExtractor graphics, Operation<Void> original) {
         HudManager.CURRENT = ModOptions.INSTANCE.DebugScreen;
         if (HudManager.CURRENT.Display)
             original.call(graphics);

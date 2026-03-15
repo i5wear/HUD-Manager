@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class BossHealthOverlayMixin {
 
     @WrapMethod(method = "extractRenderState")
-    private void modifyBossBar(GuiGraphicsExtractor graphics, Operation<Void> original) {
+    private void wrapBossBar(GuiGraphicsExtractor graphics, Operation<Void> original) {
         HudManager.CURRENT = ModOptions.INSTANCE.BossBar;
         if (HudManager.CURRENT.Display)
             original.call(graphics);

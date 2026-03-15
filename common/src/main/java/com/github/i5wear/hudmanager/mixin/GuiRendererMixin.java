@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class GuiRendererMixin {
 
     @WrapMethod(method = "submitBlitFromItemAtlas")
-    private void modifyItemState(GuiItemRenderState instance, GuiItemAtlas.SlotView slotview, Operation<Void> original) {
+    private void wrapItemState(GuiItemRenderState instance, GuiItemAtlas.SlotView slotview, Operation<Void> original) {
         if (HudManager.CONTENT.containsKey(instance))
             HudManager.CURRENT = HudManager.CONTENT.get(instance);
         original.call(instance, slotview);

@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class WindowMixin {
 
     @ModifyReturnValue(method = "getGuiScaledWidth", at = @At(value = "TAIL"))
-    private int storeElementAxisX(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
+    private int modifyElementAxisX(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
 
     @ModifyReturnValue(method = "getGuiScaledHeight", at = @At(value = "TAIL"))
-    private int storeElementAxisY(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
+    private int modifyElementAxisY(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
 
 }

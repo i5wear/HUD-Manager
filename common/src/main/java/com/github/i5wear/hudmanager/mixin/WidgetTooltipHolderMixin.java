@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class WidgetTooltipHolderMixin {
 
     @ModifyVariable(method = "createTooltipPositioner", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private ScreenRectangle storeWidgetTooltipAxis(ScreenRectangle original) {
+    private ScreenRectangle modifyWidgetTooltipAxis(ScreenRectangle original) {
         return new ScreenRectangle(
             Math.round(original.left() / ModOptions.INSTANCE.Tooltip.Resizer),
             Math.round(original.top() / ModOptions.INSTANCE.Tooltip.Resizer),

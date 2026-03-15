@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class OversizedItemRendererMixin {
 
     @WrapMethod(method = "blitTexture")
-    private void modifyOversizeItemState(OversizedItemRenderState instance, GuiRenderState graphics, Operation<Void> original) {
+    private void wrapOversizeItemState(OversizedItemRenderState instance, GuiRenderState graphics, Operation<Void> original) {
         if (HudManager.CONTENT.containsKey(instance.guiItemRenderState()))
             HudManager.CURRENT = HudManager.CONTENT.get(instance.guiItemRenderState());
         original.call(instance, graphics);
