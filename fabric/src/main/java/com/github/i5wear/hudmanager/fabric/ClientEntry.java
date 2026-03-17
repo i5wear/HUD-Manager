@@ -37,8 +37,8 @@ public final class ClientEntry implements ClientModInitializer {
                     HudManager.CURRENT = entry.getValue();
                     if (HudManager.CURRENT.Display)
                         original.extractRenderState(graphics, tracker);
-                    if (entry.getKey() != VanillaHudElements.HOTBAR)
-                        HudManager.CURRENT = HudManager.DEFAULT; // Patch #13
+                    if (entry.getKey() != VanillaHudElements.HOTBAR) // Patch #13
+                        HudManager.CURRENT = HudManager.DEFAULT;
                 }
             )
         );
