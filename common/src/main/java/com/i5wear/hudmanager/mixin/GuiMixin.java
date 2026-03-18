@@ -32,6 +32,13 @@ public class GuiMixin {
         Manager.reset(graphics);
     }
 
+    @WrapMethod(method = "renderExperienceLevel")
+    private void modifyExperienceLevel(GuiGraphics graphics, DeltaTracker tracker, Operation<Void> original) {
+        if (Manager.HOTBAR_GROUP.apply(graphics))
+            original.call(graphics, tracker);
+        Manager.reset(graphics);
+    }
+
     @WrapMethod(method = "renderTabList")
     private void modifyPlayerList(GuiGraphics graphics, DeltaTracker tracker, Operation<Void> original) {
         if (Manager.PLAYER_LIST.apply(graphics))
