@@ -8,7 +8,7 @@ repositories {
 }
 
 dependencies {
-    neoForge.version = libs.neoforge.base.get().version
+    neoForge.version = libs.neoforge.get().version
     implementation(project(":common"))
 }
 

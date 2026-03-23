@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
     minecraft(libs.minecraft)
-    implementation(libs.bundles.fabric.base)
+    implementation(libs.bundles.fabric)
     implementation(project(":common"))
 }
 
