@@ -19,6 +19,7 @@ minecraft = { group = "com.mojang", name = "minecraft", version.ref = "minecraft
 fabric-loader = { group = "net.fabricmc", name = "fabric-loader", version.ref = "fabric-loader" }
 fabric-api = { group = "net.fabricmc.fabric-api", name = "fabric-api", version.ref = "fabric-api" }
 fabric-modmenu = { group = "com.terraformersmc", name = "modmenu", version.ref = "fabric-modmenu" }
+neoforge-base = { group = "net.neoforged", name = "neoforge", version.ref = "neoforge-base" }
 
 [bundles]
 fabric-base = [ "fabric-loader", "fabric-api", "fabric-modmenu" ]
