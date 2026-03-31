@@ -12,10 +12,6 @@ dependencies {
     implementation(project(":common"))
 }
 
-tasks.withType<ProcessResources> {
-    expand(mapOf("version" to rootProject.version))
-}
-
 neoForge.mods.maybeCreate("main").apply {
     sourceSet(project.sourceSets.main.get())
     sourceSet(project(":common").sourceSets.main.get())
