@@ -14,6 +14,11 @@ dependencies {
     implementation(project(":common"))
 }
 
+tasks.withType<ProcessResources> {
+    inputs.property("version", rootProject.version)
+    expand("version" to rootProject.version)
+}
+
 loom.mods.maybeCreate("main").apply {
     sourceSet(project.sourceSets.main.get())
     sourceSet(project(":common").sourceSets.main.get())
