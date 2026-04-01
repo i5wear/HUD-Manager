@@ -11,7 +11,7 @@ repositories {
 dependencies {
     minecraft(libs.minecraft)
     implementation(libs.bundles.fabric)
-    implementation(project(":common"))
+    compileOnly(project(":common"))
 }
 
 loom.mods.maybeCreate("main").apply {

@@ -9,7 +9,7 @@ repositories {
 
 dependencies {
     neoForge.version = libs.neoforge.get().version
-    implementation(project(":common"))
+    compileOnly(project(":common"))
 }
 
 neoForge.mods.maybeCreate("main").apply {
