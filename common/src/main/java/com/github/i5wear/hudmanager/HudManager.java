@@ -6,6 +6,13 @@ import org.joml.Matrix3x2fc;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+/**
+ * <p> The core of HUD Manager. </p>
+ * <p> Declares basic options for HUD elements. </p>
+ * <p> performs render state transformation. </p>
+ *
+ * @author i5wear
+ */
 public class HudManager {
 
     public static HudManager DEFAULT = new HudManager();

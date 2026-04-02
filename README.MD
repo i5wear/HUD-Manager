@@ -16,13 +16,13 @@ You can simply manage everything via the Mod Menu, either Fabric or NeoForge.
 
 You will no longer need any other stuff like Scoreboard Tweaks or Title Fixer.
 
-**All configurable HUD elements include:**
+**All configurable elements include:**
 
 Action Bar, Boss Bar, Closed Caption, Crosshair, Debug Screen, Hotbar Group,
 
 Player List, Scoreboard, Screen Title, Status Effect, Toast Message, Tooltip.
 
-**All configurable render states include:**
+**All configurable options include:**
 
 Display - Whether to show on the screen.
 
