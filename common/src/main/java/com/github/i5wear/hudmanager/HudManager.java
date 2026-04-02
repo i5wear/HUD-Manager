@@ -9,7 +9,7 @@ import java.util.WeakHashMap;
 /**
  * <p> The core of HUD Manager. </p>
  * <p> Declares basic options for HUD elements. </p>
- * <p> performs render state transformation. </p>
+ * <p> Performs render state transformation. </p>
  *
  * @author i5wear
  */
