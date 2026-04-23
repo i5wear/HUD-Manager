@@ -26,9 +26,9 @@ public class HudManager {
     public volatile float OffsetY = 0;
 
     public Matrix3x2f apply(Matrix3x2fc input) {
-        var output = new Matrix3x2f(input);
+        var output = new Matrix3x2f();
         output.translate(OffsetX, OffsetY);
         output.scale(Resizer, Resizer);
-        return output;
+        return output.mul(input);
     }
 }
