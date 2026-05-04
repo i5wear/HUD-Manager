@@ -1,12 +1,12 @@
 [versions]
-project = "4.0.1"
+project = "4.0.2"
 
 fabric-loom = "1.16.1"
 neoforge-dev = "2.0.141"
 
 minecraft = "26.1.2"
 fabric-loader = "0.19.2"
-fabric-api = "0.146.1+26.1.2"
+fabric-api = "0.147.0+26.1.2"
 fabric-modmenu = "18.0.0-alpha.8"
 neoforge = "26.1.2.22-beta"
 
