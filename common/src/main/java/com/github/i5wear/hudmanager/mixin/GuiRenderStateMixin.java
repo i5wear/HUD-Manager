@@ -26,20 +26,11 @@ public abstract class GuiRenderStateMixin {
     }
 
     @ModifyVariable(method = "addBlitToCurrentLayer", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private BlitRenderState modifyBlitState(BlitRenderState original) {
+    private BlitRenderState modifyExtraState(BlitRenderState original) {
         return new BlitRenderState(
             original.pipeline(), original.textureSetup(), HudManager.CURRENT.apply(original.pose()),
             original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
             ARGB.srgbLerp(HudManager.CURRENT.Opacity, 0, original.color()), original.scissorArea()
-        );
-    }
-
-    @ModifyVariable(method = "addText", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private GuiTextRenderState modifyTextState(GuiTextRenderState original) {
-        return new GuiTextRenderState(
-            original.font, original.text, HudManager.CURRENT.apply(original.pose),
-            original.x, original.y, ARGB.multiplyAlpha(original.color, HudManager.CURRENT.Opacity),
-            ARGB.multiplyAlpha(original.backgroundColor, HudManager.CURRENT.Opacity), original.dropShadow, false, original.scissor
         );
     }
 

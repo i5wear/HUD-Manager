@@ -1,14 +1,14 @@
 [versions]
-project = "4.0.2"
+project = "4.0.3"
 
-fabric-loom = "1.16.1"
+fabric-loom = "1.17.11"
 neoforge-dev = "2.0.141"
 
-minecraft = "26.1.2"
-fabric-loader = "0.19.2"
-fabric-api = "0.147.0+26.1.2"
-fabric-modmenu = "18.0.0-alpha.8"
-neoforge = "26.1.2.22-beta"
+minecraft = "26.2"
+fabric-loader = "0.19.3"
+fabric-api = "0.152.1+26.2"
+fabric-modmenu = "20.0.0-beta.2"
+neoforge = "26.2.0.0-beta"
 
 [plugins]
 fabric-loom = { id = "net.fabricmc.fabric-loom", version.ref = "fabric-loom" }

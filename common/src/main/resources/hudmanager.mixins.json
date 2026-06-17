@@ -7,6 +7,7 @@
     "GuiGraphicsExtractorMixin",
     "GuiRendererMixin",
     "GuiRenderStateMixin",
+    "GuiTextRenderStateMixin",
     "IMEPreeditOverlayMixin",
     "OversizedItemRendererMixin",
     "PictureInPictureRendererMixin",

@@ -60,7 +60,7 @@ public class ModOptionsScreen extends OptionsSubScreen {
         var GETTER = Failable.asSupplier(Failable.apply(MethodHandles.lookup()::unreflectGetter, field).bindTo(source)::invoke);
         var SETTER = Failable.asConsumer(Failable.apply(MethodHandles.lookup()::unreflectSetter, field).bindTo(source)::invoke);
         if (ModOptions.ADAPTER.getAdapter(field.getType()) instanceof ReflectiveTypeAdapterFactory.Adapter)
-            return Button.builder(Component.translatable("menu.options"), button -> Minecraft.getInstance().setScreen(new ModOptionsScreen(this, GETTER.get(), title)))
+            return Button.builder(Component.translatable("menu.options"), button -> Minecraft.getInstance().setScreenAndShow(new ModOptionsScreen(this, GETTER.get(), title)))
                 .tooltip(Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip"))).build();
         var output = ModOptions.ADAPTER.toJson(GETTER.get(), field.getGenericType());
         onClose.addLast(() -> SETTER.accept(ModOptions.ADAPTER.fromJson(output, field.getGenericType())));
