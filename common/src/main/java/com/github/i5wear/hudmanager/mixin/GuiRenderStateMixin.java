@@ -1,6 +1,7 @@
 package com.github.i5wear.hudmanager.mixin;
 
-import com.github.i5wear.hudmanager.config.HudManager;
+import com.github.i5wear.hudmanager.render.HudManager;
+import com.github.i5wear.hudmanager.render.HudRenderer;
 import net.minecraft.client.renderer.state.gui.*;
 import net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState;
 import net.minecraft.util.ARGB;
@@ -12,14 +13,14 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class GuiRenderStateMixin {
 
     @ModifyVariable(method = "addPicturesInPictureState", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private PictureInPictureRenderState storeExtraState(PictureInPictureRenderState original) {
+    private PictureInPictureRenderState storeCustomState(PictureInPictureRenderState original) {
         if (HudManager.CURRENT != HudManager.DEFAULT)
             HudManager.CONTENT.put(original, HudManager.CURRENT);
         return original;
     }
 
     @ModifyVariable(method = "addBlitToCurrentLayer", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private BlitRenderState modifyExtraState(BlitRenderState original) {
+    private BlitRenderState modifyCustomState(BlitRenderState original) {
         return new BlitRenderState(
             original.pipeline(), original.textureSetup(), HudManager.CURRENT.apply(original.pose()),
             original.x0(), original.y0(), original.x1(), original.y1(), original.u0(), original.u1(), original.v0(), original.v1(),
@@ -28,24 +29,6 @@ public abstract class GuiRenderStateMixin {
     }
 
     @ModifyVariable(method = "addGuiElement", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private GuiElementRenderState modifyElementState(GuiElementRenderState original) {
-        return switch (original) {
-            case ColoredRectangleRenderState output -> new ColoredRectangleRenderState(
-                output.pipeline(), output.textureSetup(), HudManager.CURRENT.apply(output.pose()),
-                output.x0(), output.y0(), output.x1(), output.y1(), ARGB.multiplyAlpha(output.col1(), HudManager.CURRENT.Opacity),
-                ARGB.multiplyAlpha(output.col2(), HudManager.CURRENT.Opacity), output.scissorArea()
-            );
-            case BlitRenderState output -> new BlitRenderState(
-                output.pipeline(), output.textureSetup(), HudManager.CURRENT.apply(output.pose()),
-                output.x0(), output.y0(), output.x1(), output.y1(), output.u0(), output.u1(), output.v0(), output.v1(),
-                ARGB.multiplyAlpha(output.color(), HudManager.CURRENT.Opacity), output.scissorArea()
-            );
-            case TiledBlitRenderState output -> new TiledBlitRenderState(
-                output.pipeline(), output.textureSetup(), HudManager.CURRENT.apply(output.pose()), output.tileWidth(), output.tileHeight(),
-                output.x0(), output.y0(), output.x1(), output.y1(), output.u0(), output.u1(), output.v0(), output.v1(),
-                ARGB.multiplyAlpha(output.color(), HudManager.CURRENT.Opacity), output.scissorArea()
-            );
-            default -> original;
-        };
-    }
+    private GuiElementRenderState modifyElementState(GuiElementRenderState original) { return HudRenderer.render(original); }
+
 }

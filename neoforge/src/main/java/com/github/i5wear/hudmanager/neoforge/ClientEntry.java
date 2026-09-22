@@ -1,6 +1,6 @@
 package com.github.i5wear.hudmanager.neoforge;
 
-import com.github.i5wear.hudmanager.config.HudManager;
+import com.github.i5wear.hudmanager.render.HudManager;
 import com.github.i5wear.hudmanager.config.ModOptions;
 import com.github.i5wear.hudmanager.config.ModOptionsScreen;
 import net.neoforged.api.distmarker.Dist;

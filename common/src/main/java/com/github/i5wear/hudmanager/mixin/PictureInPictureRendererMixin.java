@@ -1,6 +1,6 @@
 package com.github.i5wear.hudmanager.mixin;
 
-import com.github.i5wear.hudmanager.config.HudManager;
+import com.github.i5wear.hudmanager.render.HudManager;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class PictureInPictureRendererMixin {
 
     @WrapMethod(method = "blitTexture")
-    private void wrapExtraState(PictureInPictureRenderState instance, GuiRenderState graphics, Operation<Void> original) {
+    private void wrapCustomState(PictureInPictureRenderState instance, GuiRenderState graphics, Operation<Void> original) {
         if (HudManager.CONTENT.containsKey(instance))
             HudManager.CURRENT = HudManager.CONTENT.get(instance);
         original.call(instance, graphics);
