@@ -1,4 +1,4 @@
-package com.github.i5wear.hudmanager;
+package com.github.i5wear.hudmanager.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,7 +18,7 @@ import java.nio.file.Path;
  */
 public class ModOptions {
 
-    public static ModOptions INSTANCE = new ModOptions();
+    public static ModOptions INSTANCE = null; // From Loader
 
     public static Gson ADAPTER = new GsonBuilder().setLenient().create();
     public static Gson PRINTER = new GsonBuilder().setPrettyPrinting().create();

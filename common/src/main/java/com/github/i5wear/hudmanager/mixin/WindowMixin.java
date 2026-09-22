@@ -1,6 +1,6 @@
 package com.github.i5wear.hudmanager.mixin;
 
-import com.github.i5wear.hudmanager.HudManager;
+import com.github.i5wear.hudmanager.config.HudManager;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.blaze3d.platform.Window;
 import org.spongepowered.asm.mixin.Mixin;
@@ -9,10 +9,16 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(Window.class)
 public abstract class WindowMixin {
 
+    @ModifyReturnValue(method = "getWidth", at = @At(value = "TAIL"))
+    private int modifyElementAxisX1(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
+
     @ModifyReturnValue(method = "getGuiScaledWidth", at = @At(value = "TAIL"))
-    private int modifyElementAxisX(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
+    private int modifyElementAxisX2(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
+
+    @ModifyReturnValue(method = "getHeight", at = @At(value = "TAIL"))
+    private int modifyElementAxisY1(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
 
     @ModifyReturnValue(method = "getGuiScaledHeight", at = @At(value = "TAIL"))
-    private int modifyElementAxisY(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
+    private int modifyElementAxisY2(int original) { return Math.round(original / HudManager.CURRENT.Resizer); }
 
 }

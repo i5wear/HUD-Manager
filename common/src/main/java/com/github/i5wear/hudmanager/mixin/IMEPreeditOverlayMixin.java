@@ -1,6 +1,6 @@
 package com.github.i5wear.hudmanager.mixin;
 
-import com.github.i5wear.hudmanager.ModOptions;
+import com.github.i5wear.hudmanager.config.ModOptions;
 import net.minecraft.client.gui.components.IMEPreeditOverlay;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

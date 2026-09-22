@@ -1,6 +1,6 @@
 package com.github.i5wear.hudmanager.mixin;
 
-import com.github.i5wear.hudmanager.HudManager;
+import com.github.i5wear.hudmanager.config.HudManager;
 import net.minecraft.client.renderer.state.gui.*;
 import net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState;
 import net.minecraft.util.ARGB;
@@ -10,13 +10,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(GuiRenderState.class)
 public abstract class GuiRenderStateMixin {
-
-    @ModifyVariable(method = "addItem", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private GuiItemRenderState storeItemState(GuiItemRenderState original) {
-        if (HudManager.CURRENT != HudManager.DEFAULT)
-            HudManager.CONTENT.put(original, HudManager.CURRENT);
-        return original;
-    }
 
     @ModifyVariable(method = "addPicturesInPictureState", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private PictureInPictureRenderState storeExtraState(PictureInPictureRenderState original) {
