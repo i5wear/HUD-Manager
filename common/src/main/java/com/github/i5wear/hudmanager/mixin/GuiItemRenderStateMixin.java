@@ -1,7 +1,7 @@
 package com.github.i5wear.hudmanager.mixin;
 
 import com.github.i5wear.hudmanager.render.HudManager;
-import com.github.i5wear.hudmanager.render.HudRenderer;
+import com.github.i5wear.hudmanager.render.Transformer;
 import net.minecraft.client.renderer.state.gui.BlitRenderState;
 import net.minecraft.client.renderer.state.gui.GuiItemRenderState;
 import net.minecraft.util.ARGB;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(GuiItemRenderState.class)
-public abstract class GuiItemRenderStateMixin implements HudRenderer<BlitRenderState> {
+public abstract class GuiItemRenderStateMixin implements Transformer<BlitRenderState> {
 
     @Unique private final float opacity = HudManager.CURRENT.Opacity;
 

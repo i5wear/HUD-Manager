@@ -27,6 +27,7 @@ public final class ClientEntry implements ClientModInitializer {
             Map.entry(VanillaHudElements.HELD_ITEM_TOOLTIP, ModOptions.INSTANCE.HotbarGroup),
             Map.entry(VanillaHudElements.SPECTATOR_TOOLTIP, ModOptions.INSTANCE.HotbarGroup),
             Map.entry(VanillaHudElements.MOB_EFFECTS, ModOptions.INSTANCE.StatusEffect),
+            Map.entry(VanillaHudElements.BOSS_BAR, ModOptions.INSTANCE.BossBar),
             Map.entry(VanillaHudElements.SCOREBOARD, ModOptions.INSTANCE.Scoreboard),
             Map.entry(VanillaHudElements.OVERLAY_MESSAGE, ModOptions.INSTANCE.ActionBar),
             Map.entry(VanillaHudElements.TITLE_AND_SUBTITLE, ModOptions.INSTANCE.ScreenTitle),

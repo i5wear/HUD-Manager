@@ -1,8 +1,10 @@
 package com.github.i5wear.hudmanager.mixin;
 
 import com.github.i5wear.hudmanager.render.HudManager;
-import com.github.i5wear.hudmanager.render.HudRenderer;
-import net.minecraft.client.renderer.state.gui.*;
+import com.github.i5wear.hudmanager.render.Transformer;
+import net.minecraft.client.renderer.state.gui.BlitRenderState;
+import net.minecraft.client.renderer.state.gui.GuiElementRenderState;
+import net.minecraft.client.renderer.state.gui.GuiRenderState;
 import net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState;
 import net.minecraft.util.ARGB;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,6 +31,6 @@ public abstract class GuiRenderStateMixin {
     }
 
     @ModifyVariable(method = "addGuiElement", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private GuiElementRenderState modifyElementState(GuiElementRenderState original) { return HudRenderer.render(original); }
+    private GuiElementRenderState modifyElementState(GuiElementRenderState original) { return Transformer.render(original); }
 
 }

@@ -69,8 +69,8 @@ public class ModOptionsScreen extends OptionsSubScreen {
                 .withTooltip(input -> Tooltip.create(translate(NAMESPACE, field.getName(), "tooltip")))
                 .withValues(Boolean.TRUE, Boolean.FALSE).displayOnlyValue().create(title, (button, input) -> SETTER.accept(input));
         if (field.getType().isEnum() && field.getType().getEnumConstants().length < 8)
-            return CycleButton.builder(input -> translate(NAMESPACE, ((Enum<?>) (input)).name()), GETTER.get())
-                .withTooltip(input -> Tooltip.create(translate(NAMESPACE, ((Enum<?>) (input)).name(), "tooltip")))
+            return CycleButton.builder(input -> translate(NAMESPACE, ((Enum<?>)(input)).name()), GETTER.get())
+                .withTooltip(input -> Tooltip.create(translate(NAMESPACE, ((Enum<?>)(input)).name(), "tooltip")))
                 .withValues(field.getType().getEnumConstants()).displayOnlyValue().create(title, (button, input) -> SETTER.accept(input));
         var widget = new EditBox(super.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, title);
         widget.setMaxLength(Integer.MAX_VALUE);

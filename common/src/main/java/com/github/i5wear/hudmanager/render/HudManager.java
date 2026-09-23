@@ -38,21 +38,21 @@ public class HudManager {
     }
 
     static {
-        HudRenderer.addElementRenderer(
+        Transformer.addElementRenderer(
             ColoredRectangleRenderState.class, input -> new ColoredRectangleRenderState(
                 input.pipeline(), input.textureSetup(), HudManager.CURRENT.apply(input.pose()),
                 input.x0(), input.y0(), input.x1(), input.y1(), ARGB.multiplyAlpha(input.col1(), HudManager.CURRENT.Opacity),
                 ARGB.multiplyAlpha(input.col2(), HudManager.CURRENT.Opacity), input.scissorArea()
             )
         );
-        HudRenderer.addElementRenderer(
+        Transformer.addElementRenderer(
             BlitRenderState.class, input -> new BlitRenderState(
                 input.pipeline(), input.textureSetup(), HudManager.CURRENT.apply(input.pose()),
                 input.x0(), input.y0(), input.x1(), input.y1(), input.u0(), input.u1(), input.v0(), input.v1(),
                 ARGB.multiplyAlpha(input.color(), HudManager.CURRENT.Opacity), input.scissorArea()
             )
         );
-        HudRenderer.addElementRenderer(
+        Transformer.addElementRenderer(
             TiledBlitRenderState.class, input -> new TiledBlitRenderState(
                 input.pipeline(), input.textureSetup(), HudManager.CURRENT.apply(input.pose()), input.tileWidth(), input.tileHeight(),
                 input.x0(), input.y0(), input.x1(), input.y1(), input.u0(), input.u1(), input.v0(), input.v1(),

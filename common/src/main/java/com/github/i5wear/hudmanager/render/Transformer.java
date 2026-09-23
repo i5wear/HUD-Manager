@@ -8,13 +8,13 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 
-public interface HudRenderer<T> extends UnaryOperator<T> {
+public interface Transformer<T> extends UnaryOperator<T> {
 
-    Map<Class<?>, HudRenderer<?>> REGISTRY = new IdentityHashMap<>();
+    Map<Class<?>, Transformer<?>> REGISTRY = new IdentityHashMap<>();
 
-    static <T extends GuiElementRenderState> void addElementRenderer(Class<T> key, HudRenderer<T> value) { REGISTRY.put(key, value); }
+    static <T extends GuiElementRenderState> void addElementRenderer(Class<T> key, Transformer<T> value) { REGISTRY.put(key, value); }
 
-    static <T extends PictureInPictureRenderState> void addCustomRenderer(Class<T> key, HudRenderer<BlitRenderState> value) { REGISTRY.put(key, value); }
+    static <T extends PictureInPictureRenderState> void addCustomRenderer(Class<T> key, Transformer<BlitRenderState> value) { REGISTRY.put(key, value); }
 
     static GuiElementRenderState render(GuiElementRenderState input) {
         for (Class<?> clazz = input.getClass(); clazz != null; clazz = clazz.getSuperclass())
