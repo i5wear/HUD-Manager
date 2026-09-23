@@ -1,21 +1,18 @@
 package com.github.i5wear.hudmanager.mixin;
 
-import com.github.i5wear.hudmanager.render.HudManager;
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.github.i5wear.hudmanager.render.Transformer;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
-import net.minecraft.client.renderer.state.gui.GuiRenderState;
+import net.minecraft.client.renderer.state.gui.BlitRenderState;
 import net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(PictureInPictureRenderer.class)
 public abstract class PictureInPictureRendererMixin {
 
-    @WrapMethod(method = "blitTexture")
-    private void wrapCustomState(PictureInPictureRenderState instance, GuiRenderState graphics, Operation<Void> original) {
-        if (HudManager.CONTENT.containsKey(instance))
-            HudManager.CURRENT = HudManager.CONTENT.get(instance);
-        original.call(instance, graphics);
-        HudManager.CURRENT = HudManager.DEFAULT;
-    }
+    @ModifyArg(method = "blitTexture", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/state/gui/GuiRenderState;addBlitToCurrentLayer(Lnet/minecraft/client/renderer/state/gui/BlitRenderState;)V"), index = 0)
+    private BlitRenderState modifyCustomState(BlitRenderState original, @Local(ordinal = 0, argsOnly = true) PictureInPictureRenderState instance) { return Transformer.render(instance, original); }
+
 }

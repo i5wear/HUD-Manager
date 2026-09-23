@@ -13,6 +13,6 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class GuiRendererMixin {
 
     @ModifyArg(method = "submitBlitFromItemAtlas", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/state/gui/GuiRenderState;addBlitToCurrentLayer(Lnet/minecraft/client/renderer/state/gui/BlitRenderState;)V"), index = 0)
-    private BlitRenderState modifyItemState(BlitRenderState original, @Local(argsOnly = true) GuiItemRenderState instance) { return ((Transformer<BlitRenderState>)(Object)(instance)).apply(original); }
+    private BlitRenderState modifyItemState(BlitRenderState original, @Local(ordinal = 0, argsOnly = true) GuiItemRenderState instance) { return ((Transformer<BlitRenderState>)(Object)(instance)).apply(original); }
 
 }

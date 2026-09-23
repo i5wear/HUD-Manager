@@ -3,6 +3,7 @@ package com.github.i5wear.hudmanager.render;
 import net.minecraft.client.renderer.state.gui.BlitRenderState;
 import net.minecraft.client.renderer.state.gui.ColoredRectangleRenderState;
 import net.minecraft.client.renderer.state.gui.TiledBlitRenderState;
+import net.minecraft.client.renderer.state.gui.pip.OversizedItemRenderState;
 import net.minecraft.util.ARGB;
 import org.joml.Matrix3x2f;
 import org.joml.Matrix3x2fc;
@@ -59,5 +60,6 @@ public class HudManager {
                 ARGB.multiplyAlpha(input.color(), HudManager.CURRENT.Opacity), input.scissorArea()
             )
         );
+        Transformer.addCustomRenderer(OversizedItemRenderState.class, source -> (Transformer<BlitRenderState>)(Object)(source.guiItemRenderState()));
     }
 }
