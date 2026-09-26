@@ -4,7 +4,6 @@
   "client": [
     "DebugScreenOverlayMixin",
     "GuiGraphicsExtractorMixin",
-    "GuiItemRenderStateMixin",
     "GuiRendererMixin",
     "GuiRenderStateMixin",
     "GuiTextRenderStateMixin",
