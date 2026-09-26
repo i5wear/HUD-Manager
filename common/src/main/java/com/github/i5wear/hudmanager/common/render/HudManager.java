@@ -1,4 +1,4 @@
-package com.github.i5wear.hudmanager.render;
+package com.github.i5wear.hudmanager.common.render;
 
 import org.joml.Matrix3x2f;
 import org.joml.Matrix3x2fc;

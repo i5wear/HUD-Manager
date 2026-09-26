@@ -1,6 +1,6 @@
-package com.github.i5wear.hudmanager.config;
+package com.github.i5wear.hudmanager.common.config;
 
-import com.github.i5wear.hudmanager.render.HudManager;
+import com.github.i5wear.hudmanager.common.render.HudManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

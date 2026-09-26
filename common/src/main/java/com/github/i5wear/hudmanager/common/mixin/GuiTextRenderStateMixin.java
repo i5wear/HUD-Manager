@@ -1,6 +1,6 @@
-package com.github.i5wear.hudmanager.mixin;
+package com.github.i5wear.hudmanager.common.mixin;
 
-import com.github.i5wear.hudmanager.render.HudManager;
+import com.github.i5wear.hudmanager.common.render.HudManager;
 import net.minecraft.client.renderer.state.gui.GuiTextRenderState;
 import net.minecraft.util.ARGB;
 import org.joml.Matrix3x2fc;

@@ -1,6 +1,6 @@
-package com.github.i5wear.hudmanager.mixin;
+package com.github.i5wear.hudmanager.common.mixin;
 
-import com.github.i5wear.hudmanager.config.ModOptions;
+import com.github.i5wear.hudmanager.common.config.ModOptions;
 import net.minecraft.client.gui.components.WidgetTooltipHolder;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import org.spongepowered.asm.mixin.Mixin;

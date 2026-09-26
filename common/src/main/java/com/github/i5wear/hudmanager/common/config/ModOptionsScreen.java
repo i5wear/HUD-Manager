@@ -1,4 +1,4 @@
-package com.github.i5wear.hudmanager.config;
+package com.github.i5wear.hudmanager.common.config;
 
 import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory;
 import net.minecraft.client.Minecraft;

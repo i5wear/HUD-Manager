@@ -1,4 +1,4 @@
-package com.github.i5wear.hudmanager.render;
+package com.github.i5wear.hudmanager.common.render;
 
 import net.minecraft.client.renderer.state.gui.BlitRenderState;
 import net.minecraft.client.renderer.state.gui.ColoredRectangleRenderState;

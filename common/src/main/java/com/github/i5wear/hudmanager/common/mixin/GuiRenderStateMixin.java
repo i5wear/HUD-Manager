@@ -1,6 +1,6 @@
-package com.github.i5wear.hudmanager.mixin;
+package com.github.i5wear.hudmanager.common.mixin;
 
-import com.github.i5wear.hudmanager.render.HudRenderer;
+import com.github.i5wear.hudmanager.common.render.HudRenderer;
 import net.minecraft.client.renderer.state.gui.GuiElementRenderState;
 import net.minecraft.client.renderer.state.gui.GuiItemRenderState;
 import net.minecraft.client.renderer.state.gui.GuiRenderState;
