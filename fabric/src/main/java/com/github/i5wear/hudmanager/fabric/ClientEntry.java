@@ -16,7 +16,6 @@ public final class ClientEntry implements ClientModInitializer {
         Stream.of(
             Map.entry(VanillaHudElements.CROSSHAIR, ModOptions.INSTANCE.Crosshair),
             Map.entry(VanillaHudElements.SPECTATOR_MENU, ModOptions.INSTANCE.HotbarGroup),
-            Map.entry(VanillaHudElements.HOTBAR, ModOptions.INSTANCE.HotbarGroup),
             Map.entry(VanillaHudElements.ARMOR_BAR, ModOptions.INSTANCE.HotbarGroup),
             Map.entry(VanillaHudElements.HEALTH_BAR, ModOptions.INSTANCE.HotbarGroup),
             Map.entry(VanillaHudElements.FOOD_BAR, ModOptions.INSTANCE.HotbarGroup),
@@ -38,10 +37,17 @@ public final class ClientEntry implements ClientModInitializer {
                     HudManager.CURRENT = entry.getValue();
                     if (HudManager.CURRENT.Display)
                         original.extractRenderState(graphics, tracker);
-                    if (entry.getKey() != VanillaHudElements.HOTBAR) // Patch #13
-                        HudManager.CURRENT = HudManager.DEFAULT;
+                    HudManager.CURRENT = HudManager.DEFAULT;
                 }
             )
+        );
+        HudElementRegistry.replaceElement(
+            VanillaHudElements.HOTBAR, original -> (graphics, tracker) -> {
+                HudManager.CURRENT = ModOptions.INSTANCE.HotbarGroup;
+                if (HudManager.CURRENT.Display)
+                    original.extractRenderState(graphics, tracker);
+                HudManager.CURRENT = ModOptions.INSTANCE.HotbarGroup; // Patch #13
+            }
         );
     }
 
