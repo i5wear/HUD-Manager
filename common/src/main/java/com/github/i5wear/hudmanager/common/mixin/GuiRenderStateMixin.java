@@ -12,13 +12,13 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(GuiRenderState.class)
 public abstract class GuiRenderStateMixin {
 
+    @ModifyVariable(method = "addGuiElement", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+    private GuiElementRenderState modifyElementState(GuiElementRenderState original) { return HudRenderer.render(original); }
+
     @ModifyVariable(method = "addItem", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private GuiItemRenderState modifyCustomState(GuiItemRenderState original) { return HudRenderer.render(original); }
 
     @ModifyVariable(method = "addPicturesInPictureState", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private PictureInPictureRenderState modifyCustomState(PictureInPictureRenderState original) { return HudRenderer.render(original); }
-
-    @ModifyVariable(method = "addGuiElement", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private GuiElementRenderState modifyElementState(GuiElementRenderState original) { return HudRenderer.render(original); }
 
 }
